@@ -1,0 +1,96 @@
+import {
+  WaitingInitialState,
+  TimeInitialState,
+  DateInitialState,
+  LocationAddInitialState,
+  LocationVoteInitialState,
+  ExcludeMenuInitialState,
+  MenuInitialState,
+  RestaurantInitialState,
+  PhaseDataBroadcastDto,
+} from "./initial-state-client";
+import {
+  ChatMessageResponseItem,
+  RestaurantPickUpdateResponseDto,
+} from "./update-response";
+import {
+  TimePicksUpdateResponseDto,
+  DatePicksUpdateResponseDto,
+  LocationCandidateAddUpdateResponseDto,
+  LocationCandidateVoteUpdateResponseDto,
+  ExcludeMenuUpdateResponseDto,
+  MenuPickUpdateResponseDto,
+  ReadyStateChangedDto,
+} from "./update-response";
+import { FinalState, Participant } from "./types";
+import {
+  ChatMessageRequestDto,
+  ExcludeMenuRequestDto,
+  LocationCandidateAddRequestDto,
+  LocationCandidateVoteRequestDto,
+  MenuPickRequestDto,
+  ReadyStateRequestDto,
+  RestaurantPickRequestDto,
+} from "./update-request";
+
+export interface SocketClientEventMap {
+  // generic debug (원하면 사용)
+  any: [event: string, ...args: any[]];
+
+  // 대기실/공통
+  "ready-state-changed": ReadyStateChangedDto;
+  "stage-changed": PhaseDataBroadcastDto;
+  "join-room": Participant[];
+  "room-assigned": { roomId: string };
+
+  // 초기 상태들
+  "waiting-initial-state": WaitingInitialState;
+  "time-initial-state": TimeInitialState;
+  "date-initial-state": DateInitialState;
+  "location-add-initial-state": LocationAddInitialState;
+  "location-vote-initial-state": LocationVoteInitialState;
+  "exclude-menu-initial-state": ExcludeMenuInitialState;
+  "menu-initial-state": MenuInitialState;
+  "restaurant-initial-state": RestaurantInitialState;
+
+  // 업데이트 스트림
+  "time-updated": TimePicksUpdateResponseDto;
+  "date-updated": DatePicksUpdateResponseDto;
+  "location-add-updated": LocationCandidateAddUpdateResponseDto;
+  "location-vote-updated": LocationCandidateVoteUpdateResponseDto;
+  "exclude-menu-updated": ExcludeMenuUpdateResponseDto;
+  "menu-pick-updated": MenuPickUpdateResponseDto;
+  "restaurant-pick-updated": RestaurantPickUpdateResponseDto;
+
+  // 최종 상태
+  "final-state-response": FinalState;
+
+  // 채팅
+  "chat-message": ChatMessageResponseItem;
+}
+
+export type SocketServerEventMap = {
+  "ready-state": ReadyStateRequestDto;
+  "chat-message": ChatMessageRequestDto;
+  "add-location-candidate": LocationCandidateAddRequestDto;
+  //   "remove-location": CandidateIdDto;
+  "vote-location": LocationCandidateVoteRequestDto;
+  "exclude-menu": ExcludeMenuRequestDto;
+  "pick-menu": MenuPickRequestDto;
+  "pick-restaurant": RestaurantPickRequestDto;
+};
+
+type SocketRequestHandler<K extends keyof SocketServerEventMap> = (
+  data: SocketServerEventMap[K]
+) => void;
+
+export type SocketRequestHandlers = {
+  [K in keyof SocketServerEventMap]?: SocketRequestHandler<K>;
+};
+
+type SocketResponseHandler<K extends keyof SocketClientEventMap> = (
+  data: SocketClientEventMap[K]
+) => void;
+export type SocketResponseHandlers = {
+  [K in keyof SocketClientEventMap]?: SocketResponseHandler<K>;
+};
