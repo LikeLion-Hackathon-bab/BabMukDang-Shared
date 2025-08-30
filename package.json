@@ -1,0 +1,35 @@
+{
+  "name": "@kimdaegyu/babmukdang-shared",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./types/*": "./dist/types/*.d.ts",
+    "./schemas/*": "./dist/schemas/*.js",
+    "./nest-adapters/*": "./dist/nest-adapters/*.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup src/index.ts --dts --format esm,cjs --clean",
+    "release": "changesets version && pnpm -w i && pnpm build && changesets publish"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.5.0",
+    "@changesets/cli": "^2.27.0"
+  },
+  "peerDependencies": {
+    "zod": "^3.23.0"
+  }
+}
