@@ -94,6 +94,24 @@ export type SocketServerEventMap = {
   "pick-date": DatePicksRequestDto;
 };
 
+/**
+ * socket.io `Socket<ListenEvents, EmitEvents>` 제네릭에 그대로 넣을 수 있는
+ * 함수 시그니처 이벤트 맵. 클라이언트는 서버가 보내는 이벤트를 수신(listen)하므로
+ * `SocketClientEventMap`을 ListenEvents로, 서버로 보내는 이벤트는
+ * `SocketServerEventMap`을 EmitEvents로 사용한다.
+ *
+ * `any`(onAny 디버그용 튜플)는 실제 이벤트가 아니므로 제외한다.
+ */
+export type ServerToClientEvents = {
+  [K in keyof Omit<SocketClientEventMap, "any">]: (
+    data: SocketClientEventMap[K]
+  ) => void;
+};
+
+export type ClientToServerEvents = {
+  [K in keyof SocketServerEventMap]: (data: SocketServerEventMap[K]) => void;
+};
+
 type SocketRequestHandler<K extends keyof SocketServerEventMap> = (
   data: SocketServerEventMap[K]
 ) => void;
