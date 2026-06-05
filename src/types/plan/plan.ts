@@ -1,3 +1,6 @@
+import { ISODateTimeString } from "../common";
+import { User } from "../profile";
+
 export enum PlanStatus {
   PLANNING = "PLANNING",
   COMPLETED = "COMPLETED",
@@ -9,7 +12,7 @@ export enum PlanType {
 }
 
 export interface MeetingParticipant {
-  userId: number;
+  userId: string;
   username: string;
   profileImageUrl: string;
 }
@@ -19,14 +22,25 @@ export interface MeetingResponse {
   author: MeetingParticipant;
   participants: MeetingParticipant[];
   location: string;
-  meetingAt: string;
+  meetingAt: ISODateTimeString;
   restaurant: string;
   isCompleted: boolean;
   restaurantType: string;
   status: PlanStatus;
   type: PlanType;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: ISODateTimeString;
+  updatedAt: ISODateTimeString;
+}
+
+export interface PlanResponseDto {
+  id: number;
+  meetingAt: ISODateTimeString;
+  location: unknown;
+  restaurant: unknown;
+  author: Partial<User>;
+  participants: Partial<User>[];
+  status: PlanStatus;
+  type: PlanType;
 }
 
 // 클라 서버

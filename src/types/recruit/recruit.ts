@@ -1,18 +1,20 @@
 import { User } from "../profile/user";
+import { ISODateTimeString } from "../common";
 
 export interface Recruit {
   targetCount: number;
-  meetingAt: string; //2025-08-08T22:30
+  meetingAt: ISODateTimeString;
   location: string;
   message: string;
 }
 
 export interface RecruitRequestDto extends Recruit {}
+export interface RecruitParticipantDto extends User {}
 export interface RecruitResponseDto extends Recruit {
   id: number;
-  createdAt: string;
-  expiredAt: string;
-  updatedAt: string;
+  createdAt: ISODateTimeString;
+  expiredAt: ISODateTimeString;
+  updatedAt: ISODateTimeString;
   author: User;
-  participants: User[];
+  participants: RecruitParticipantDto[];
 }

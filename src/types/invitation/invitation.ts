@@ -1,7 +1,5 @@
 export interface InvitationPostRequest {
-  inviteeId: {
-    id: number;
-  };
+  inviteeId: number;
   message: string;
 }
 

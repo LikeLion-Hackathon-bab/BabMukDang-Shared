@@ -1,6 +1,7 @@
 import { KakaoRestaurantResponseDto } from "../common";
 import { CommentResponseDto } from "./comment";
 import { User } from "../profile";
+import { ISODateString } from "../common";
 
 // for nestjs server
 export interface Article {
@@ -65,7 +66,7 @@ export interface ArticleDetailResponseDto {
 
 export interface ArticlePostRequestDto {
   imageUrl: string;
-  mealDate: Date;
+  mealDate: ISODateString;
   restaurant: KakaoRestaurantResponseDto;
   taggedMembersId: number[];
   foodAnalysis?: FoodAnalysisResultDto;
