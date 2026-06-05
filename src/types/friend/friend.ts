@@ -18,3 +18,10 @@ export interface FriendMealItemResponse {
   hungry: boolean;
   label: string;
 }
+
+export interface FriendListItemResponse {
+  memberId: number;
+  userName: string;
+  profileImageUrl: string;
+  friendSince: string;
+}
