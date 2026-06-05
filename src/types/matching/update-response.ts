@@ -1,5 +1,11 @@
 import { UserId } from "../profile/user";
-import { LocationCandidate, LocationId, MenuCode, ChatMessage } from "./types";
+import {
+  LocationCandidate,
+  LocationId,
+  MenuCode,
+  ChatMessage,
+  Menu,
+} from "./types";
 import { RestaurantId } from "../common";
 
 export interface ChatMessageResponseItem extends ChatMessage {}
@@ -24,7 +30,7 @@ export interface LocationCandidateVoteUpdateResponseItem {
 }
 export interface ExcludeMenuUpdateResponseItem {
   userId: UserId;
-  exclusions: MenuCode[];
+  exclusions: Menu[];
 }
 
 export interface MenuPickUpdateResponseItem {
@@ -37,10 +43,10 @@ export interface RestaurantPickUpdateResponseItem {
   selectedUsers: UserId[];
 }
 
-export type ReadyStateChangedDto = {
+export interface ReadyStateChangedDto {
   readyCount: number;
   participantCount: number;
-};
+}
 
 export type TimePicksUpdateResponseDto = TimePicksUpdateResponseItem[];
 export type DatePicksUpdateResponseDto = DatePicksUpdateResponseItem[];

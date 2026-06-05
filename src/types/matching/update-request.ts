@@ -1,8 +1,12 @@
 import { RestaurantId } from "../common/restaurant-shared";
-import { LocationId, MenuCode } from "./types";
+import { LocationId, Menu, MenuCode } from "./types";
 
-export type TimePicksRequestDto = string[];
-export type DatePicksRequestDto = string[];
+export interface TimePicksRequestDto {
+  times: string[];
+}
+export interface DatePicksRequestDto {
+  dates: string[];
+}
 export interface LocationCandidateAddRequestDto {
   id: LocationId;
   placeName: string;
@@ -10,10 +14,22 @@ export interface LocationCandidateAddRequestDto {
   lng: number;
   address?: string;
 }
-export type LocationCandidateVoteRequestDto = LocationId[];
-export type ExcludeMenuRequestDto = MenuCode[];
-export type MenuPickRequestDto = MenuCode[];
-export type RestaurantPickRequestDto = RestaurantId;
-export type ChatMessageRequestDto = string;
+export interface LocationCandidateVoteRequestDto {
+  locationId: LocationId;
+}
+export interface ExcludeMenuRequestDto {
+  menu: Menu;
+}
+export interface MenuPickRequestDto {
+  menuCode: MenuCode;
+}
+export interface RestaurantPickRequestDto {
+  restaurantId: RestaurantId;
+}
+export interface ChatMessageRequestDto {
+  text: string;
+}
 
-export type ReadyStateRequestDto = boolean;
+export interface ReadyStateRequestDto {
+  isReady: boolean;
+}

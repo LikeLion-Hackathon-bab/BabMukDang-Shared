@@ -1,12 +1,6 @@
 import { User, UserId } from "../profile/user";
-import { RestaurantInfo } from "../common/restaurant-shared";
+import { KakaoRestaurantResponseDto } from "../common/restaurant-shared";
 
-export interface LocalTime {
-  hour: number;
-  minute: number;
-  second: number;
-  nano: number;
-}
 // 소켓 서버
 export type MenuCode = string;
 
@@ -14,10 +8,6 @@ export interface Menu {
   code: MenuCode;
   label: string;
 }
-export interface LocationCandidateView extends LocationCandidate {
-  isSelected: boolean;
-}
-
 // 소켓 서버
 export type LocationId = string;
 
@@ -46,9 +36,9 @@ export interface FinalState {
   location: LocationCandidate | undefined;
   excludeMenu: Menu[] | undefined;
   menu: Menu | undefined;
-  restaurant: RestaurantInfo | undefined;
-  time: string;
-  date: string;
+  restaurant: KakaoRestaurantResponseDto | undefined;
+  time: string | undefined;
+  date: string | undefined;
 }
 export interface Participant extends User {
   ready: boolean;

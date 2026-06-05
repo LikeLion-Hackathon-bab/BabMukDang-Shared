@@ -19,7 +19,7 @@ export interface MeetingResponse {
   author: MeetingParticipant;
   participants: MeetingParticipant[];
   location: string;
-  time: string;
+  meetingAt: string;
   restaurant: string;
   isCompleted: boolean;
   restaurantType: string;
@@ -34,7 +34,7 @@ type Meeting = {
   id: number;
   participants: { name: string; userId: number }[];
   location: string;
-  time: string;
+  meetingAt: string;
   restaurant: string;
   isCompleted: boolean;
   restaurantType: string;

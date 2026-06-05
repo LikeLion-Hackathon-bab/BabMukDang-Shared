@@ -11,6 +11,7 @@ export interface RecruitRequestDto extends Recruit {}
 export interface RecruitResponseDto extends Recruit {
   id: number;
   createdAt: string;
+  expiredAt: string;
   updatedAt: string;
   author: User;
   participants: User[];

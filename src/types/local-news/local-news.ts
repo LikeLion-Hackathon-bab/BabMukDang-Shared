@@ -1,4 +1,4 @@
-interface LocalNewsNoti {
+export interface LocalNewsNoti {
   id: number;
   type: "school" | "restaurant" | "area";
   title: string;
@@ -7,17 +7,7 @@ interface LocalNewsNoti {
   period: string;
   imageUrl?: string;
 }
-interface LocalNewsNoti {
-  id: number;
-  type: "school" | "restaurant" | "area";
-  title: string;
-  time: string;
-  message: string;
-  period: string;
-  imageUrl?: string;
-}
-
-interface MatchingInviteNoti {
+export interface MatchingInviteNoti {
   id: number;
   type: "invitation" | "announcement";
   title: string;
@@ -25,14 +15,4 @@ interface MatchingInviteNoti {
   message: string;
   period: string;
   imageUrl: string;
-}
-
-interface LocalNewsNoti {
-  id: number;
-  type: "school" | "restaurant" | "area";
-  title: string;
-  time: string;
-  message: string;
-  period: string;
-  imageUrl?: string;
 }

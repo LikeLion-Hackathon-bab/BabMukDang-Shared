@@ -1,19 +1,5 @@
 export type RestaurantId = string;
 
-export interface RestaurantInfo {
-  placeId: RestaurantId;
-  placeName: string;
-  addressName: string;
-  roadAddressName: string;
-  phoneNumber: string;
-  placeUrl: string;
-  distance?: string;
-  categoryGroupCode: string;
-  categoryGroupName: string;
-  categoryName: string;
-  x: number;
-  y: number;
-}
 export interface KakaoRestaurantResponseDto {
   id: RestaurantId;
   place_name: string;

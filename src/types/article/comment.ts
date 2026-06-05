@@ -1,11 +1,12 @@
+import { User } from "../profile";
+
 export interface CommentResponseDto {
   commentId: number;
-  authorId: number;
-  authorUsername: string;
+  author: User;
   parentCommentId: number | null;
   content: string;
-  createdAt: string;
-  profileImageUrl?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface CommentPostRequestDto {

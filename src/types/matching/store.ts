@@ -48,7 +48,7 @@ export interface RestaurantStore {
   // votingDeadline?: number; // 투표 마감 시간 (timestamp)
 }
 
-type RoomId = string;
+export type RoomId = string;
 export interface RoomStore {
   roomId: RoomId;
   version: number;

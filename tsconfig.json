@@ -4,7 +4,11 @@
     "moduleResolution": "Bundler",
     "declaration": true,
     "emitDeclarationOnly": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "strict": true,
+    "useDefineForClassFields": false,
+    "strictPropertyInitialization": false,
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {}

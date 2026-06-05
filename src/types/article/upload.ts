@@ -1,8 +1,10 @@
+import { ArticlePostRequestDto } from "./article";
+
 export type UploadAndPostVars = {
   currentUserId: string;
   file: File;
   // cdnUrl을 받아서 최종 ArticlePostRequest를 만드는 빌더
-  buildRequest: (cdnUrl: string) => ArticlePostRequest;
+  buildRequest: (cdnUrl: string) => ArticlePostRequestDto;
 };
 
 export type UploadAndRegisterVars = {

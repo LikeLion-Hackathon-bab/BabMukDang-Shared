@@ -4,5 +4,7 @@ export * from "./recruit";
 export * from "./profile";
 export * from "./invitation";
 export * from "./plan";
-export * from "./friend";
 export * from "./matching";
+export * from "./local-news";
+export * from "./ai";
+export * from "./friend";

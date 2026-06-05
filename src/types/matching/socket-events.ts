@@ -8,6 +8,7 @@ import {
   MenuInitialState,
   RestaurantInitialState,
   PhaseDataBroadcastDto,
+  RoomInitialState,
 } from "./initial-state-client";
 import {
   ChatMessageResponseItem,
@@ -25,12 +26,14 @@ import {
 import { FinalState, Participant } from "./types";
 import {
   ChatMessageRequestDto,
+  DatePicksRequestDto,
   ExcludeMenuRequestDto,
   LocationCandidateAddRequestDto,
   LocationCandidateVoteRequestDto,
   MenuPickRequestDto,
   ReadyStateRequestDto,
   RestaurantPickRequestDto,
+  TimePicksRequestDto,
 } from "./update-request";
 
 export interface SocketClientEventMap {
@@ -40,7 +43,7 @@ export interface SocketClientEventMap {
   // 대기실/공통
   "ready-state-changed": ReadyStateChangedDto;
   "stage-changed": PhaseDataBroadcastDto;
-  "join-room": Participant[];
+  "join-room": RoomInitialState;
   "room-assigned": { roomId: string };
 
   // 초기 상태들
@@ -68,7 +71,16 @@ export interface SocketClientEventMap {
   // 채팅
   "chat-message": ChatMessageResponseItem;
 }
-
+export interface InitialStateEventPayloadMap {
+  "waiting-initial-state": WaitingInitialState;
+  "time-initial-state": TimeInitialState;
+  "date-initial-state": DateInitialState;
+  "location-add-initial-state": LocationAddInitialState;
+  "location-vote-initial-state": LocationVoteInitialState;
+  "exclude-menu-initial-state": ExcludeMenuInitialState;
+  "menu-initial-state": MenuInitialState;
+  "restaurant-initial-state": RestaurantInitialState;
+}
 export type SocketServerEventMap = {
   "ready-state": ReadyStateRequestDto;
   "chat-message": ChatMessageRequestDto;
@@ -78,6 +90,8 @@ export type SocketServerEventMap = {
   "exclude-menu": ExcludeMenuRequestDto;
   "pick-menu": MenuPickRequestDto;
   "pick-restaurant": RestaurantPickRequestDto;
+  "pick-times": TimePicksRequestDto;
+  "pick-date": DatePicksRequestDto;
 };
 
 type SocketRequestHandler<K extends keyof SocketServerEventMap> = (

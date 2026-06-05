@@ -1,6 +1,13 @@
 import { UserId } from "../profile";
 import { KakaoRestaurantResponseDto } from "../common/restaurant-shared";
-import { AnnouncementStage, InvitationStage, Menu, Participant } from "./types";
+import {
+  AnnouncementStage,
+  ChatMessage,
+  InvitationStage,
+  Menu,
+  Participant,
+  FinalState,
+} from "./types";
 import {
   DatePicksUpdateResponseDto,
   TimePicksUpdateResponseDto,
@@ -11,15 +18,16 @@ import {
   LocationCandidateVoteUpdateResponseDto,
 } from "./update-response";
 
-export type TimeInitialState = TimePicksUpdateResponseDto;
-export type DateInitialState = DatePicksUpdateResponseDto;
+export interface TimeInitialState extends TimePicksUpdateResponseDto {}
+export interface DateInitialState extends DatePicksUpdateResponseDto {}
 
-export type LocationAddInitialState = LocationCandidateAddUpdateResponseDto;
+export interface LocationAddInitialState
+  extends LocationCandidateAddUpdateResponseDto {}
 
-export type LocationVoteInitialState = {
+export interface LocationVoteInitialState {
   locations: LocationCandidateAddUpdateResponseDto;
   votes?: LocationCandidateVoteUpdateResponseDto;
-};
+}
 
 export interface ExcludeMenuInitialState {
   recentMenus: { userId: UserId; menuList: Menu[] }[];
@@ -36,9 +44,14 @@ export interface RestaurantInitialState {
 }
 
 export interface WaitingInitialState {
-  participants: Participant[];
   locationInitial?: string;
   meetingAt?: string;
+}
+
+export interface RoomInitialState {
+  participants: Participant[];
+  chat: ChatMessage[];
+  final: FinalState;
 }
 
 export interface PhaseDataBroadcastDto {

@@ -1,4 +1,4 @@
-import { Menu } from "../common";
+import { Menu } from "../matching";
 
 export interface Onboarding {
   likedCodes: string[];
