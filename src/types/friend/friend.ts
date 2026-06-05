@@ -32,3 +32,25 @@ export interface FriendBlockItemResponse {
   profileImageUrl: string;
   blockedAt: string;
 }
+
+export type FriendRequestStatus =
+  | "PENDING"
+  | "ACCEPTED"
+  | "REJECTED"
+  | "CANCELED";
+
+export interface FriendRequestItemResponse {
+  requestId: number;
+  requester: {
+    memberId: number;
+    userName: string;
+    profileImageUrl: string;
+  };
+  recipient: {
+    memberId: number;
+    userName: string;
+    profileImageUrl: string;
+  };
+  status: FriendRequestStatus;
+  requestedAt: string;
+}
