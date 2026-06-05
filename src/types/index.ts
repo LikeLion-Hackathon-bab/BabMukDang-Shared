@@ -10,3 +10,6 @@ export * from "./ai";
 export * from "./friend";
 export * from "./preference";
 export * from "./meal";
+export * from "./referral";
+export * from "./challenge";
+export * from "./coupon";
