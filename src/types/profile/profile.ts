@@ -1,3 +1,4 @@
+import { ISODateTimeString } from "../common";
 import { Menu } from "../matching";
 
 export interface Onboarding {
@@ -15,8 +16,8 @@ export interface PreferenceSummaryResponse {
 }
 
 export interface PreferenceMetaResponse {
-  onboardedAt: string;
-  lastUpdatedAt: string;
+  onboardedAt: ISODateTimeString | null;
+  lastUpdatedAt: ISODateTimeString | null;
   revision: number;
 }
 

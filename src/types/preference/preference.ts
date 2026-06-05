@@ -1,6 +1,6 @@
 import { ISODateTimeString } from "../common";
 
-export type FoodPreferenceType = "LIKE" | "DISLIKE";
+export type FoodPreferenceType = "LIKE" | "DISLIKE" | "ALLERGY";
 
 export interface FoodPreferenceResponseDto {
   id: number;
