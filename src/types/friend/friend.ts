@@ -25,3 +25,10 @@ export interface FriendListItemResponse {
   profileImageUrl: string;
   friendSince: string;
 }
+
+export interface FriendBlockItemResponse {
+  memberId: number;
+  userName: string;
+  profileImageUrl: string;
+  blockedAt: string;
+}
