@@ -1,4 +1,5 @@
-import { ISODateTimeString } from "../common";
+import { ISODateTimeString, KakaoRestaurantResponseDto } from "../common";
+import { LocationCandidate } from "../matching";
 import { User } from "../profile";
 
 export enum PlanStatus {
@@ -35,12 +36,14 @@ export interface MeetingResponse {
 export interface PlanResponseDto {
   id: number;
   meetingAt: ISODateTimeString;
-  location: unknown;
-  restaurant: unknown;
-  author: Partial<User>;
-  participants: Partial<User>[];
+  location: LocationCandidate | null;
+  restaurant: KakaoRestaurantResponseDto | null;
+  author: User | null;
+  participants: User[];
   status: PlanStatus;
   type: PlanType;
+  createdAt: ISODateTimeString;
+  updatedAt: ISODateTimeString;
 }
 
 // 클라 서버
