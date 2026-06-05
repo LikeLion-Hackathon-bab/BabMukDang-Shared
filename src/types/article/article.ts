@@ -1,38 +1,25 @@
-import { LocalTime, RestaurantInfo } from "../common";
-import { User, UserId } from "../profile";
+import { KakaoRestaurantResponseDto } from "../common";
+import { CommentResponseDto } from "./comment";
+import { User } from "../profile";
 
 // for nestjs server
 export interface Article {
-  articleId: number;
+  id: number;
   author: User;
   imageUrl: string;
-  mealDate: string;
-  mealTime: string;
-  restaurant: RestaurantInfo;
-  likeCount: number;
-  commentCount: number;
-  likedByMe: boolean;
-  createdAt: string;
-  expiresAt: string;
-  taggedMemberIds: UserId[];
+  mealDate: Date;
+  restaurant: KakaoRestaurantResponseDto;
+  createdAt: Date;
+  updatedAt: Date;
+  expiresAt: Date;
+  taggedMembers: User[];
 }
-export type ArticleGetResponseDto = Article[];
 
 // for spring server
-export interface ArticleSummaryResponseDto {
-  articleId: number;
-  authorId: number;
-  authorUsername: string;
-  imageUrl: string;
-  mealDate: string;
-  mealTime: LocalTime;
-  restaurantName: string;
+export interface ArticleSummaryResponseDto extends Article {
   likeCount: number;
   commentCount: number;
   likedByMe: boolean;
-  createdAt: string;
-  expiresAt: string;
-  taggedMemberIds: number[];
 }
 export interface PageArticleSummaryResponse {
   totalElements: number;
@@ -64,27 +51,29 @@ export interface PageableObject {
 }
 
 export interface ArticleDetailResponseDto {
-  articleId: number;
-  authorId: number;
-  authorUsername: string;
+  id: number;
+  author: User;
   imageUrl: string;
-  mealDate: string;
-  mealTime: LocalTime;
-  restaurant: RestaurantInfo;
+  mealDate: Date;
+  restaurant: KakaoRestaurantResponseDto;
   likeCount: number;
   commentCount: number;
   likedByMe: boolean;
-  createdAt: string;
-  expiresAt: string;
+  createdAt: Date;
+  expiresAt: Date;
 }
 
 export interface ArticlePostRequestDto {
   imageUrl: string;
-  method: "ALBUM" | "CAMERA";
-  mealDate: string;
-  mealTime: string;
-  restaurant: RestaurantInfo;
-  taggedMemberIds: number[];
-  camera: boolean;
-  album: boolean;
+  mealDate: Date;
+  restaurant: KakaoRestaurantResponseDto;
+  taggedMembersId: number[];
+  foodAnalysis?: FoodAnalysisResultDto;
+}
+
+export interface FoodAnalysisResultDto {
+  code: string;
+  label: string;
+  confidence: number;
+  tsUtc?: string;
 }
