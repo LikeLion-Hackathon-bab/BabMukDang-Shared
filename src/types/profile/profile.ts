@@ -73,3 +73,18 @@ export interface UpdateProfileRequest {
   profileImageUrl: string;
   bio: string;
 }
+
+// 회원 요약. friends 수는 friends/referrals 도메인 구현 후 연결한다.
+export interface MemberSummaryResponse {
+  memberId: number;
+  username: string;
+  profileImageUrl: string;
+  friends: number;
+  completedMeetings: number;
+  uncompletedMeetings: number;
+}
+
+// 온보딩: profile 갱신과 preference 저장을 한 흐름으로 묶는다.
+export interface OnboardingRequest
+  extends Onboarding,
+    UpdateProfileRequest {}

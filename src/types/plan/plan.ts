@@ -33,6 +33,13 @@ export interface MeetingResponse {
   updatedAt: ISODateTimeString;
 }
 
+// 직접 plan 생성 요청. meetingDate(YYYY-MM-DD)와 meetingTime(HH:mm)은
+// 서버 내부에서 meetingAt 표현으로 합친다. author는 JWT 사용자로 고정한다.
+export interface CreatePlanRequest {
+  meetingDate: string;
+  meetingTime: string;
+}
+
 export interface PlanResponseDto {
   id: number;
   meetingAt: ISODateTimeString;
