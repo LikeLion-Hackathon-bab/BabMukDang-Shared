@@ -9,3 +9,4 @@ export * from "./local-news";
 export * from "./ai";
 export * from "./friend";
 export * from "./preference";
+export * from "./meal";
