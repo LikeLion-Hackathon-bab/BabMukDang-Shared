@@ -36,7 +36,7 @@ type MyProfileData = {
 // 클라이언트
 export interface ProfileResponse {
   member: {
-    id: number;
+    userId: number;
     username: string;
     profileImageUrl: string;
     bio: string;
@@ -85,6 +85,4 @@ export interface MemberSummaryResponse {
 }
 
 // 온보딩: profile 갱신과 preference 저장을 한 흐름으로 묶는다.
-export interface OnboardingRequest
-  extends Onboarding,
-    UpdateProfileRequest {}
+export interface OnboardingRequest extends Onboarding, UpdateProfileRequest {}
