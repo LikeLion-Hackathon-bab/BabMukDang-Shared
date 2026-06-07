@@ -13,3 +13,4 @@ export * from "./meal";
 export * from "./referral";
 export * from "./challenge";
 export * from "./coupon";
+export * from "./map";

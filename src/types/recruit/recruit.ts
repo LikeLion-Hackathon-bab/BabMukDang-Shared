@@ -8,6 +8,9 @@ export interface Recruit {
   meetingAt: ISODateTimeString;
   location: string;
   message: string;
+  // 지도 핀 렌더링용 모임 장소 좌표(선택). 좌표 없는 기존 클라이언트 호환을 위해 optional.
+  locationLat?: number;
+  locationLng?: number;
 }
 
 export interface RecruitRequestDto extends Recruit {}
