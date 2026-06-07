@@ -11,11 +11,21 @@ REM ├─ Babmukdang-Backend
 REM └─ Babmukdang-Client
 
 set SCRIPT_DIR=%~dp0
-set ROOT=%SCRIPT_DIR%..\..
-set SHARED=%ROOT%\Babmukdang-Shared
-set BACKEND=%ROOT%\Babmukdang-Backend
-set CLIENT=%ROOT%\Babmukdang-Client
+
+REM script 폴더 기준으로 두 단계 위가 BabMukDang 루트입니다.
+for %%I in ("%SCRIPT_DIR%..\..") do set ROOT=%%~fI
+
+for %%I in ("%ROOT%\Babmukdang-Shared") do set SHARED=%%~fI
+for %%I in ("%ROOT%\Babmukdang-Backend") do set BACKEND=%%~fI
+for %%I in ("%ROOT%\Babmukdang-Client") do set CLIENT=%%~fI
+
 set PACKAGE=@kimdaegyu/babmukdang-shared
+
+echo.
+echo Root: %ROOT%
+echo Shared: %SHARED%
+echo Backend: %BACKEND%
+echo Client: %CLIENT%
 
 echo.
 echo [1/3] Publishing shared package...
@@ -27,22 +37,22 @@ call npm run build || goto :error
 call npm publish --access public || goto :error
 
 echo.
-echo [2/3] Updating shared package in backend...
+echo [2/3] Installing latest shared package in backend...
 echo Repository: %BACKEND%
 cd /d "%BACKEND%" || goto :error
 
-call npm update %PACKAGE% || goto :error
+call npm install %PACKAGE%@latest --save-exact || goto :error
 
 echo.
-echo [3/3] Updating shared package in client...
+echo [3/3] Installing latest shared package in client...
 echo Repository: %CLIENT%
 cd /d "%CLIENT%" || goto :error
 
-call npm update %PACKAGE% || goto :error
+call npm install %PACKAGE%@latest --save-exact || goto :error
 
 echo.
 echo Done.
-echo Shared package was published and updated in Backend and Client.
+echo Shared package was published and installed as latest in Backend and Client.
 echo.
 pause
 exit /b 0
