@@ -1,4 +1,4 @@
-import { ISODateTimeString } from "../common";
+import { ISODateTimeString, RestaurantId } from "../common";
 import { RecruitStatus } from "../recruit";
 
 /**
@@ -49,7 +49,7 @@ export interface FriendRestaurantVisitor {
 
 /** 친구가 다녀간 음식점 집계. */
 export interface FriendRestaurantResponseDto {
-  restaurantId: number;
+  restaurantId: RestaurantId;
   placeName: string;
   lat: number;
   lng: number;
