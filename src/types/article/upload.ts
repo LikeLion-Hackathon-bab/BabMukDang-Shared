@@ -19,13 +19,13 @@ export type UploadAndRegisterVars = {
   };
 };
 
-export interface PresingArticleResponse {
+export interface PresignArticleResponse {
   key: string;
   putUrl: string;
   cdnUrl: string;
 }
 
-export interface PresingProfileResponse {
+export interface PresignProfileResponse {
   key: string;
   putUrl: string;
   cdnUrl: string;
