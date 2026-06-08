@@ -18,3 +18,15 @@ export type UploadAndRegisterVars = {
     cantEat: string[];
   };
 };
+
+export interface PresingArticleResponse {
+  key: string;
+  putUrl: string;
+  cdnUrl: string;
+}
+
+export interface PresingProfileResponse {
+  key: string;
+  putUrl: string;
+  cdnUrl: string;
+}
