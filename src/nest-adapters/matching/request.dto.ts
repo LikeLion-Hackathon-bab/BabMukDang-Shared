@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsNumber,
   IsString,
+  MaxLength,
 } from "class-validator";
 import { RestaurantId } from "src/types/common";
 import { LocationId, Menu, MenuCode } from "src/types/matching/types";
@@ -19,9 +20,7 @@ import {
   TimePicksRequestDto,
 } from "src/types/matching/update-request";
 
-export class RestaurantPickRequestDtoServer
-  implements RestaurantPickRequestDto
-{
+export class RestaurantPickRequestDtoServer implements RestaurantPickRequestDto {
   @IsString()
   @IsNotEmpty()
   restaurantId: RestaurantId;
@@ -32,18 +31,17 @@ export class DatePicksRequestDtoServer implements DatePicksRequestDto {
   @IsNotEmpty()
   dates: string[];
 }
+
 export class TimePicksRequestDtoServer implements TimePicksRequestDto {
   @IsArray()
   @IsNotEmpty()
   times: string[];
 }
 
-export class LocationCandidateAddRequestDtoServer
-  implements LocationCandidateAddRequestDto
-{
+export class LocationCandidateAddRequestDtoServer implements LocationCandidateAddRequestDto {
   @IsString()
   @IsNotEmpty()
-  id: LocationId;
+  locationId: LocationId;
 
   @IsString()
   @IsNotEmpty()
@@ -62,16 +60,13 @@ export class LocationCandidateAddRequestDtoServer
   address: string;
 }
 
-export class LocationCandidateVoteRequestDtoServer
-  implements LocationCandidateVoteRequestDto
-{
+export class LocationCandidateVoteRequestDtoServer implements LocationCandidateVoteRequestDto {
   @IsString()
   @IsNotEmpty()
   locationId: LocationId;
 }
 
 export class ExcludeMenuRequestDtoServer implements ExcludeMenuRequestDto {
-  @IsString()
   @IsNotEmpty()
   menu: Menu;
 }
@@ -85,7 +80,8 @@ export class MenuPickRequestDtoServer implements MenuPickRequestDto {
 export class ChatMessageRequestDtoServer implements ChatMessageRequestDto {
   @IsString()
   @IsNotEmpty()
-  text: string;
+  @MaxLength(500)
+  message: string;
 }
 
 export class ReadyStateRequestDtoServer implements ReadyStateRequestDto {
