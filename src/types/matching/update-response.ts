@@ -1,61 +1,23 @@
-import { UserId } from "../profile/user";
-import {
-  LocationCandidate,
-  LocationId,
-  MenuCode,
-  ChatMessage,
-  Menu,
-} from "./types";
-import { RestaurantId } from "../common";
+import type { z } from "zod";
+import type {
+  ChatMessageResponseSchema,
+  DatePicksUpdateResponseSchema,
+  ExcludeMenuUpdateResponseSchema,
+  LocationCandidateAddUpdateResponseSchema,
+  LocationCandidateVoteUpdateResponseSchema,
+  MenuPickUpdateResponseSchema,
+  ReadyStateChangedSchema,
+  RestaurantPickUpdateResponseSchema,
+  TimePicksUpdateResponseSchema,
+} from "../../domain/room/schema/room.schema";
 
-export interface ChatMessageResponseItem extends ChatMessage {}
-
-export interface TimePicksUpdateResponseItem {
-  userId: UserId;
-  times: string[];
-}
-
-export interface DatePicksUpdateResponseItem {
-  userId: UserId;
-  dates: string[];
-}
-
-export interface LocationCandidateAddUpdateResponseItem
-  extends LocationCandidate {
-  author: UserId;
-}
-export interface LocationCandidateVoteUpdateResponseItem {
-  locationId: LocationId;
-  votes: UserId[];
-}
-export interface ExcludeMenuUpdateResponseItem {
-  userId: UserId;
-  exclusions: Menu[];
-}
-
-export interface MenuPickUpdateResponseItem {
-  menuCode: MenuCode;
-  selectedUsers: UserId[];
-}
-
-export interface RestaurantPickUpdateResponseItem {
-  restaurantId: RestaurantId;
-  selectedUsers: UserId[];
-}
-
-export interface ReadyStateChangedDto {
-  readyCount: number;
-  participantCount: number;
-}
-
-export type TimePicksUpdateResponseDto = TimePicksUpdateResponseItem[];
-export type DatePicksUpdateResponseDto = DatePicksUpdateResponseItem[];
-export type LocationCandidateAddUpdateResponseDto =
-  LocationCandidateAddUpdateResponseItem[];
-export type LocationCandidateVoteUpdateResponseDto =
-  LocationCandidateVoteUpdateResponseItem[];
-
-export type ExcludeMenuUpdateResponseDto = ExcludeMenuUpdateResponseItem[];
-export type MenuPickUpdateResponseDto = MenuPickUpdateResponseItem[];
-export type RestaurantPickUpdateResponseDto =
-  RestaurantPickUpdateResponseItem[];
+export type ChatMessageResponseItem = z.infer<typeof ChatMessageResponseSchema>;
+export type TimePicksUpdateResponseDto = z.infer<typeof TimePicksUpdateResponseSchema>;
+export type DatePicksUpdateResponseDto = z.infer<typeof DatePicksUpdateResponseSchema>;
+export type LocationCandidateAddUpdateResponseDto = z.infer<typeof LocationCandidateAddUpdateResponseSchema>;
+export type LocationCandidateVoteUpdateResponseDto = z.infer<typeof LocationCandidateVoteUpdateResponseSchema>;
+export type ExcludeMenuUpdateResponseDto = z.infer<typeof ExcludeMenuUpdateResponseSchema>;
+export type MenuPickUpdateResponseDto = z.infer<typeof MenuPickUpdateResponseSchema>;
+export type RestaurantPickUpdateResponseDto = z.infer<typeof RestaurantPickUpdateResponseSchema>;
+export type RestaurantPickUpdateResponseItem = RestaurantPickUpdateResponseDto[number];
+export type ReadyStateChangedDto = z.infer<typeof ReadyStateChangedSchema>;

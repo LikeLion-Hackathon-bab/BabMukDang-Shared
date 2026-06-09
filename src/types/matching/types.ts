@@ -1,68 +1,21 @@
-import { User, UserId } from "../profile/user";
-import { KakaoRestaurantResponseDto } from "../common/restaurant-shared";
+import type {
+  AnnouncementStage,
+  InvitationRoomStage,
+  LocationCandidate,
+  Menu,
+} from "../../domain/room/contracts/room-payloads";
 
-// 소켓 서버
-export type MenuCode = string;
-
-export interface Menu {
-  code: MenuCode;
-  label: string;
-}
-// 소켓 서버
-export type LocationId = string;
-
-export interface LocationCandidate {
-  id: LocationId;
-  placeName: string;
-  lat: number;
-  lng: number;
-  address: string;
-}
-// 소켓 서버
-
-export interface UserMenuCategory {
-  userId: string;
-  menuList: Menu[];
-}
-
-export interface ChatMessage {
-  messageId: string;
-  user: User;
-  text?: string;
-  createdAt: string;
-}
-
-export interface FinalState {
-  location: LocationCandidate | undefined;
-  excludeMenu: Menu[] | undefined;
-  menu: Menu | undefined;
-  restaurant: KakaoRestaurantResponseDto | undefined;
-  time: string | undefined;
-  date: string | undefined;
-}
-export interface Participant extends User {
-  ready: boolean;
-}
-
-export type AnnouncementStage =
-  | "waiting"
-  | "location"
-  | "location-vote"
-  | "exclude-menu"
-  | "menu"
-  | "restaurant"
-  | "finish";
-
-export type InvitationStage =
-  | "waiting"
-  | "date"
-  | "time"
-  | "location"
-  | "location-vote"
-  | "exclude-menu"
-  | "menu"
-  | "restaurant"
-  | "finish";
+export type {
+  AnnouncementStage,
+  FinalState,
+  InvitationRoomStage as InvitationStage,
+  LocationCandidate,
+  LocationId,
+  Menu,
+  MenuCode,
+  Participant,
+  RecruitRoomStage,
+} from "../../domain/room/contracts/room-payloads";
 
 export const AnnouncementStageMap: Record<AnnouncementStage, number> = {
   waiting: 1,
@@ -74,7 +27,7 @@ export const AnnouncementStageMap: Record<AnnouncementStage, number> = {
   finish: 7,
 };
 
-export const InvitationStageMap: Record<InvitationStage, number> = {
+export const InvitationStageMap: Record<InvitationRoomStage, number> = {
   waiting: 1,
   date: 2,
   time: 3,
@@ -86,66 +39,13 @@ export const InvitationStageMap: Record<InvitationStage, number> = {
   finish: 9,
 };
 
-// 소켓 서버
-// recommendations": [
-//   {
-//       "code": "05011001",
-//       "label": "비빔밥",
-//       "group_score": 0.5099,
-//       "member_scores": {
-//           "user_a": 0.5929,
-//           "user_b": 0.4659,
-//           "user_c": 0.6503,
-//           "user_d": 0.3304
-//       },
-//       "reasons": [
-//           "중간 취향",
-//           "최근 3일 내 미섭취"
-//       ]
-//   },
-//   {
-//       "code": "02011027",
-//       "label": "자장면",
-//       "group_score": 0.5018,
-//       "member_scores": {
-//           "user_a": 0.4136,
-//           "user_b": 0.6258,
-//           "user_c": 0.546,
-//           "user_d": 0.4218
-//       },
-//       "reasons": [
-//           "중간 취향",
-//           "최근 3일 내 미섭취"
-//       ]
-//   },
-//   {
-//       "code": "03021005",
-//       "label": "불고기",
-//       "group_score": 0.4147,
-//       "member_scores": {
-//           "user_a": 0.3724,
-//           "user_b": 0.5468,
-//           "user_c": 0.4242,
-//           "user_d": 0.3153
-//       },
-//       "reasons": [
-//           "중간 취향",
-//           "최근 3일 내 미섭취"
-//       ]
-//   },
-//   {
-//       "code": "11015001",
-//       "label": "잡채",
-//       "group_score": 0.3725,
-//       "member_scores": {
-//           "user_a": 0.3518,
-//           "user_b": 0.3133,
-//           "user_c": 0.3949,
-//           "user_d": 0.4299
-//       },
-//       "reasons": [
-//           "중간 취향",
-//           "최근 3일 내 미섭취"
-//       ]
-//   }
-// ],
+export interface UserMenuCategory {
+  memberId: number;
+  menuList: Menu[];
+}
+
+/** @deprecated Use LocationCandidate.locationId. */
+export type LegacyLocationCandidate = LocationCandidate & { id?: string };
+
+/** @deprecated Use ChatMessageResponse. */
+export type ChatMessage = import("../../domain/room/contracts/room-payloads").ChatMessageResponse;

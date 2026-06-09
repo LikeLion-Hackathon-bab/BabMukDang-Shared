@@ -1,16 +1,14 @@
-import { ArticlePostRequestDto } from "./article";
+import type { ArticlePostRequestDto } from "./article";
 
 export type UploadAndPostVars = {
-  currentUserId: string;
+  currentMemberId: number;
   file: File;
-  // cdnUrl을 받아서 최종 ArticlePostRequest를 만드는 빌더
   buildRequest: (cdnUrl: string) => ArticlePostRequestDto;
 };
 
 export type UploadAndRegisterVars = {
-  currentUserId: string;
+  currentMemberId: number;
   file: File;
-  // cdnUrl을 받아서 최종 RegisterRequest를 만드는 빌더
   buildRequest: (cdnUrl: string) => {
     imageUrl: string;
     username: string;
@@ -19,14 +17,7 @@ export type UploadAndRegisterVars = {
   };
 };
 
-export interface PresignArticleResponse {
-  key: string;
-  putUrl: string;
-  cdnUrl: string;
-}
-
-export interface PresignProfileResponse {
-  key: string;
-  putUrl: string;
-  cdnUrl: string;
-}
+export type {
+  PresignArticleResponse,
+  PresignProfileResponse,
+} from "../../domain/article/contracts/article.response";

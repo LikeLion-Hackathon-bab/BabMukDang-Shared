@@ -1,5 +1,7 @@
-export interface BaseResponse<T> {
-  code: number;
-  message: string;
-  data: T;
-}
+export type {
+  ApiFailure,
+  ApiResponse,
+  ApiSuccess,
+  BaseResponse,
+  NoContent,
+} from "../../domain/common/contracts/envelope";

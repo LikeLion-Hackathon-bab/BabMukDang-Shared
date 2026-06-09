@@ -1,2 +1,5 @@
-export type ISODateString = string;
-export type ISODateTimeString = string;
+export type {
+  ISODateString,
+  ISODateTimeString,
+  TimeHHmmString,
+} from "../../domain/common/contracts/date.type";

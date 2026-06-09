@@ -1,35 +1,12 @@
-import { RestaurantId } from "../common/restaurant-shared";
-import { LocationId, Menu, MenuCode } from "./types";
+export type {
+  ChatMessageRequest as ChatMessageRequestDto,
+  ReadyStateRequest as ReadyStateRequestDto,
+} from "../../domain/room/contracts/room-payloads";
 
-export interface TimePicksRequestDto {
-  times: string[];
-}
-export interface DatePicksRequestDto {
-  dates: string[];
-}
-export interface LocationCandidateAddRequestDto {
-  id: LocationId;
-  placeName: string;
-  lat: number;
-  lng: number;
-  address?: string;
-}
-export interface LocationCandidateVoteRequestDto {
-  locationId: LocationId;
-}
-export interface ExcludeMenuRequestDto {
-  menu: Menu;
-}
-export interface MenuPickRequestDto {
-  menuCode: MenuCode;
-}
-export interface RestaurantPickRequestDto {
-  restaurantId: RestaurantId;
-}
-export interface ChatMessageRequestDto {
-  text: string;
-}
-
-export interface ReadyStateRequestDto {
-  isReady: boolean;
-}
+export type TimePicksRequestDto = import("zod").infer<typeof import("../../domain/room/schema/room.schema").PickTimesRequestSchema>;
+export type DatePicksRequestDto = import("zod").infer<typeof import("../../domain/room/schema/room.schema").PickDateRequestSchema>;
+export type LocationCandidateAddRequestDto = import("zod").infer<typeof import("../../domain/room/schema/room.schema").AddLocationCandidateRequestSchema>;
+export type LocationCandidateVoteRequestDto = import("zod").infer<typeof import("../../domain/room/schema/room.schema").VoteLocationRequestSchema>;
+export type ExcludeMenuRequestDto = import("zod").infer<typeof import("../../domain/room/schema/room.schema").ExcludeMenuRequestSchema>;
+export type MenuPickRequestDto = import("zod").infer<typeof import("../../domain/room/schema/room.schema").PickMenuRequestSchema>;
+export type RestaurantPickRequestDto = import("zod").infer<typeof import("../../domain/room/schema/room.schema").PickRestaurantRequestSchema>;

@@ -1,10 +1,7 @@
-export interface InvitationPostRequest {
-  inviteeId: number;
-  message: string;
-}
-
-export interface InvitationResponse {
-  invitationId: number;
-  inviterName: string;
-  inviterProfileImageUrl?: string;
-}
+export type { InvitationPostRequest } from "../../domain/invitation/contracts/invitation.request";
+export type {
+  AcceptInvitationResponse,
+  InvitationResponse,
+  RejectInvitationResponse,
+  SendInvitationResponse,
+} from "../../domain/invitation/contracts/invitation.response";

@@ -1,12 +1,4 @@
-import { ISODateTimeString } from "../common";
-
-export type FoodPreferenceType = "LIKE" | "DISLIKE" | "ALLERGY";
-
-export interface FoodPreferenceResponseDto {
-  id: number;
-  memberId: number;
-  foodCode: string;
-  type: FoodPreferenceType;
-  createdAt: ISODateTimeString;
-  updatedAt: ISODateTimeString;
-}
+export type {
+  FoodPreferenceResponse as FoodPreferenceResponseDto,
+  FoodPreferenceType,
+} from "../../domain/preference/contracts/preference.response";

@@ -1,17 +1,6 @@
-import type { ISODateTimeString } from "../common";
-
-export type MealStatus = "FED" | "FASTING";
-
-export type MealStatusAction = "ATE_NOW" | "SET_OFF";
-
-export interface UpdateMealStatusRequest {
-  action: MealStatusAction;
-}
-
-export interface MealStatusResponse {
-  status: MealStatus;
-  lastMealAt: ISODateTimeString | null;
-  fastingMinutes: number;
-  fastingHours: number;
-  secondsToAutoOff: number;
-}
+export type { UpdateMealStatusRequest } from "../../domain/meal/contracts/meal.request";
+export type {
+  MealStatus,
+  MealStatusAction,
+  MealStatusResponse,
+} from "../../domain/meal/contracts/meal.response";

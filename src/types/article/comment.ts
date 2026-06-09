@@ -1,19 +1,9 @@
-import { User } from "../profile";
+export type { CommentPostRequest as CommentPostRequestDto } from "../../domain/article/contracts/article.request";
+export type { CreateCommentResponse } from "../../domain/article/contracts/article.response";
+import type { z } from "zod";
+import type { CommentResponseSchema } from "../../domain/article/schema/article.schema";
 
-export interface CommentResponseDto {
-  commentId: number;
-  author: User;
-  parentCommentId: number | null;
-  content: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface CommentPostRequestDto {
-  content: string;
-  parentCommentId?: number;
-}
-
+export type CommentResponseDto = z.infer<typeof CommentResponseSchema>;
 export interface Comment extends CommentResponseDto {
-  replies?: CommentResponseDto[]; // 트리 변환 후에만 생김
+  replies?: CommentResponseDto[];
 }

@@ -1,4 +1,1 @@
-export interface TokenResponse {
-  accessToken: string;
-  accessTokenMaxAge: number;
-}
+export type { TokenResponse } from "../../domain/auth/contracts/auth.response";

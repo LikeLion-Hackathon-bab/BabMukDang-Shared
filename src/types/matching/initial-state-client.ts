@@ -1,68 +1,42 @@
-import { UserId } from "../profile";
-import { KakaoRestaurantResponseDto } from "../common/restaurant-shared";
-import {
-  AnnouncementStage,
-  ChatMessage,
-  InvitationStage,
-  Menu,
-  Participant,
-  FinalState,
-} from "./types";
-import {
+import type { z } from "zod";
+import type {
+  FinalStateSchema,
+  PhaseDataBroadcastSchema,
+  RoomInitialStateSchema,
+} from "../../domain/room/schema/room.schema";
+import type {
   DatePicksUpdateResponseDto,
-  TimePicksUpdateResponseDto,
-  MenuPickUpdateResponseDto,
-  RestaurantPickUpdateResponseDto,
   ExcludeMenuUpdateResponseDto,
   LocationCandidateAddUpdateResponseDto,
   LocationCandidateVoteUpdateResponseDto,
+  MenuPickUpdateResponseDto,
+  RestaurantPickUpdateResponseDto,
+  TimePicksUpdateResponseDto,
 } from "./update-response";
 
-export interface TimeInitialState extends TimePicksUpdateResponseDto {}
-export interface DateInitialState extends DatePicksUpdateResponseDto {}
-
-export interface LocationAddInitialState
-  extends LocationCandidateAddUpdateResponseDto {}
-
+export type TimeInitialState = TimePicksUpdateResponseDto;
+export type DateInitialState = DatePicksUpdateResponseDto;
+export type LocationAddInitialState = LocationCandidateAddUpdateResponseDto;
 export interface LocationVoteInitialState {
   locations: LocationCandidateAddUpdateResponseDto;
   votes?: LocationCandidateVoteUpdateResponseDto;
 }
-
 export interface ExcludeMenuInitialState {
-  recentMenus: { userId: UserId; menuList: Menu[] }[];
+  recentMenus: { memberId: number; menuList: unknown[] }[];
   excludedMenuList?: ExcludeMenuUpdateResponseDto;
 }
-
 export interface MenuInitialState {
-  initialMenus: Menu[];
+  initialMenus: unknown[];
   menuPick?: MenuPickUpdateResponseDto;
 }
 export interface RestaurantInitialState {
-  initialRestaurants: KakaoRestaurantResponseDto[];
+  initialRestaurants: unknown[];
   restaurantUserList?: RestaurantPickUpdateResponseDto;
 }
-
 export interface WaitingInitialState {
   locationInitial?: string;
   meetingAt?: string;
 }
-
-export interface RoomInitialState {
-  participants: Participant[];
-  chat: ChatMessage[];
-  final: FinalState;
-}
-
-export interface PhaseDataBroadcastDto {
-  phase: AnnouncementStage | InvitationStage;
-  data:
-    | WaitingInitialState
-    | TimeInitialState
-    | DateInitialState
-    | LocationAddInitialState
-    | LocationVoteInitialState
-    | ExcludeMenuInitialState
-    | MenuInitialState
-    | RestaurantInitialState;
-}
+export type FinalState = z.infer<typeof FinalStateSchema>;
+export type RoomInitialState = z.infer<typeof RoomInitialStateSchema>;
+export type PhaseDataBroadcastDto = z.infer<typeof PhaseDataBroadcastSchema>;
