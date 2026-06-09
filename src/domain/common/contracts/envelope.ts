@@ -1,0 +1,26 @@
+import { z } from "zod";
+import {
+  ApiFailureSchema,
+  ApiResponseSchema,
+  ApiSuccessSchema,
+  CreatedEntityIdResponseSchema,
+  CreatedIdResponseSchema,
+  NoContentSchema,
+} from "../schema/envelope.schema";
+
+export type NoContent = z.infer<typeof NoContentSchema>;
+export type ApiSuccess<T> = z.infer<ReturnType<typeof ApiSuccessSchema<z.ZodType<T>>>>;
+export type ApiFailure = z.infer<typeof ApiFailureSchema>;
+export type ApiResponse<T> = ApiSuccess<T> | ApiFailure;
+export type CreatedIdResponse = z.infer<typeof CreatedIdResponseSchema>;
+export type CreatedEntityIdResponse = z.infer<typeof CreatedEntityIdResponseSchema>;
+
+/** @deprecated Use ApiSuccess<T>. */
+export interface BaseResponse<T> {
+  code: number;
+  message: string;
+  data: T;
+}
+
+export const makeApiResponseSchema = ApiResponseSchema;
+export const makeApiSuccessSchema = ApiSuccessSchema;
