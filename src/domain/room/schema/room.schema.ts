@@ -104,25 +104,25 @@ export const PhaseDataBroadcastSchema = z.object({
 });
 
 export const TimePicksUpdateResponseSchema = z.array(
-  z.object({ memberId: MemberIdSchema, times: z.array(z.string()) })
+  z.object({ memberId: MemberIdSchema, times: z.array(z.string()) }),
 );
 export const DatePicksUpdateResponseSchema = z.array(
-  z.object({ memberId: MemberIdSchema, dates: z.array(ISODateStringSchema) })
+  z.object({ memberId: MemberIdSchema, dates: z.array(ISODateStringSchema) }),
 );
 export const LocationCandidateAddUpdateResponseSchema = z.array(
-  LocationCandidateSchema.extend({ authorMemberId: MemberIdSchema })
+  LocationCandidateSchema.extend({ authorMemberId: MemberIdSchema }),
 );
 export const LocationCandidateVoteUpdateResponseSchema = z.array(
-  z.object({ locationId: LocationIdSchema, votes: z.array(MemberIdSchema) })
+  z.object({ locationId: LocationIdSchema, votes: z.array(MemberIdSchema) }),
 );
 export const ExcludeMenuUpdateResponseSchema = z.array(
-  z.object({ memberId: MemberIdSchema, exclusions: z.array(MenuSchema) })
+  z.object({ memberId: MemberIdSchema, exclusions: z.array(MenuSchema) }),
 );
 export const MenuPickUpdateResponseSchema = z.array(
-  z.object({ menuCode: MenuCodeSchema, selectedMembers: z.array(MemberIdSchema) })
+  z.object({ menuCode: MenuCodeSchema, selectedMembers: z.array(MemberIdSchema) }),
 );
 export const RestaurantPickUpdateResponseSchema = z.array(
-  z.object({ restaurantId: RestaurantIdSchema, selectedMembers: z.array(MemberIdSchema) })
+  z.object({ restaurantId: RestaurantIdSchema, selectedMembers: z.array(MemberIdSchema) }),
 );
 
 export const RoomSocketClientEventSchemas = {

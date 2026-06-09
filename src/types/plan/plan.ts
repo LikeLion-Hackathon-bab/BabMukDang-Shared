@@ -7,4 +7,5 @@ export type {
 } from "../../domain/plan/contracts/plan.response";
 
 /** @deprecated Use PlanResponseDto. */
-export type MeetingParticipant = import("../../domain/member/contracts/member.response").MemberResponse;
+export type MeetingParticipant =
+  import("../../domain/member/contracts/member.response").MemberResponse;

@@ -26,4 +26,5 @@ export type {
 } from "../../domain/member/contracts/member.request";
 
 /** @deprecated Use ProfileDetailResponse. */
-export type ProfileResponse = import("../../domain/member/contracts/member.response").ProfileDetailResponse;
+export type ProfileResponse =
+  import("../../domain/member/contracts/member.response").ProfileDetailResponse;

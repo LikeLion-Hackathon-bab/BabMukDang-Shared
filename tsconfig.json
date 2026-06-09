@@ -10,7 +10,7 @@
     "useDefineForClassFields": false,
     "strictPropertyInitialization": false,
     "outDir": "dist",
-    "baseUrl": ".",
+    "rootDir": ".",
     "paths": {}
   },
   "include": ["src"]

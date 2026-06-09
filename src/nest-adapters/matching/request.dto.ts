@@ -1,11 +1,4 @@
-import {
-  IsArray,
-  IsBoolean,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  MaxLength,
-} from "class-validator";
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsString, MaxLength } from "class-validator";
 import { RestaurantId } from "src/types/common";
 import { LocationId, Menu, MenuCode } from "src/types/matching/types";
 import {

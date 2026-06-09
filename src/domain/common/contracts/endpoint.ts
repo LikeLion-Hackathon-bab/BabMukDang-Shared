@@ -12,7 +12,7 @@ export interface EndpointContract<
   TPathParams extends z.ZodTypeAny,
   TQuery extends z.ZodTypeAny,
   TBody extends z.ZodTypeAny,
-  TResponse extends z.ZodTypeAny
+  TResponse extends z.ZodTypeAny,
 > {
   readonly method: TMethod;
   readonly path: TPath;
@@ -28,7 +28,7 @@ export const endpoint = <
   TPathParams extends z.ZodTypeAny = typeof NoParamsSchema,
   TQuery extends z.ZodTypeAny = typeof NoQuerySchema,
   TBody extends z.ZodTypeAny = typeof NoBodySchema,
-  TResponse extends z.ZodTypeAny = z.ZodNever
+  TResponse extends z.ZodTypeAny = z.ZodNever,
 >(contract: {
   method: TMethod;
   path: TPath;
@@ -45,15 +45,13 @@ export const endpoint = <
   response: contract.response,
 });
 
-export type BodyOf<E> = E extends EndpointContract<any, any, any, any, infer TBody, any>
-  ? z.infer<TBody>
-  : never;
-export type QueryOf<E> = E extends EndpointContract<any, any, any, infer TQuery, any, any>
-  ? z.infer<TQuery>
-  : never;
-export type PathParamsOf<E> = E extends EndpointContract<any, any, infer TPathParams, any, any, any>
-  ? z.infer<TPathParams>
-  : never;
-export type ResponseOf<E> = E extends EndpointContract<any, any, any, any, any, infer TResponse>
-  ? z.infer<TResponse>
-  : never;
+export type BodyOf<E> =
+  E extends EndpointContract<any, any, any, any, infer TBody, any> ? z.infer<TBody> : never;
+export type QueryOf<E> =
+  E extends EndpointContract<any, any, any, infer TQuery, any, any> ? z.infer<TQuery> : never;
+export type PathParamsOf<E> =
+  E extends EndpointContract<any, any, infer TPathParams, any, any, any>
+    ? z.infer<TPathParams>
+    : never;
+export type ResponseOf<E> =
+  E extends EndpointContract<any, any, any, any, any, infer TResponse> ? z.infer<TResponse> : never;

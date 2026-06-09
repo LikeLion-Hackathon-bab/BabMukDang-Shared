@@ -1,18 +1,76 @@
 import { z } from "zod";
-import { ArticlePostRequestSchema, CommentPostRequestSchema, CreateArticleResponseSchema, CreateCommentResponseSchema, ArticleDetailResponseSchema, PageArticleSummaryResponseSchema, PresignUploadResponseSchema } from "../../article/schema/article.schema";
-import { LoginRequestSchema, SignupRequestSchema, SignupResponseSchema, TokenResponseSchema } from "../../auth/schema/auth.schema";
-import { ChallengeStatusResponseSchema, ClaimChallengeRewardRequestSchema, ClaimChallengeRewardResponseSchema } from "../../challenge/schema/challenge.schema";
+import {
+  ArticlePostRequestSchema,
+  CommentPostRequestSchema,
+  CreateArticleResponseSchema,
+  CreateCommentResponseSchema,
+  ArticleDetailResponseSchema,
+  PageArticleSummaryResponseSchema,
+  PresignUploadResponseSchema,
+} from "../../article/schema/article.schema";
+import {
+  LoginRequestSchema,
+  SignupRequestSchema,
+  SignupResponseSchema,
+  TokenResponseSchema,
+} from "../../auth/schema/auth.schema";
+import {
+  ChallengeStatusResponseSchema,
+  ClaimChallengeRewardRequestSchema,
+  ClaimChallengeRewardResponseSchema,
+} from "../../challenge/schema/challenge.schema";
 import { CouponResponseSchema } from "../../coupon/schema/coupon.schema";
 import { NoContentSchema } from "../schema/envelope.schema";
-import { ArticleIdSchema, CommentIdSchema, CouponIdSchema, FriendRequestIdSchema, InvitationIdSchema, MemberIdSchema, PlanIdSchema, RecruitIdSchema } from "../schema/id.schema";
-import { FriendActionRequestSchema, FriendBlockItemResponseSchema, FriendListItemResponseSchema, FriendMealFilterSchema, FriendMealItemResponseSchema, FriendRequestItemResponseSchema } from "../../friend/schema/friend.schema";
-import { InvitationListItemResponseSchema, InvitationPostRequestSchema, SendInvitationResponseSchema, AcceptInvitationResponseSchema, RejectInvitationResponseSchema } from "../../invitation/schema/invitation.schema";
-import { MealStatusResponseSchema, UpdateMealStatusRequestSchema } from "../../meal/schema/meal.schema";
-import { MemberResponseSchema, MemberSummaryResponseSchema, OnboardingPreferenceRequestSchema, OnboardingRequestSchema, PreferenceMetaResponseSchema, ProfileDetailResponseSchema, UpdateProfileRequestSchema } from "../../member/schema/member.schema";
+import {
+  ArticleIdSchema,
+  CommentIdSchema,
+  CouponIdSchema,
+  FriendRequestIdSchema,
+  InvitationIdSchema,
+  MemberIdSchema,
+  PlanIdSchema,
+  RecruitIdSchema,
+} from "../schema/id.schema";
+import {
+  FriendActionRequestSchema,
+  FriendBlockItemResponseSchema,
+  FriendListItemResponseSchema,
+  FriendMealFilterSchema,
+  FriendMealItemResponseSchema,
+  FriendRequestItemResponseSchema,
+} from "../../friend/schema/friend.schema";
+import {
+  InvitationListItemResponseSchema,
+  InvitationPostRequestSchema,
+  SendInvitationResponseSchema,
+  AcceptInvitationResponseSchema,
+  RejectInvitationResponseSchema,
+} from "../../invitation/schema/invitation.schema";
+import {
+  MealStatusResponseSchema,
+  UpdateMealStatusRequestSchema,
+} from "../../meal/schema/meal.schema";
+import {
+  MemberResponseSchema,
+  MemberSummaryResponseSchema,
+  OnboardingPreferenceRequestSchema,
+  OnboardingRequestSchema,
+  PreferenceMetaResponseSchema,
+  ProfileDetailResponseSchema,
+  UpdateProfileRequestSchema,
+} from "../../member/schema/member.schema";
 import { CreatePlanRequestSchema, PlanResponseSchema } from "../../plan/schema/plan.schema";
 import { FoodPreferenceResponseSchema } from "../../preference/schema/preference.schema";
-import { RecruitRequestSchema, CreateRecruitResponseSchema, RecruitResponseSchema } from "../../recruit/schema/recruit.schema";
-import { RedeemReferralRequestSchema, ReferralCreateResponseSchema, ReferralItemResponseSchema } from "../../referral/schema/referral.schema";
+import {
+  RecruitRequestSchema,
+  CreateRecruitResponseSchema,
+  RecruitResponseSchema,
+} from "../../recruit/schema/recruit.schema";
+import {
+  RedeemReferralRequestSchema,
+  ReferralCreateResponseSchema,
+  ReferralItemResponseSchema,
+} from "../../referral/schema/referral.schema";
 import { endpoint } from "./endpoint";
 
 const memberIdParam = z.object({ memberId: MemberIdSchema });
@@ -24,6 +82,7 @@ const planIdParam = z.object({ planId: PlanIdSchema });
 const couponIdParam = z.object({ couponId: CouponIdSchema });
 const friendRequestIdParam = z.object({ requestId: FriendRequestIdSchema });
 
+// prettier-ignore
 export const apiContract = {
   auth: {
     signup: endpoint({ method: "POST", path: "/auth/signup", body: SignupRequestSchema, response: SignupResponseSchema }),
