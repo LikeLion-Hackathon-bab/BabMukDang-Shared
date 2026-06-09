@@ -1,6 +1,6 @@
 {
   "name": "@kimdaegyu/babmukdang-shared",
-  "version": "1.0.7",
+  "version": "1.1.0-zod-contracts.0",
   "private": false,
   "type": "module",
   "main": "./dist/index.cjs",
@@ -14,14 +14,24 @@
     },
     "./types/*": "./dist/types/*.d.ts",
     "./schemas/*": "./dist/schemas/*.js",
-    "./nest-adapters/*": "./dist/nest-adapters/*.js"
+    "./nest-adapters/*": "./dist/nest-adapters/*.js",
+    "./domain/*": {
+      "types": "./dist/domain/*/index.d.ts",
+      "import": "./dist/domain/*/index.js",
+      "require": "./dist/domain/*/index.cjs"
+    },
+    "./domain": {
+      "types": "./dist/domain/index.d.ts",
+      "import": "./dist/domain/index.js",
+      "require": "./dist/domain/index.cjs"
+    }
   },
   "files": [
     "dist"
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "tsup src/index.ts --dts --format esm,cjs --clean",
+    "build": "tsup src/index.ts src/domain/index.ts src/domain/*/index.ts --dts --format esm,cjs --clean",
     "release": "changesets version && pnpm -w i && pnpm build && changesets publish"
   },
   "devDependencies": {
@@ -30,10 +40,11 @@
     "typescript": "^5.5.0"
   },
   "peerDependencies": {
-    "zod": "^3.23.0"
+    "zod": "^3.25.0"
   },
   "dependencies": {
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.2"
+    "class-validator": "^0.14.2",
+    "zod": "^3.25.76"
   }
 }
