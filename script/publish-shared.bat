@@ -24,35 +24,20 @@ set PACKAGE=@kimdaegyu/babmukdang-shared
 echo.
 echo Root: %ROOT%
 echo Shared: %SHARED%
-echo Backend: %BACKEND%
-echo Client: %CLIENT%
 
 echo.
-echo [1/3] Publishing shared package...
+echo [1/1] Publishing shared package...
 echo Repository: %SHARED%
 cd /d "%SHARED%" || goto :error
 
+call npm login || goto :error
 call npm version patch || goto :error
 call npm run build || goto :error
 call npm publish --access public || goto :error
 
 echo.
-echo [2/3] Installing latest shared package in backend...
-echo Repository: %BACKEND%
-cd /d "%BACKEND%" || goto :error
-
-call npm install %PACKAGE%@latest --save-exact || goto :error
-
-echo.
-echo [3/3] Installing latest shared package in client...
-echo Repository: %CLIENT%
-cd /d "%CLIENT%" || goto :error
-
-call npm install %PACKAGE%@latest --save-exact || goto :error
-
-echo.
 echo Done.
-echo Shared package was published and installed as latest in Backend and Client.
+echo Shared package was published
 echo.
 pause
 exit /b 0
