@@ -4,12 +4,7 @@ import { FriendRequestIdSchema, MemberIdSchema } from "../../common/schema/id.sc
 import { MemberResponseSchema } from "../../member/schema/member.schema";
 
 export const FriendMealFilterSchema = z.enum(["ALL", "HUNGRY", "NOT_HUNGRY"]);
-export const FriendRequestStatusSchema = z.enum([
-  "PENDING",
-  "ACCEPTED",
-  "REJECTED",
-  "CANCELED",
-]);
+export const FriendRequestStatusSchema = z.enum(["PENDING", "ACCEPTED", "REJECTED", "CANCELED"]);
 
 export const FriendMealItemResponseSchema = MemberResponseSchema.extend({
   hungry: z.boolean(),

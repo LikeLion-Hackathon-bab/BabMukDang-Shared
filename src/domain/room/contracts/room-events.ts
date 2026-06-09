@@ -1,8 +1,5 @@
 import { z } from "zod";
-import {
-  RoomSocketClientEventSchemas,
-  RoomSocketServerEventSchemas,
-} from "../schema/room.schema";
+import { RoomSocketClientEventSchemas, RoomSocketServerEventSchemas } from "../schema/room.schema";
 
 export type ClientEventMapFromSchemas<T extends Record<string, z.ZodTypeAny>> = {
   [K in keyof T]: (payload: z.infer<T[K]>) => void;

@@ -25,14 +25,6 @@ export const CreatedIdResponseSchema = z.object({
 });
 
 export const CreatedEntityIdResponseSchema = z.object({
-  entity: z.enum([
-    "article",
-    "comment",
-    "recruit",
-    "invitation",
-    "subscription",
-    "coupon",
-    "plan",
-  ]),
+  entity: z.enum(["article", "comment", "recruit", "invitation", "subscription", "coupon", "plan"]),
   id: z.number().int().positive(),
 });

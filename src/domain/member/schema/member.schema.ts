@@ -53,7 +53,7 @@ export const OnboardingPreferenceRequestSchema = z.object({
 });
 
 export const OnboardingRequestSchema = UpdateProfileRequestSchema.merge(
-  OnboardingPreferenceRequestSchema
+  OnboardingPreferenceRequestSchema,
 );
 
 export const PreferenceMetaResponseSchema = z.object({

@@ -64,9 +64,7 @@ export const ArticleDetailResponseSchema = ArticleSummaryResponseSchema.extend({
   comments: z.array(CommentResponseSchema).optional(),
 });
 
-export const PageArticleSummaryResponseSchema = PageResponseSchema(
-  ArticleSummaryResponseSchema
-);
+export const PageArticleSummaryResponseSchema = PageResponseSchema(ArticleSummaryResponseSchema);
 
 export const PresignUploadResponseSchema = z.object({
   key: z.string(),

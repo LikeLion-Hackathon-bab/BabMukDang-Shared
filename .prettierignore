@@ -1,0 +1,12 @@
+@'
+node_modules
+dist
+build
+coverage
+.turbo
+.next
+*.log
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+'@ | Set-Content -Encoding UTF8 .prettierignore

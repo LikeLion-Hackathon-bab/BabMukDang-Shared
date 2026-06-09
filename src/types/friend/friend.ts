@@ -33,11 +33,7 @@ export interface FriendBlockItemResponse {
   blockedAt: string;
 }
 
-export type FriendRequestStatus =
-  | "PENDING"
-  | "ACCEPTED"
-  | "REJECTED"
-  | "CANCELED";
+export type FriendRequestStatus = "PENDING" | "ACCEPTED" | "REJECTED" | "CANCELED";
 
 export interface FriendRequestItemResponse {
   requestId: number;
