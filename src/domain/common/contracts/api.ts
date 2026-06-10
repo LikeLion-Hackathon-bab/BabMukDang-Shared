@@ -2,24 +2,22 @@ import { z } from "zod";
 import {
   ArticlePostRequestSchema,
   CommentPostRequestSchema,
-  CreateArticleResponseSchema,
-  CreateCommentResponseSchema,
   ArticleDetailResponseSchema,
   PageArticleSummaryResponseSchema,
-  PresignUploadResponseSchema,
-} from "../../article/schema/article.schema";
+  ArticleListQuerySchema,
+  PresignArticleResponseSchema,
+} from "@/article/article.schema";
 import {
   LoginRequestSchema,
   SignupRequestSchema,
   SignupResponseSchema,
   TokenResponseSchema,
-} from "../../auth/schema/auth.schema";
+} from "../../auth/auth.schema";
 import {
   ChallengeStatusResponseSchema,
   ClaimChallengeRewardRequestSchema,
   ClaimChallengeRewardResponseSchema,
-} from "../../challenge/schema/challenge.schema";
-import { CouponResponseSchema } from "../../coupon/schema/coupon.schema";
+} from "../../promotion/challenge.schema";
 import { NoContentSchema } from "../schema/envelope.schema";
 import {
   ArticleIdSchema,
@@ -32,20 +30,21 @@ import {
   RecruitIdSchema,
 } from "../schema/id.schema";
 import {
-  FriendActionRequestSchema,
   FriendBlockItemResponseSchema,
   FriendListItemResponseSchema,
   FriendMealFilterSchema,
   FriendMealItemResponseSchema,
+  FriendMealQuerySchema,
   FriendRequestItemResponseSchema,
-} from "../../friend/schema/friend.schema";
+  FriendSearchQuerySchema,
+  FriendSerachResponseSchema,
+} from "../../friend/friend.schema";
 import {
   InvitationListItemResponseSchema,
   InvitationPostRequestSchema,
   SendInvitationResponseSchema,
   AcceptInvitationResponseSchema,
-  RejectInvitationResponseSchema,
-} from "../../invitation/schema/invitation.schema";
+} from "../../invitation/invitation.schema";
 import {
   MealStatusResponseSchema,
   UpdateMealStatusRequestSchema,
@@ -56,24 +55,30 @@ import {
   OnboardingPreferenceRequestSchema,
   OnboardingRequestSchema,
   PreferenceMetaResponseSchema,
+  PresignProfileResponseSchema,
   ProfileDetailResponseSchema,
   UpdateProfileRequestSchema,
 } from "../../member/schema/member.schema";
-import { CreatePlanRequestSchema, PlanResponseSchema } from "../../plan/schema/plan.schema";
+import { PlanListQuerySchema, PlanResponseSchema } from "../../plan/plan.schema";
 import { FoodPreferenceResponseSchema } from "../../preference/schema/preference.schema";
 import {
-  RecruitRequestSchema,
+  CreateRecruitRequestSchema,
   CreateRecruitResponseSchema,
-  RecruitResponseSchema,
-} from "../../recruit/schema/recruit.schema";
+  RecruitListQuerySchema,
+  RecruitListResponseSchema,
+} from "../../recruit/recruit.schema";
 import {
   RedeemReferralRequestSchema,
   ReferralCreateResponseSchema,
   ReferralItemResponseSchema,
-} from "../../referral/schema/referral.schema";
+  CouponResponseSchema,
+} from "../../promotion";
 import { endpoint } from "./endpoint";
+import { PageQuerySchema } from "../schema";
+import { PresignProfileResponse } from "../../../types";
 
 const memberIdParam = z.object({ memberId: MemberIdSchema });
+const authorIdParam = z.object({ memberId: MemberIdSchema });
 const articleIdParam = z.object({ articleId: ArticleIdSchema });
 const commentIdParam = z.object({ commentId: CommentIdSchema });
 const recruitIdParam = z.object({ recruitId: RecruitIdSchema });
@@ -89,59 +94,64 @@ export const apiContract = {
     login: endpoint({ method: "POST", path: "/auth/login", body: LoginRequestSchema, response: TokenResponseSchema }),
     refresh: endpoint({ method: "POST", path: "/auth/refresh", response: TokenResponseSchema }),
     logout: endpoint({ method: "POST", path: "/auth/logout", response: NoContentSchema }),
+    // test: endpoint({method: "GET",  path: "/auth/test", response: TokenResponseSchema}) TODO: Dev에서만 작동하도록 백엔드에서 수정해야함 
   },
   members: {
     me: endpoint({ method: "GET", path: "/members/me", response: MemberResponseSchema }),
     summary: endpoint({ method: "GET", path: "/members/me/summary", response: MemberSummaryResponseSchema }),
     detail: endpoint({ method: "GET", path: "/members/:memberId", pathParams: memberIdParam, response: ProfileDetailResponseSchema }),
-    updateProfile: endpoint({ method: "PATCH", path: "/members/me/profile", body: UpdateProfileRequestSchema, response: ProfileDetailResponseSchema }),
-    onboarding: endpoint({ method: "POST", path: "/members/me/onboarding", body: OnboardingRequestSchema, response: PreferenceMetaResponseSchema }),
+    myMealStatus: endpoint({ method: "GET", path: "/members/me/meal-status", response: MealStatusResponseSchema }),
+    onboarding: endpoint({ method: "POST", path: "/members/onboarding", body: OnboardingRequestSchema, response: PreferenceMetaResponseSchema }),
     updateOnboardingPreferences: endpoint({ method: "PATCH", path: "/members/me/preferences", body: OnboardingPreferenceRequestSchema, response: PreferenceMetaResponseSchema }),
-  },
-  articles: {
-    list: endpoint({ method: "GET", path: "/articles", response: PageArticleSummaryResponseSchema }),
-    detail: endpoint({ method: "GET", path: "/articles/:articleId", pathParams: articleIdParam, response: ArticleDetailResponseSchema }),
-    create: endpoint({ method: "POST", path: "/articles", body: ArticlePostRequestSchema, response: CreateArticleResponseSchema }),
-    delete: endpoint({ method: "DELETE", path: "/articles/:articleId", pathParams: articleIdParam, response: NoContentSchema }),
-    createComment: endpoint({ method: "POST", path: "/articles/:articleId/comments", pathParams: articleIdParam, body: CommentPostRequestSchema, response: CreateCommentResponseSchema }),
-    deleteComment: endpoint({ method: "DELETE", path: "/articles/:articleId/comments/:commentId", pathParams: articleIdParam.merge(commentIdParam), response: NoContentSchema }),
-    presignArticleImage: endpoint({ method: "POST", path: "/uploads/articles/presign", response: PresignUploadResponseSchema }),
-    presignProfileImage: endpoint({ method: "POST", path: "/uploads/profiles/presign", response: PresignUploadResponseSchema }),
-  },
-  recruits: {
-    list: endpoint({ method: "GET", path: "/recruits", response: z.array(RecruitResponseSchema) }),
-    detail: endpoint({ method: "GET", path: "/recruits/:recruitId", pathParams: recruitIdParam, response: RecruitResponseSchema }),
-    create: endpoint({ method: "POST", path: "/recruits", body: RecruitRequestSchema, response: CreateRecruitResponseSchema }),
-    close: endpoint({ method: "PATCH", path: "/recruits/:recruitId/close", pathParams: recruitIdParam, response: NoContentSchema }),
-    join: endpoint({ method: "POST", path: "/recruits/:recruitId/join", pathParams: recruitIdParam, response: NoContentSchema }),
-  },
-  invitations: {
-    list: endpoint({ method: "GET", path: "/invitations", response: z.array(InvitationListItemResponseSchema) }),
-    send: endpoint({ method: "POST", path: "/invitations", body: InvitationPostRequestSchema, response: SendInvitationResponseSchema }),
-    accept: endpoint({ method: "POST", path: "/invitations/:invitationId/accept", pathParams: invitationIdParam, response: AcceptInvitationResponseSchema }),
-    reject: endpoint({ method: "POST", path: "/invitations/:invitationId/reject", pathParams: invitationIdParam, response: RejectInvitationResponseSchema }),
-  },
-  plans: {
-    list: endpoint({ method: "GET", path: "/plans", response: z.array(PlanResponseSchema) }),
-    detail: endpoint({ method: "GET", path: "/plans/:planId", pathParams: planIdParam, response: PlanResponseSchema }),
-    create: endpoint({ method: "POST", path: "/plans", body: CreatePlanRequestSchema, response: PlanResponseSchema }),
-  },
-  mealStatus: {
-    get: endpoint({ method: "GET", path: "/members/me/meal-status", response: MealStatusResponseSchema }),
-    update: endpoint({ method: "PATCH", path: "/members/me/meal-status", body: UpdateMealStatusRequestSchema, response: NoContentSchema }),
-  },
-  friends: {
-    list: endpoint({ method: "GET", path: "/friends", response: z.array(FriendListItemResponseSchema) }),
-    meals: endpoint({ method: "GET", path: "/friends/meals", query: z.object({ filter: FriendMealFilterSchema.optional() }), response: z.array(FriendMealItemResponseSchema) }),
-    blocks: endpoint({ method: "GET", path: "/friends/blocks", response: z.array(FriendBlockItemResponseSchema) }),
-    request: endpoint({ method: "POST", path: "/friends/requests", body: FriendActionRequestSchema, response: FriendRequestItemResponseSchema }),
-    acceptRequest: endpoint({ method: "POST", path: "/friends/requests/:requestId/accept", pathParams: friendRequestIdParam, response: NoContentSchema }),
-    rejectRequest: endpoint({ method: "POST", path: "/friends/requests/:requestId/reject", pathParams: friendRequestIdParam, response: NoContentSchema }),
-    block: endpoint({ method: "POST", path: "/friends/blocks", body: FriendActionRequestSchema, response: NoContentSchema }),
-    unblock: endpoint({ method: "DELETE", path: "/friends/blocks/:memberId", pathParams: memberIdParam, response: NoContentSchema }),
+    presignProfileImage: endpoint({ method: "POST", path: "/uploads/profiles/presign", response: PresignProfileResponseSchema }),
+    updateMyMealStatus: endpoint({ method: "PATCH", path: "/members/me/meal-status", body: UpdateMealStatusRequestSchema, response: NoContentSchema }),
+    updateProfile: endpoint({ method: "PATCH", path: "/members/me/profile", body: UpdateProfileRequestSchema, response: ProfileDetailResponseSchema }),
   },
   preferences: {
     list: endpoint({ method: "GET", path: "/preferences", response: z.array(FoodPreferenceResponseSchema) }),
+  },
+  articles: {
+    list: endpoint({ method: "GET", path: "/articles/home", query: ArticleListQuerySchema, response: PageArticleSummaryResponseSchema }),
+    byAuthor: endpoint({ method: "GET", path: "/articles/by-author/:authorId", pathParams: authorIdParam, response: PageArticleSummaryResponseSchema }),
+    my: endpoint({ method: "GET", path: "/articles/my", response: PageArticleSummaryResponseSchema }),
+    detail: endpoint({ method: "GET", path: "/articles/:articleId", pathParams: articleIdParam, response: ArticleDetailResponseSchema }),
+    create: endpoint({ method: "POST", path: "/articles", body: ArticlePostRequestSchema, response: NoContentSchema }),
+    createComment: endpoint({ method: "POST", path: "/articles/:articleId/comments", pathParams: articleIdParam, body: CommentPostRequestSchema, response: NoContentSchema }),
+    presignArticleImage: endpoint({ method: "POST", path: "/uploads/articles/presign", response: PresignArticleResponseSchema }),
+    delete: endpoint({ method: "DELETE", path: "/articles/:articleId", pathParams: articleIdParam, response: NoContentSchema }),
+    deleteComment: endpoint({ method: "DELETE", path: "/articles/:articleId/comments/:commentId", pathParams: articleIdParam.merge(commentIdParam), response: NoContentSchema }),
+  },
+  recruits: {
+    list: endpoint({ method: "GET", path: "/recruits", query: RecruitListQuerySchema, response: z.array(RecruitListResponseSchema) }),
+    create: endpoint({ method: "POST", path: "/recruits", body: CreateRecruitRequestSchema, response: CreateRecruitResponseSchema }),
+    join: endpoint({ method: "POST", path: "/recruits/:recruitId/join", pathParams: recruitIdParam, response: NoContentSchema }),
+    close: endpoint({ method: "PATCH", path: "/recruits/:recruitId/close", pathParams: recruitIdParam, response: NoContentSchema }),
+  },
+  invitations: {
+    list: endpoint({ method: "GET", path: "/invitations", response: z.array(InvitationListItemResponseSchema) }),
+    // detail: endpoint({ method: "GET", path: "/invitations/:invitationId", pathParams: invitationIdParam, response: InvitationItemDetailResponseSchema }), TODO: Invitation Response 정하기
+    send: endpoint({ method: "POST", path: "/invitations", body: InvitationPostRequestSchema, response: SendInvitationResponseSchema }),
+    accept: endpoint({ method: "POST", path: "/invitations/:invitationId/accept", pathParams: invitationIdParam, response: AcceptInvitationResponseSchema }),
+    reject: endpoint({ method: "POST", path: "/invitations/:invitationId/reject", pathParams: invitationIdParam, response: NoContentSchema }),
+  },
+  plans: {
+    list: endpoint({ method: "GET", path: "/plans", query:PlanListQuerySchema, response: z.array(PlanResponseSchema) }),
+    detail: endpoint({ method: "GET", path: "/plans/:planId", pathParams: planIdParam, response: PlanResponseSchema }),
+  },
+  friends: {
+    list: endpoint({ method: "GET", path: "/friends", response: z.array(FriendListItemResponseSchema) }),
+    meals: endpoint({ method: "GET", path: "/friends/meals", query: FriendMealQuerySchema, response: z.array(FriendMealItemResponseSchema) }),
+    blocks: endpoint({ method: "GET", path: "/friends/blocks", response: z.array(FriendBlockItemResponseSchema) }),
+    serch: endpoint({ method: "GET", path: "/friends/search", query: FriendSearchQuerySchema ,response: FriendSerachResponseSchema }),
+    incomingRequest: endpoint({ method: "GET", path: "/friends/requests/incoming", response: FriendRequestItemResponseSchema }),
+    outgoingRequest: endpoint({ method: "GET", path: "/friends/requests/outgoint", response: FriendRequestItemResponseSchema }),
+    sendRequest: endpoint({ method: "POST", path: "/friends/requests/:memberId", pathParams: friendRequestIdParam, response: NoContentSchema }),
+    acceptRequest: endpoint({ method: "POST", path: "/friends/requests/:requestId/accept", pathParams: friendRequestIdParam, response: NoContentSchema }),
+    rejectRequest: endpoint({ method: "POST", path: "/friends/requests/:requestId/reject", pathParams: friendRequestIdParam, response: NoContentSchema }),
+    block: endpoint({ method: "POST", path: "/friends/blocks/:memberId",pathParams: memberIdParam,  response: NoContentSchema }),
+    cancelRequest: endpoint({ method: "DELETE", path: "/friends/requests/:requestId", pathParams: friendRequestIdParam, response: NoContentSchema }),
+    unblock: endpoint({ method: "DELETE", path: "/friends/blocks/:memberId", pathParams: memberIdParam, response: NoContentSchema }),
+    unfriend: endpoint({ method: "DELETE", path: "/friends/:memberId", pathParams: memberIdParam, response: NoContentSchema }),
   },
   coupons: {
     list: endpoint({ method: "GET", path: "/coupons", response: z.array(CouponResponseSchema) }),
@@ -149,13 +159,16 @@ export const apiContract = {
   },
   challenges: {
     status: endpoint({ method: "GET", path: "/challenges/status", response: ChallengeStatusResponseSchema }),
-    claimReward: endpoint({ method: "POST", path: "/challenges/rewards", body: ClaimChallengeRewardRequestSchema, response: ClaimChallengeRewardResponseSchema }),
+    claimReward: endpoint({ method: "POST", path: "/challenges/rewards", body: ClaimChallengeRewardRequestSchema, response: NoContentSchema }),
   },
   referrals: {
-    create: endpoint({ method: "POST", path: "/referrals", response: ReferralCreateResponseSchema }),
     list: endpoint({ method: "GET", path: "/referrals", response: z.array(ReferralItemResponseSchema) }),
+    create: endpoint({ method: "POST", path: "/referrals", response: ReferralCreateResponseSchema }),
     redeem: endpoint({ method: "POST", path: "/referrals/redeem", body: RedeemReferralRequestSchema, response: NoContentSchema }),
   },
+  health:{
+    healthCheck: endpoint({method:"GET", path:"/", response: z.string()})
+  }
 } as const;
 
 export type ApiContract = typeof apiContract;
