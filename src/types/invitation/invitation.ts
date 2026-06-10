@@ -1,4 +1,4 @@
-export type { InvitationPostRequest } from "../../domain/invitation/contracts/invitation.request";
+export type { InvitationPostRequest } from "../../domain/invitation/invitation.contracts";
 export type {
   AcceptInvitationResponse,
   InvitationResponse,

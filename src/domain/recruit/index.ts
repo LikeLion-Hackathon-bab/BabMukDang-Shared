@@ -1,2 +1,2 @@
-export * from "./contracts";
-export * from "./schema";
+export * from "./recruit.contracts";
+export * from "./recruit.schema";

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { ISODateStringSchema, ISODateTimeStringSchema } from "../../common/schema/date.schema";
 import { MemberIdSchema, RestaurantIdSchema, RoomIdSchema } from "../../common/schema/id.schema";
-import { MemberResponseSchema } from "../../member/schema/member.schema";
+import { MemberCoreSchema } from "../../member/schema/member.schema";
 import { RestaurantSchema } from "../../restaurant/schema/restaurant.schema";
 
 export const MenuCodeSchema = z.string().min(1).brand<"MenuCode">();
@@ -20,7 +20,7 @@ export const LocationCandidateSchema = z.object({
   address: z.string(),
 });
 
-export const ParticipantSchema = MemberResponseSchema.extend({
+export const ParticipantSchema = MemberCoreSchema.extend({
   ready: z.boolean(),
 });
 
@@ -73,7 +73,7 @@ export const RoomSocketErrorSchema = z.object({
 
 export const ChatMessageResponseSchema = z.object({
   messageId: z.string(),
-  user: MemberResponseSchema,
+  user: MemberCoreSchema,
   message: z.string(),
   createdAt: ISODateTimeStringSchema,
 });

@@ -20,4 +20,4 @@ export type UploadAndRegisterVars = {
 export type {
   PresignArticleResponse,
   PresignProfileResponse,
-} from "../../domain/article/contracts/article.response";
+} from "../../domain/article/article.contracts";

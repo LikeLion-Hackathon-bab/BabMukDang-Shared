@@ -1,4 +1,4 @@
-export type { ClaimChallengeRewardRequest } from "../../domain/challenge/contracts/challenge.request";
+export type { ClaimChallengeRewardRequest } from "../../domain/promotion/challenge.contracts";
 export type {
   ChallengeStatusResponse,
   MonthProgress,

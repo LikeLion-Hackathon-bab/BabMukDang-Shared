@@ -1,12 +1,12 @@
 import { z } from "zod";
 import {
-  PageRequestSchema,
+  PageMetaSchema,
+  PageQuerySchema,
   PageResponseSchema,
-  PageableObjectSchema,
-  SortObjectSchema,
+  SortDirectionSchema,
 } from "../schema/pagination.schema";
 
-export type PageRequest = z.infer<typeof PageRequestSchema>;
-export type SortObject = z.infer<typeof SortObjectSchema>;
-export type PageableObject = z.infer<typeof PageableObjectSchema>;
-export type PageResponse<T> = z.infer<ReturnType<typeof PageResponseSchema<z.ZodType<T>>>>;
+export type PageRequest = z.infer<typeof PageQuerySchema>;
+export type PageResponse<TItem> = z.infer<ReturnType<typeof PageResponseSchema<z.ZodType<TItem>>>>;
+export type PageMeta = z.infer<typeof PageMetaSchema>;
+export type SortDirection = z.infer<typeof SortDirectionSchema>;

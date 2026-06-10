@@ -4,7 +4,7 @@ export type {
   PlanResponse as PlanResponseDto,
   PlanStatus,
   PlanType,
-} from "../../domain/plan/contracts/plan.response";
+} from "../../domain/plan/plan.contracts";
 
 /** @deprecated Use PlanResponseDto. */
 export type MeetingParticipant =
