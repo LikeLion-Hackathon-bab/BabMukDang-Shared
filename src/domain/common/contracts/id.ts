@@ -45,3 +45,11 @@ export const toRecruitId = (value: number): RecruitId => RecruitIdSchema.parse(v
 export const toInvitationId = (value: number): InvitationId => InvitationIdSchema.parse(value);
 export const toRoomId = (value: string): RoomId => RoomIdSchema.parse(value);
 export const toRestaurantId = (value: string): RestaurantId => RestaurantIdSchema.parse(value);
+export const toCommentId = (value: number): CommentId => CommentIdSchema.parse(value);
+export const toPlanId = (value: number): PlanId => PlanIdSchema.parse(value);
+export const toCouponId = (value: number): CouponId => CouponIdSchema.parse(value);
+export const toSubscriptionId = (value: number): SubscriptionId =>
+  SubscriptionIdSchema.parse(value);
+export const toFriendRequestId = (value: number): FriendRequestId =>
+  FriendRequestIdSchema.parse(value);
+export const toReferralCode = (value: string): ReferralCode => ReferralCodeSchema.parse(value);
