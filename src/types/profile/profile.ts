@@ -5,7 +5,7 @@ export interface Onboarding {
   dislikedCodes: string[];
   allergyCodes: string[];
 }
-export type { OnboardingPreferenceRequest } from "../../domain/member/contracts/member.request";
+export type { OnboardingPreferenceRequest } from "@/member/contracts/member.request";
 export interface OnboardingPreferenceResponse extends Onboarding {}
 
 export interface PreferenceSummaryResponse {
@@ -19,11 +19,11 @@ export type {
   ProfileDetailResponse,
   ProfilePreferenceItem as PreferenceItem,
   MemberSummaryResponse,
-} from "../../domain/member/contracts/member.response";
+} from "@/member/contracts/member.response";
 export type {
   OnboardingRequest,
   UpdateProfileRequest,
-} from "../../domain/member/contracts/member.request";
+} from "@/member/contracts/member.request";
 
 /** @deprecated Use ProfileDetailResponse. */
 export type ProfileResponse =

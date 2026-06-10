@@ -2,4 +2,4 @@ export type {
   ISODateString,
   ISODateTimeString,
   TimeHHmmString,
-} from "../../domain/common/contracts/date.type";
+} from "@/common/contracts/date.type";

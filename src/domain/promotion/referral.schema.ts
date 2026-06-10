@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { ISODateTimeStringSchema } from "../common/schema/date.schema";
-import { MemberIdSchema, ReferralCodeSchema } from "../common/schema/id.schema";
+import { ISODateTimeStringSchema } from "@/common/schema/date.schema";
+import { MemberIdSchema, ReferralCodeSchema } from "@/common/schema/id.schema";
 
 export const ReferralCreateResponseSchema = z.object({
   code: ReferralCodeSchema,

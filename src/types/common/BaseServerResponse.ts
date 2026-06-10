@@ -4,4 +4,4 @@ export type {
   ApiSuccess,
   BaseResponse,
   NoContent,
-} from "../../domain/common/contracts/envelope";
+} from "@/common/contracts/envelope";

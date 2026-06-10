@@ -3,11 +3,11 @@ import {
   ISODateStringSchema,
   ISODateTimeStringSchema,
   TimeHHmmStringSchema,
-} from "../common/schema/date.schema";
-import { PlanIdSchema } from "../common/schema/id.schema";
-import { MemberCoreSchema } from "../member/schema/member.schema";
-import { RestaurantSchema } from "../restaurant/schema/restaurant.schema";
-import { LocationCandidateSchema } from "../room/schema/room.schema";
+} from "@/common/schema/date.schema";
+import { PlanIdSchema } from "@/common/schema/id.schema";
+import { MemberCoreSchema } from "@/member/schema/member.schema";
+import { RestaurantSchema } from "@/restaurant/schema/restaurant.schema";
+import { LocationCandidateSchema } from "@/room/schema/room.schema";
 
 export const PlanStatusSchema = z.enum(["PLANNING", "COMPLETED"]);
 export const PlanTypeSchema = z.enum(["RECRUIT", "INVITATION"]);

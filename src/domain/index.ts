@@ -1,8 +1,6 @@
 export * from "./article";
 export * from "./auth";
-export * from "./challenge";
 export * from "./common";
-export * from "./coupon";
 export * from "./friend";
 export * from "./invitation";
 export * from "./meal";
@@ -10,6 +8,6 @@ export * from "./member";
 export * from "./plan";
 export * from "./preference";
 export * from "./recruit";
-export * from "./referral";
 export * from "./restaurant";
 export * from "./room";
+export * from "./promotion";

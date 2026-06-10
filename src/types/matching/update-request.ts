@@ -1,7 +1,7 @@
 export type {
   ChatMessageRequest as ChatMessageRequestDto,
   ReadyStateRequest as ReadyStateRequestDto,
-} from "../../domain/room/contracts/room-payloads";
+} from "@/room/contracts/room-payloads";
 
 export type TimePicksRequestDto = import("zod").infer<
   typeof import("../../domain/room/schema/room.schema").PickTimesRequestSchema

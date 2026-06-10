@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { ISODateTimeStringSchema } from "../common/schema/date.schema";
-import { FriendRequestIdSchema, MemberIdSchema } from "../common/schema/id.schema";
-import { MemberCoreSchema } from "../member/schema/member.schema";
+import { ISODateTimeStringSchema } from "@/common/schema/date.schema";
+import { FriendRequestIdSchema, MemberIdSchema } from "@/common/schema/id.schema";
+import { MemberCoreSchema } from "@/member/schema/member.schema";
 
 export const FriendMealFilterSchema = z.enum(["ALL", "HUNGRY", "NOT_HUNGRY"]);
 export const FriendRequestStatusSchema = z.enum(["PENDING", "ACCEPTED", "REJECTED", "CANCELED"]);

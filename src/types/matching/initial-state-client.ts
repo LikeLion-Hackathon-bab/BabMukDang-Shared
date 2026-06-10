@@ -3,16 +3,7 @@ import type {
   FinalStateSchema,
   PhaseDataBroadcastSchema,
   RoomInitialStateSchema,
-} from "../../domain/room/schema/room.schema";
-import type {
-  DatePicksUpdateResponseDto,
-  ExcludeMenuUpdateResponseDto,
-  LocationCandidateAddUpdateResponseDto,
-  LocationCandidateVoteUpdateResponseDto,
-  MenuPickUpdateResponseDto,
-  RestaurantPickUpdateResponseDto,
-  TimePicksUpdateResponseDto,
-} from "./update-response";
+} from "@/room/schema/room.schema";
 
 export type TimeInitialState = TimePicksUpdateResponseDto;
 export type DateInitialState = DatePicksUpdateResponseDto;

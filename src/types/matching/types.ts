@@ -3,7 +3,7 @@ import type {
   InvitationRoomStage,
   LocationCandidate,
   Menu,
-} from "../../domain/room/contracts/room-payloads";
+} from "@/room/contracts/room-payloads";
 
 export type {
   AnnouncementStage,
@@ -15,7 +15,7 @@ export type {
   MenuCode,
   Participant,
   RecruitRoomStage,
-} from "../../domain/room/contracts/room-payloads";
+} from "@/room/contracts/room-payloads";
 
 export const AnnouncementStageMap: Record<AnnouncementStage, number> = {
   waiting: 1,

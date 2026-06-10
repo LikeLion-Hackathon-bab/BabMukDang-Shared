@@ -9,7 +9,7 @@ import type {
   ReadyStateChangedSchema,
   RestaurantPickUpdateResponseSchema,
   TimePicksUpdateResponseSchema,
-} from "../../domain/room/schema/room.schema";
+} from "@/room/schema/room.schema";
 
 export type ChatMessageResponseItem = z.infer<typeof ChatMessageResponseSchema>;
 export type TimePicksUpdateResponseDto = z.infer<typeof TimePicksUpdateResponseSchema>;

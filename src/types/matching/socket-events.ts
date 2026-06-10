@@ -1,12 +1,12 @@
 export type {
   RoomClientToServerEvents as ClientToServerEvents,
   RoomServerToClientEvents as ServerToClientEvents,
-} from "../../domain/room/contracts/room-events";
+} from "@/room/contracts/room-events";
 
 export {
   RoomSocketClientEventSchemas,
   RoomSocketServerEventSchemas,
-} from "../../domain/room/schema/room.schema";
+} from "@/room/schema/room.schema";
 
 export type SocketClientEventMap =
   import("../../domain/room/contracts/room-events").RoomServerToClientEvents;

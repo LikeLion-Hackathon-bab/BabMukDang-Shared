@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { InvitationIdSchema, MemberIdSchema, RoomIdSchema } from "../common/schema/id.schema";
-import { NoContentSchema } from "../common/schema/envelope.schema";
+import { InvitationIdSchema, MemberIdSchema, RoomIdSchema } from "@/common/schema/id.schema";
+import { NoContentSchema } from "@/common/schema/envelope.schema";
 
 export const InvitationPostRequestSchema = z.object({
   inviteeId: MemberIdSchema,

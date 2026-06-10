@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { ISODateStringSchema } from "../common/schema/date.schema";
-import { CouponIdSchema } from "../common/schema/id.schema";
+import { ISODateStringSchema } from "@/common/schema/date.schema";
+import { CouponIdSchema } from "@/common/schema/id.schema";
 
 export const CouponTypeSchema = z.enum(["DISCOUNT", "SERVICE"]);
 export const CouponStatusSchema = z.enum(["UNUSED", "USED"]);

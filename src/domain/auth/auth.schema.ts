@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MemberCoreSchema } from "../member/schema/member.schema";
+import { MemberCoreSchema } from "@/member/schema/member.schema";
 
 export const TokenResponseSchema = z.object({
   accessToken: z.string().min(1),

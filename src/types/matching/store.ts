@@ -1,16 +1,5 @@
-import type { MemberId as UserId, RestaurantId, RoomId } from "../../domain/common/contracts/id";
-import type {
-  AnnouncementStage,
-  ChatMessage,
-  FinalState,
-  InvitationStage,
-  LocationCandidate,
-  LocationId,
-  Menu,
-  MenuCode,
-  Participant,
-} from "./types";
-import type { RestaurantResponse } from "../../domain/restaurant/contracts/restaurant.response";
+import type { MemberId as UserId, RestaurantId, RoomId } from "@/common/contracts/id";
+import type { RestaurantResponse } from "@/restaurant/contracts/restaurant.response";
 
 export interface TimeStore {
   pickedByMember: Map<UserId, string[]>;
