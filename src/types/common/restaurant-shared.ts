@@ -1,7 +1,5 @@
 export type { RestaurantId } from "@/common/contracts/id";
 export type {
-  KakaoPlaceRaw,
-  KakaoRestaurantResponseDto,
-  RestaurantDto,
+  KakaoPlaceRaw as KakaoRestaurantResponseDto,
   RestaurantResponse,
-} from "@/restaurant/contracts/restaurant.response";
+} from "@/restaurant/restaurant.contracts";

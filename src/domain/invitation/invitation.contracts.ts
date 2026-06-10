@@ -3,10 +3,10 @@ import {
   AcceptInvitationResponseSchema,
   InvitationListItemResponseSchema,
   SendInvitationResponseSchema,
-  InvitationPostRequestSchema,
+  CreateInvitationRequestSchema,
 } from "./invitation.schema";
 
-export type InvitationPostRequest = z.infer<typeof InvitationPostRequestSchema>;
+export type CreateInvitationRequest = z.infer<typeof CreateInvitationRequestSchema>;
 
 export type InvitationResponse = z.infer<typeof InvitationListItemResponseSchema>;
 export type SendInvitationResponse = z.infer<typeof SendInvitationResponseSchema>;

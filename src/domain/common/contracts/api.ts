@@ -1,7 +1,7 @@
 import { z } from "zod";
 import {
-  ArticlePostRequestSchema,
-  CommentPostRequestSchema,
+  CreateArticleRequestSchema,
+  CreateCommentRequestSchema,
   ArticleDetailResponseSchema,
   PageArticleSummaryResponseSchema,
   ArticleListQuerySchema,
@@ -35,7 +35,7 @@ import {
 } from "@/friend";
 import {
   InvitationListItemResponseSchema,
-  InvitationPostRequestSchema,
+  CreateInvitationRequestSchema,
   SendInvitationResponseSchema,
   AcceptInvitationResponseSchema,
 } from "@/invitation";
@@ -110,8 +110,8 @@ export const apiContract = {
     byAuthor: endpoint({ method: "GET", path: "/articles/by-author/:authorId", pathParams: authorIdParam, response: PageArticleSummaryResponseSchema }),
     my: endpoint({ method: "GET", path: "/articles/my", response: PageArticleSummaryResponseSchema }),
     detail: endpoint({ method: "GET", path: "/articles/:articleId", pathParams: articleIdParam, response: ArticleDetailResponseSchema }),
-    create: endpoint({ method: "POST", path: "/articles", body: ArticlePostRequestSchema, response: NoContentSchema }),
-    createComment: endpoint({ method: "POST", path: "/articles/:articleId/comments", pathParams: articleIdParam, body: CommentPostRequestSchema, response: NoContentSchema }),
+    create: endpoint({ method: "POST", path: "/articles", body: CreateArticleRequestSchema, response: NoContentSchema }),
+    createComment: endpoint({ method: "POST", path: "/articles/:articleId/comments", pathParams: articleIdParam, body: CreateCommentRequestSchema, response: NoContentSchema }),
     presignArticleImage: endpoint({ method: "POST", path: "/uploads/presign-article", response: PresignArticleResponseSchema }),
     delete: endpoint({ method: "DELETE", path: "/articles/:articleId", pathParams: articleIdParam, response: NoContentSchema }),
     deleteComment: endpoint({ method: "DELETE", path: "/articles/:articleId/comments/:commentId", pathParams: articleIdParam.merge(commentIdParam), response: NoContentSchema }),
@@ -126,7 +126,7 @@ export const apiContract = {
   invitations: {
     list: endpoint({ method: "GET", path: "/invitations", response: z.array(InvitationListItemResponseSchema) }),
     //  TODO: Invitation Response 정하기 detail: endpoint({ method: "GET", path: "/invitations/:invitationId", pathParams: invitationIdParam, response: InvitationItemDetailResponseSchema }),
-    send: endpoint({ method: "POST", path: "/invitations", body: InvitationPostRequestSchema, response: SendInvitationResponseSchema }),
+    send: endpoint({ method: "POST", path: "/invitations", body: CreateInvitationRequestSchema, response: SendInvitationResponseSchema }),
     accept: endpoint({ method: "POST", path: "/invitations/:invitationId/accept", pathParams: invitationIdParam, response: AcceptInvitationResponseSchema }),
     reject: endpoint({ method: "POST", path: "/invitations/:invitationId/reject", pathParams: invitationIdParam, response: NoContentSchema }),
   },

@@ -17,7 +17,5 @@ export type UploadAndRegisterVars = {
   };
 };
 
-export type {
-  PresignArticleResponse,
-  PresignProfileResponse,
-} from "@/article/article.contracts";
+export type { PresignArticleResponse } from "@/article/article.contracts";
+export type { PresignProfileResponseSchema } from "@/member";

@@ -2,7 +2,7 @@ import { z } from "zod";
 import { InvitationIdSchema, MemberIdSchema, RoomIdSchema } from "@/common/schema/id.schema";
 import { NoContentSchema } from "@/common/schema/envelope.schema";
 
-export const InvitationPostRequestSchema = z.object({
+export const CreateInvitationRequestSchema = z.object({
   inviteeId: MemberIdSchema,
   message: z.string().min(1).max(500),
 });

@@ -7,14 +7,14 @@ import {
   FoodAnalysisResultSchema,
   PageArticleSummaryResponseSchema,
   ArticleListQuerySchema,
-  ArticlePostRequestSchema,
+  CreateArticleRequestSchema,
   ArticleSortBySchema,
-  CommentPostRequestSchema,
+  CreateCommentRequestSchema,
   PresignArticleResponseSchema,
 } from "./article.schema";
 
-export type ArticlePostRequest = z.infer<typeof ArticlePostRequestSchema>;
-export type CommentPostRequest = z.infer<typeof CommentPostRequestSchema>;
+export type CreateArticleRequest = z.infer<typeof CreateArticleRequestSchema>;
+export type CreateCommentRequest = z.infer<typeof CreateCommentRequestSchema>;
 export type ArticleSortBy = z.infer<typeof ArticleSortBySchema>;
 export type ArticleListQueryRequest = z.infer<typeof ArticleListQuerySchema>;
 

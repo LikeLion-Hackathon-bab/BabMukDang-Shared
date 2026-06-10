@@ -1,5 +1,16 @@
 import type { MemberId as UserId, RestaurantId, RoomId } from "@/common/contracts/id";
-import type { RestaurantResponse } from "@/restaurant/contracts/restaurant.response";
+import type { RestaurantResponse } from "@/restaurant/restaurant.contracts";
+import {
+  AnnouncementStage,
+  FinalState,
+  LocationCandidate,
+  LocationId,
+  Menu,
+  MenuCode,
+  Participant,
+} from "@/room";
+import { ChatMessage, InvitationStage } from "./types";
+import { ISODateString } from "@/common";
 
 export interface TimeStore {
   pickedByMember: Map<UserId, string[]>;
@@ -35,7 +46,7 @@ export interface RoomStore {
   stage: AnnouncementStage | InvitationStage;
   participants: Map<UserId, Participant>;
   recentMenu: Map<UserId, Menu[]>;
-  timeout?: NodeJS.Timeout;
+  timeout?: ISODateString;
   chat: ChatMessage[];
   meetingAt?: string;
   locationInitial?: string;

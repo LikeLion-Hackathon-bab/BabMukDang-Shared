@@ -30,7 +30,7 @@ export const FoodAnalysisResultSchema = FoodSchema.extend({
   tsUtc: ISODateTimeStringSchema.optional(),
 });
 
-export const ArticlePostRequestSchema = z.object({
+export const CreateArticleRequestSchema = z.object({
   imageUrl: z.string().url(),
   mealDate: ISODateStringSchema,
   restaurant: RestaurantSchema,
@@ -38,7 +38,7 @@ export const ArticlePostRequestSchema = z.object({
   foodAnalysis: FoodAnalysisResultSchema.optional(),
 });
 
-export const CommentPostRequestSchema = z.object({
+export const CreateCommentRequestSchema = z.object({
   content: z.string().min(1).max(500),
   parentCommentId: CommentIdSchema.nullish(),
 });

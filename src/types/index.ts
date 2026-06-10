@@ -4,40 +4,34 @@ export * from "./profile";
 export * from "./matching";
 export * from "./local-news";
 export * from "./ai";
-export * from "./friend";
 
-export type { UpdateMealStatusRequest } from "@/meal/contracts/meal.request";
 export type {
+  UpdateMealStatusRequest,
   MealStatus,
   MealStatusAction,
   MealStatusResponse,
-} from "@/meal/contracts/meal.response";
+} from "@/meal/meal.contracts";
 
 export type {
   AcceptInvitationResponse,
-  InvitationResponse,InvitationPostRequest,
+  InvitationResponse,
+  CreateInvitationRequest,
   SendInvitationResponse,
 } from "@/invitation/invitation.contracts";
 
-
-export type {
-  FoodPreferenceResponse as FoodPreferenceResponseDto,
-  FoodPreferenceType,
-} from "@/preference/contracts/preference.response";
-
+export type { MemberResponse, MemberResponse as User } from "@/member/member.contracts";
 
 export type {
   MeetingResponse,
   PlanResponse as PlanResponseDto,
   PlanStatus,
   PlanType,
-} from "@/plan/plan.contracts";
+} from "@/plan";
 
 /** @deprecated Use PlanResponseDto. */
-export type MeetingParticipant =
-  import("../domain/member/contracts/member.response").MemberResponse;
+export type MeetingParticipant = import("../domain/member/member.contracts").MemberResponse;
 
-export type { MemberCore as RecruitParticipantDto, } from "../domain";
+export type { MemberCore as RecruitParticipantDto } from "../domain";
 export type {
   CreateRecruitResponse as CreateRecruitResponseDto,
   RecruitListResponse as RecruitResponseDto,
@@ -48,15 +42,11 @@ export type { CreateRecruitRequest as RecruitRequestDto } from "@/recruit/recrui
 /** @deprecated Use RecruitRequestDto. */
 export type Recruit = import("../domain/recruit/recruit.contracts").CreateRecruitRequest;
 
-export type {
-  CouponResponse,
-  CouponStatus,
-  CouponType,
-} from "@/promotion/coupon.contracts";
+export type { CouponResponse, CouponStatus, CouponType } from "@/promotion";
 
 export type {
   ReferralCreateResponse,
   ReferralItemResponse,
   RedeemReferralRequest,
-} from "@/promotion/referral.contracts";
-export type { ClaimChallengeRewardRequest } from "@/promotion/challenge.contracts";
+} from "@/promotion";
+export type { ClaimChallengeRewardRequest } from "@/promotion";
