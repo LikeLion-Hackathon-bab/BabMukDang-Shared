@@ -1,2 +1,2 @@
-export * from "./contracts";
-export * from "./schema";
+export * from "./restaurant.contracts";
+export * from "./restaurant.schema";

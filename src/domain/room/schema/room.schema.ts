@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { ISODateStringSchema, ISODateTimeStringSchema } from "../../common/schema/date.schema";
-import { MemberIdSchema, RestaurantIdSchema, RoomIdSchema } from "../../common/schema/id.schema";
-import { MemberCoreSchema } from "../../member/schema/member.schema";
-import { RestaurantSchema } from "../../restaurant/schema/restaurant.schema";
+import { ISODateStringSchema, ISODateTimeStringSchema } from "@/common/schema/date.schema";
+import { MemberIdSchema, RestaurantIdSchema, RoomIdSchema } from "@/common/schema/id.schema";
+import { MemberCoreSchema } from "@/member";
+import { RestaurantSchema } from "@/restaurant/restaurant.schema";
 
 export const MenuCodeSchema = z.string().min(1).brand<"MenuCode">();
 export const LocationIdSchema = z.string().min(1).brand<"LocationId">();

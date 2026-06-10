@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ISODateTimeStringSchema } from "../../common/schema/date.schema";
+import { ISODateTimeStringSchema } from "@/common/schema/date.schema";
 
 export const MealStatusSchema = z.enum(["FED", "FASTING"]);
 export const MealStatusActionSchema = z.enum(["ATE_NOW", "SET_OFF"]);

@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { ISODateTimeStringSchema } from "../../common/schema/date.schema";
-import { MemberIdSchema } from "../../common/schema/id.schema";
-import { PresignUploadResponseSchema } from "../../common/contracts/upload";
+import { ISODateTimeStringSchema } from "../common/schema/date.schema";
+import { MemberIdSchema } from "../common/schema/id.schema";
+import { PresignUploadResponseSchema } from "../common/contracts/upload";
 
 export const MemberRoleSchema = z.enum(["USER", "ADMIN"]);
 
@@ -11,7 +11,7 @@ export const MemberCoreSchema = z.object({
   profileImageUrl: z.string().url().nullable().optional(),
 });
 
-export const PresignProfileResponseSchema = PresignUploadResponseSchema.extend({})
+export const PresignProfileResponseSchema = PresignUploadResponseSchema.extend({});
 
 export const MemberResponseSchema = MemberCoreSchema.pick({
   memberId: true,

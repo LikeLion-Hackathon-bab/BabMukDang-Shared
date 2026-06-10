@@ -6,8 +6,8 @@ import {
   PageResponseSchema,
   SortDirectionSchema,
 } from "@/common/schema/pagination.schema";
-import { MemberCoreSchema } from "@/member/schema/member.schema";
-import { RestaurantSchema } from "@/restaurant/schema/restaurant.schema";
+import { MemberCoreSchema } from "@/member/member.schema";
+import { RestaurantSchema } from "@/restaurant/restaurant.schema";
 import { PresignUploadResponseSchema } from "@/common/contracts/upload";
 
 export const ArticleSortBySchema = z.enum(["createdAt", "likeCount", "commentCount"]);

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { RestaurantIdSchema } from "../../common/schema/id.schema";
+import { RestaurantIdSchema } from "@/common/schema/id.schema";
 
 export const RestaurantSchema = z.object({
   restaurantId: RestaurantIdSchema,

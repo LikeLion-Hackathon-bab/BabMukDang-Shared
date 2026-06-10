@@ -1,2 +1,2 @@
-export * from "./contracts";
-export * from "./schema";
+export * from "./preference.contracts";
+export * from "./preference.schema";

@@ -6,20 +6,20 @@ import {
   PageArticleSummaryResponseSchema,
   ArticleListQuerySchema,
   PresignArticleResponseSchema,
-} from "@/article/article.schema";
+} from "@/article";
 import {
   LoginRequestSchema,
   SignupRequestSchema,
   SignupResponseSchema,
   TokenResponseSchema,
-} from "../../auth/auth.schema";
+} from "@/auth";
 import {
   ChallengeStatusResponseSchema,
   ClaimChallengeRewardRequestSchema,
   ClaimChallengeRewardResponseSchema,
-} from "../../promotion/challenge.schema";
-import { NoContentSchema } from "../schema/envelope.schema";
+} from "@/promotion/challenge.schema";
 import {
+  NoContentSchema,
   ArticleIdSchema,
   CommentIdSchema,
   CouponIdSchema,
@@ -28,7 +28,7 @@ import {
   MemberIdSchema,
   PlanIdSchema,
   RecruitIdSchema,
-} from "../schema/id.schema";
+} from "@/common";
 import {
   FriendBlockItemResponseSchema,
   FriendListItemResponseSchema,
@@ -38,17 +38,14 @@ import {
   FriendRequestItemResponseSchema,
   FriendSearchQuerySchema,
   FriendSerachResponseSchema,
-} from "../../friend/friend.schema";
+} from "@/friend";
 import {
   InvitationListItemResponseSchema,
   InvitationPostRequestSchema,
   SendInvitationResponseSchema,
   AcceptInvitationResponseSchema,
-} from "../../invitation/invitation.schema";
-import {
-  MealStatusResponseSchema,
-  UpdateMealStatusRequestSchema,
-} from "../../meal/schema/meal.schema";
+} from "@/invitation";
+import { MealStatusResponseSchema, UpdateMealStatusRequestSchema } from "@/meal";
 import {
   MemberResponseSchema,
   MemberSummaryResponseSchema,
@@ -58,24 +55,22 @@ import {
   PresignProfileResponseSchema,
   ProfileDetailResponseSchema,
   UpdateProfileRequestSchema,
-} from "../../member/schema/member.schema";
-import { PlanListQuerySchema, PlanResponseSchema } from "../../plan/plan.schema";
-import { FoodPreferenceResponseSchema } from "../../preference/schema/preference.schema";
+} from "@/member";
+import { PlanListQuerySchema, PlanResponseSchema } from "@/plan";
+import { FoodPreferenceResponseSchema } from "@/preference";
 import {
   CreateRecruitRequestSchema,
   CreateRecruitResponseSchema,
   RecruitListQuerySchema,
   RecruitListResponseSchema,
-} from "../../recruit/recruit.schema";
+} from "@/recruit";
 import {
   RedeemReferralRequestSchema,
   ReferralCreateResponseSchema,
   ReferralItemResponseSchema,
   CouponResponseSchema,
-} from "../../promotion";
+} from "@/promotion";
 import { endpoint } from "./endpoint";
-import { PageQuerySchema } from "../schema";
-import { PresignProfileResponse } from "../../../types";
 
 const memberIdParam = z.object({ memberId: MemberIdSchema });
 const authorIdParam = z.object({ memberId: MemberIdSchema });
@@ -100,15 +95,18 @@ export const apiContract = {
     me: endpoint({ method: "GET", path: "/members/me", response: MemberResponseSchema }),
     summary: endpoint({ method: "GET", path: "/members/me/summary", response: MemberSummaryResponseSchema }),
     detail: endpoint({ method: "GET", path: "/members/:memberId", pathParams: memberIdParam, response: ProfileDetailResponseSchema }),
-    myMealStatus: endpoint({ method: "GET", path: "/members/me/meal-status", response: MealStatusResponseSchema }),
-    onboarding: endpoint({ method: "POST", path: "/members/onboarding", body: OnboardingRequestSchema, response: PreferenceMetaResponseSchema }),
-    updateOnboardingPreferences: endpoint({ method: "PATCH", path: "/members/me/preferences", body: OnboardingPreferenceRequestSchema, response: PreferenceMetaResponseSchema }),
-    presignProfileImage: endpoint({ method: "POST", path: "/uploads/profiles/presign", response: PresignProfileResponseSchema }),
-    updateMyMealStatus: endpoint({ method: "PATCH", path: "/members/me/meal-status", body: UpdateMealStatusRequestSchema, response: NoContentSchema }),
+    presignProfileImage: endpoint({ method: "POST", path: "/uploads/presign-profile", response: PresignProfileResponseSchema }),
+    createProfile: endpoint({ method: "POST", path: "/members/onboarding", body: OnboardingRequestSchema, response: PreferenceMetaResponseSchema }),
     updateProfile: endpoint({ method: "PATCH", path: "/members/me/profile", body: UpdateProfileRequestSchema, response: ProfileDetailResponseSchema }),
+  },
+  mealStatus: {
+    my: endpoint({ method: "GET", path: "/members/me/meal-status", response: MealStatusResponseSchema }),
+    updateMyMealStatus: endpoint({ method: "PATCH", path: "/members/me/meal-status", body: UpdateMealStatusRequestSchema, response: NoContentSchema }),
   },
   preferences: {
     list: endpoint({ method: "GET", path: "/preferences", response: z.array(FoodPreferenceResponseSchema) }),
+    updatePreferences: endpoint({ method: "PATCH", path: "/members/me/preferences", body: OnboardingPreferenceRequestSchema, response: PreferenceMetaResponseSchema }),
+    
   },
   articles: {
     list: endpoint({ method: "GET", path: "/articles/home", query: ArticleListQuerySchema, response: PageArticleSummaryResponseSchema }),
@@ -117,7 +115,7 @@ export const apiContract = {
     detail: endpoint({ method: "GET", path: "/articles/:articleId", pathParams: articleIdParam, response: ArticleDetailResponseSchema }),
     create: endpoint({ method: "POST", path: "/articles", body: ArticlePostRequestSchema, response: NoContentSchema }),
     createComment: endpoint({ method: "POST", path: "/articles/:articleId/comments", pathParams: articleIdParam, body: CommentPostRequestSchema, response: NoContentSchema }),
-    presignArticleImage: endpoint({ method: "POST", path: "/uploads/articles/presign", response: PresignArticleResponseSchema }),
+    presignArticleImage: endpoint({ method: "POST", path: "/uploads/presign-article", response: PresignArticleResponseSchema }),
     delete: endpoint({ method: "DELETE", path: "/articles/:articleId", pathParams: articleIdParam, response: NoContentSchema }),
     deleteComment: endpoint({ method: "DELETE", path: "/articles/:articleId/comments/:commentId", pathParams: articleIdParam.merge(commentIdParam), response: NoContentSchema }),
   },

@@ -8,7 +8,18 @@ import {
   PreferenceMetaResponseSchema,
   ProfileDetailResponseSchema,
   ProfilePreferenceItemSchema,
-} from "../schema/member.schema";
+} from "./member.schema";
+import {
+  OnboardingPreferenceRequestSchema,
+  OnboardingRequestSchema,
+  PresignProfileResponseSchema,
+  UpdateProfileRequestSchema,
+} from "./member.schema";
+
+export type UpdateProfileRequest = z.infer<typeof UpdateProfileRequestSchema>;
+export type OnboardingPreferenceRequest = z.infer<typeof OnboardingPreferenceRequestSchema>;
+export type OnboardingRequest = z.infer<typeof OnboardingRequestSchema>;
+export type PresignProfileResponse = z.infer<typeof PresignProfileResponseSchema>;
 
 export type MemberRole = z.infer<typeof MemberRoleSchema>;
 export type MemberResponse = z.infer<typeof MemberResponseSchema>;

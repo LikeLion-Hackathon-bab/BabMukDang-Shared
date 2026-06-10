@@ -1,3 +1,4 @@
-export * from "./contracts";
-export * from "./schema";
-export * from "./types";
+export * from "./member.contracts";
+export * from "./member.schema";
+
+export type { MemberId, UserId } from "../common/contracts/id";
