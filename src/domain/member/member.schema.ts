@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { ISODateTimeStringSchema } from "../common/schema/date.schema";
 import { FoodSchema, MemberIdSchema } from "../common/schema/id.schema";
 import { PresignUploadResponseSchema } from "../common/contracts/upload";
 
@@ -30,14 +29,12 @@ export const AuthPrincipalSchema = z.object({
   role: MemberRoleSchema,
 });
 
-export const FoodPreferenceItemSchema = FoodSchema.extend({});
+const FoodPreferenceItemSchema = FoodSchema.extend({});
 
-export const ProfileDetailResponseSchema = MemberCoreSchema.extend({
-  bio: z.string().nullable(),
-  planCount: z.number().int().min(0),
-  likes: z.array(FoodPreferenceItemSchema),
-  dislikes: z.array(FoodPreferenceItemSchema),
-  allergies: z.array(FoodPreferenceItemSchema),
+export const MemberFoodPreferenceSchema = z.object({
+  liked: z.array(FoodPreferenceItemSchema).optional(),
+  disliked: z.array(FoodPreferenceItemSchema).optional(),
+  allergy: z.array(FoodPreferenceItemSchema).optional(),
 });
 
 export const UpdateProfileRequestSchema = z.object({
@@ -46,18 +43,8 @@ export const UpdateProfileRequestSchema = z.object({
   bio: z.string().max(500).nullable(),
 });
 
-export const OnboardingPreferenceRequestSchema = z.object({
-  likedCodes: z.array(z.string()),
-  dislikedCodes: z.array(z.string()),
-  allergyCodes: z.array(z.string()),
-});
+export const UpdatePreferenceRequestSchema = MemberFoodPreferenceSchema;
 
 export const OnboardingRequestSchema = UpdateProfileRequestSchema.merge(
   OnboardingPreferenceRequestSchema,
 );
-
-export const PreferenceMetaResponseSchema = z.object({
-  onboardedAt: ISODateTimeStringSchema.nullable(),
-  lastUpdatedAt: ISODateTimeStringSchema.nullable(),
-  revision: z.number().int().min(0),
-});
