@@ -1,16 +1,20 @@
 import { z } from "zod";
 import { ISODateStringSchema, ISODateTimeStringSchema } from "@/common/schema/date.schema";
-import { MemberIdSchema, RestaurantIdSchema, RoomIdSchema } from "@/common/schema/id.schema";
+import {
+  FoodCodeSchema,
+  FoodLabelSchema,
+  FoodSchema,
+  MemberIdSchema,
+  RestaurantIdSchema,
+  RoomIdSchema,
+} from "@/common/schema/id.schema";
 import { MemberCoreSchema } from "@/member";
 import { RestaurantSchema } from "@/restaurant/restaurant.schema";
 
-export const MenuCodeSchema = z.string().min(1).brand<"MenuCode">();
+export const MenuCodeSchema = FoodCodeSchema;
 export const LocationIdSchema = z.string().min(1).brand<"LocationId">();
 
-export const MenuSchema = z.object({
-  code: MenuCodeSchema,
-  label: z.string(),
-});
+export const MenuSchema = FoodSchema.extend({});
 
 export const LocationCandidateSchema = z.object({
   locationId: LocationIdSchema,

@@ -3,6 +3,9 @@ import {
   ArticleIdSchema,
   CommentIdSchema,
   CouponIdSchema,
+  FoodCodeSchema,
+  FoodLabelSchema,
+  FoodSchema,
   FriendRequestIdSchema,
   InvitationIdSchema,
   MemberIdSchema,
@@ -31,6 +34,10 @@ export type CouponId = z.infer<typeof CouponIdSchema>;
 export type SubscriptionId = z.infer<typeof SubscriptionIdSchema>;
 export type FriendRequestId = z.infer<typeof FriendRequestIdSchema>;
 export type ReferralCode = z.infer<typeof ReferralCodeSchema>;
+
+export type FoodCode = z.infer<typeof FoodCodeSchema>;
+export type FoodLabel = z.infer<typeof FoodLabelSchema>;
+export type Food = z.infer<typeof FoodSchema>;
 
 export const toMemberId = (value: number): MemberId => MemberIdSchema.parse(value);
 export const toArticleId = (value: number): ArticleId => ArticleIdSchema.parse(value);

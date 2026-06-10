@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { ISODateTimeStringSchema } from "../common/schema/date.schema";
-import { MemberIdSchema } from "../common/schema/id.schema";
+import { FoodSchema, MemberIdSchema } from "../common/schema/id.schema";
 import { PresignUploadResponseSchema } from "../common/contracts/upload";
 
 export const MemberRoleSchema = z.enum(["USER", "ADMIN"]);
@@ -30,17 +30,14 @@ export const AuthPrincipalSchema = z.object({
   role: MemberRoleSchema,
 });
 
-export const ProfilePreferenceItemSchema = z.object({
-  code: z.string(),
-  label: z.string(),
-});
+export const FoodPreferenceItemSchema = FoodSchema.extend({});
 
 export const ProfileDetailResponseSchema = MemberCoreSchema.extend({
   bio: z.string().nullable(),
   planCount: z.number().int().min(0),
-  likes: z.array(ProfilePreferenceItemSchema),
-  dislikes: z.array(ProfilePreferenceItemSchema),
-  allergies: z.array(ProfilePreferenceItemSchema),
+  likes: z.array(FoodPreferenceItemSchema),
+  dislikes: z.array(FoodPreferenceItemSchema),
+  allergies: z.array(FoodPreferenceItemSchema),
 });
 
 export const UpdateProfileRequestSchema = z.object({

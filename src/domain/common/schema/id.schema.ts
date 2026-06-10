@@ -16,3 +16,11 @@ export const CouponIdSchema = PositiveIntIdSchema.brand<"CouponId">();
 export const SubscriptionIdSchema = PositiveIntIdSchema.brand<"SubscriptionId">();
 export const FriendRequestIdSchema = PositiveIntIdSchema.brand<"FriendRequestId">();
 export const ReferralCodeSchema = z.string().min(4).max(64).brand<"ReferralCode">();
+
+export const FoodCodeSchema = NonEmptyStringIdSchema.brand<"FoodCode">();
+export const FoodLabelSchema = NonEmptyStringIdSchema.brand<"FoodLabel">();
+
+export const FoodSchema = z.object({
+  code: FoodCodeSchema,
+  label: FoodLabelSchema,
+});

@@ -1,6 +1,5 @@
 import { z } from "zod";
-import { ISODateTimeStringSchema } from "../../common/schema/date.schema";
-import { MemberIdSchema } from "../../common/schema/id.schema";
+import { MemberIdSchema, ISODateTimeStringSchema } from "@/common";
 
 export const FoodPreferenceTypeSchema = z.enum(["LIKE", "DISLIKE", "ALLERGY"]);
 export const FoodPreferenceResponseSchema = z.object({

@@ -7,7 +7,7 @@ import {
   MemberSummaryResponseSchema,
   PreferenceMetaResponseSchema,
   ProfileDetailResponseSchema,
-  ProfilePreferenceItemSchema,
+  FoodPreferenceItemSchema,
 } from "./member.schema";
 import {
   OnboardingPreferenceRequestSchema,
@@ -26,7 +26,7 @@ export type MemberResponse = z.infer<typeof MemberResponseSchema>;
 export type MemberCore = z.infer<typeof MemberCoreSchema>;
 export type MemberSummaryResponse = z.infer<typeof MemberSummaryResponseSchema>;
 export type AuthPrincipal = z.infer<typeof AuthPrincipalSchema>;
-export type ProfilePreferenceItem = z.infer<typeof ProfilePreferenceItemSchema>;
+export type FoodPreferenceItem = z.infer<typeof FoodPreferenceItemSchema>;
 export type ProfileDetailResponse = z.infer<typeof ProfileDetailResponseSchema>;
 export type PreferenceMetaResponse = z.infer<typeof PreferenceMetaResponseSchema>;
 /** @deprecated Use MemberResponse. */

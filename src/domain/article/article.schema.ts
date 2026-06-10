@@ -1,6 +1,13 @@
 import { z } from "zod";
 import { ISODateStringSchema, ISODateTimeStringSchema } from "@/common/schema/date.schema";
-import { ArticleIdSchema, CommentIdSchema, MemberIdSchema } from "@/common/schema/id.schema";
+import {
+  ArticleIdSchema,
+  CommentIdSchema,
+  FoodCodeSchema,
+  FoodLabelSchema,
+  FoodSchema,
+  MemberIdSchema,
+} from "@/common/schema/id.schema";
 import {
   PageQuerySchema,
   PageResponseSchema,
@@ -18,9 +25,7 @@ export const ArticleListQuerySchema = PageQuerySchema.extend({
 });
 export const PresignArticleResponseSchema = PresignUploadResponseSchema.extend({});
 
-export const FoodAnalysisResultSchema = z.object({
-  code: z.string(),
-  label: z.string(),
+export const FoodAnalysisResultSchema = FoodSchema.extend({
   confidence: z.number().min(0).max(1),
   tsUtc: ISODateTimeStringSchema.optional(),
 });
