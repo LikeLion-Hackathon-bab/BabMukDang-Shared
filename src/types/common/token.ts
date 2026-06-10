@@ -1,1 +1,1 @@
-export type { TokenResponse } from "../../domain/auth/contracts/auth.response";
+export type { TokenResponse } from "../../domain/auth/auth.contracts";
