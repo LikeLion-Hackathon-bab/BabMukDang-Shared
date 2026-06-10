@@ -18,15 +18,18 @@ export const MemberResponseSchema = MemberCoreSchema.pick({
   profileImageUrl: true,
 });
 
-export const MemberSummaryResponseSchema = MemberCoreSchema.extend({
-  friends: z.number().int().min(0).default(0),
-  completedPlans: z.number().int().min(0).default(0),
-  uncompletedPlans: z.number().int().min(0).default(0),
+export const MemberSearchQuerySchema = z.object({
+  email: z.string().email().optional(),
+  username: z.string().optional(),
 });
 
-export const AuthPrincipalSchema = z.object({
-  memberId: MemberIdSchema,
-  role: MemberRoleSchema,
+export const MemberSerachResponseSchema = z.array(MemberCoreSchema);
+
+export const MemberDetailSchema = MemberCoreSchema.extend({
+  bio: z.string().nullable(),
+  friendConunt: z.number().int().min(0).default(0),
+  completedPlans: z.number().int().min(0).default(0),
+  uncompletedPlans: z.number().int().min(0).default(0),
 });
 
 const FoodPreferenceItemSchema = FoodSchema.extend({});
@@ -37,6 +40,8 @@ export const MemberFoodPreferenceSchema = z.object({
   allergy: z.array(FoodPreferenceItemSchema).optional(),
 });
 
+export const ProfileDetailResponseSchema = MemberDetailSchema;
+
 export const UpdateProfileRequestSchema = z.object({
   username: z.string().min(1).max(50),
   profileImageUrl: z.string().url().nullable(),
@@ -45,6 +50,6 @@ export const UpdateProfileRequestSchema = z.object({
 
 export const UpdatePreferenceRequestSchema = MemberFoodPreferenceSchema;
 
-export const OnboardingRequestSchema = UpdateProfileRequestSchema.merge(
-  OnboardingPreferenceRequestSchema,
+export const CreateProfileRequestSchema = UpdateProfileRequestSchema.merge(
+  UpdatePreferenceRequestSchema,
 );

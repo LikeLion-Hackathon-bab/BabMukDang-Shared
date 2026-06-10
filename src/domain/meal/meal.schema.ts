@@ -1,15 +1,25 @@
 import { z } from "zod";
-import { ISODateTimeStringSchema } from "@/common/schema/date.schema";
+import { ISODateStringSchema, ISODateTimeStringSchema } from "@/common/schema/date.schema";
+import { MemberCoreSchema } from "@/member";
 
-export const MealStatusSchema = z.enum(["FED", "FASTING"]);
-export const MealStatusActionSchema = z.enum(["ATE_NOW", "SET_OFF"]);
-export const UpdateMealStatusRequestSchema = z.object({
-  action: MealStatusActionSchema,
-});
 export const MealStatusResponseSchema = z.object({
-  status: MealStatusSchema,
-  lastMealAt: ISODateTimeStringSchema.nullable(),
-  fastingMinutes: z.number().int().min(0),
-  fastingHours: z.number().min(0),
+  hungry: z.boolean(),
+  label: z.string(),
+  updatedAt: ISODateStringSchema,
   secondsToAutoOff: z.number().int().min(0),
+});
+
+export const MealStatusActionSchema = z.enum(["ARTICLE_UPLOAD", "SET_MANNUALY"]);
+export const UpdateMealStatusRequestSchema = z.object({
+  action: MealStatusActionSchema.optional().default("SET_MANNUALY"),
+});
+
+export const MealStatusSchema = z.enum(["ALL", "HUNGRY", "NOT_HUNGRY"]);
+export const FriendMealQuerySchema = z.object({
+  status: MealStatusSchema.optional().default("ALL"),
+});
+export const FriendMealItemResponseSchema = MemberCoreSchema.extend({
+  hungry: z.boolean(),
+  label: z.string(),
+  updatedAt: ISODateStringSchema,
 });
