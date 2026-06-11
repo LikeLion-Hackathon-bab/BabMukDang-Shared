@@ -3,6 +3,7 @@ import {
   CreateArticleRequestSchema,
   CreateCommentRequestSchema,
   ArticleDetailResponseSchema,
+  ArticleLikeResponseSchema,
   PageArticleSummaryResponseSchema,
   ArticleListQuerySchema,
   PresignArticleResponseSchema,
@@ -22,6 +23,7 @@ import {
   ArticleIdSchema,
   CommentIdSchema,
   CouponIdSchema,
+  CreatedEntityIdResponseSchema,
   FriendRequestIdSchema,
   InvitationIdSchema,
   MemberIdSchema,
@@ -54,6 +56,7 @@ import {
   UpdateProfileRequestSchema,
   MemberSerachResponseSchema,
   MemberSearchQuerySchema,
+  MemberFoodPreferenceSchema,
 } from "@/member";
 import { PlanListQuerySchema, PlanResponseSchema } from "@/plan";
 import {
@@ -71,7 +74,6 @@ import {
 import { endpoint } from "./endpoint";
 
 const memberIdParam = z.object({ memberId: MemberIdSchema });
-const authorIdParam = z.object({ memberId: MemberIdSchema });
 const articleIdParam = z.object({ articleId: ArticleIdSchema });
 const commentIdParam = z.object({ commentId: CommentIdSchema });
 const recruitIdParam = z.object({ recruitId: RecruitIdSchema });
@@ -97,7 +99,10 @@ export const apiContract = {
     presignProfileImage: endpoint({ method: "POST", path: "/uploads/presign-profile", response: PresignProfileResponseSchema }),
     createProfile: endpoint({ method: "POST", path: "/members/onboarding", body: CreateProfileRequestSchema, response: NoContentSchema }),
     updateProfile: endpoint({ method: "PATCH", path: "/members/me/profile", body: UpdateProfileRequestSchema, response: NoContentSchema }),
-    updatePreferences: endpoint({ method: "PATCH", path: "/members/me/preferences", body: UpdatePreferenceRequestSchema, response: NoContentSchema }),
+  },
+  preferences: {
+    my: endpoint({ method: "GET", path: "/preferences/me", response: MemberFoodPreferenceSchema }),
+    update: endpoint({ method: "PATCH", path: "/preferences/me", body: UpdatePreferenceRequestSchema, response: NoContentSchema }),
   },
   mealStatus: {
     my: endpoint({ method: "GET", path: "/meal-status", response: MealStatusResponseSchema }),
@@ -107,14 +112,15 @@ export const apiContract = {
   },
   articles: {
     list: endpoint({ method: "GET", path: "/articles/home", query: ArticleListQuerySchema, response: PageArticleSummaryResponseSchema }),
-    byAuthor: endpoint({ method: "GET", path: "/articles/by-author/:authorId", pathParams: authorIdParam, response: PageArticleSummaryResponseSchema }),
+    byMember: endpoint({ method: "GET", path: "/articles/by-author/:memberId", pathParams: memberIdParam, query: ArticleListQuerySchema, response: PageArticleSummaryResponseSchema }),
     my: endpoint({ method: "GET", path: "/articles/my", response: PageArticleSummaryResponseSchema }),
     detail: endpoint({ method: "GET", path: "/articles/:articleId", pathParams: articleIdParam, response: ArticleDetailResponseSchema }),
-    create: endpoint({ method: "POST", path: "/articles", body: CreateArticleRequestSchema, response: NoContentSchema }),
-    createComment: endpoint({ method: "POST", path: "/articles/:articleId/comments", pathParams: articleIdParam, body: CreateCommentRequestSchema, response: NoContentSchema }),
+    create: endpoint({ method: "POST", path: "/articles", body: CreateArticleRequestSchema, response: CreatedEntityIdResponseSchema }),
+    like: endpoint({ method: "POST", path: "/articles/:articleId/like", pathParams: articleIdParam, response: ArticleLikeResponseSchema }),
+    createComment: endpoint({ method: "POST", path: "/articles/:articleId/comments", pathParams: articleIdParam, body: CreateCommentRequestSchema, response: CreatedEntityIdResponseSchema }),
     presignArticleImage: endpoint({ method: "POST", path: "/uploads/presign-article", response: PresignArticleResponseSchema }),
     delete: endpoint({ method: "DELETE", path: "/articles/:articleId", pathParams: articleIdParam, response: NoContentSchema }),
-    deleteComment: endpoint({ method: "DELETE", path: "/articles/:articleId/comments/:commentId", pathParams: articleIdParam.merge(commentIdParam), response: NoContentSchema }),
+    deleteComment: endpoint({ method: "DELETE", path: "/articles/comments/:commentId", pathParams: commentIdParam, response: NoContentSchema }),
     // TODO: 게시물 수정 기능
   },
   recruits: {
@@ -139,8 +145,8 @@ export const apiContract = {
     list: endpoint({ method: "GET", path: "/friends", response: z.array(FriendListItemResponseSchema) }),
     blockList: endpoint({ method: "GET", path: "/friends/blocks", response: z.array(FriendBlockItemResponseSchema) }),
     incomingRequest: endpoint({ method: "GET", path: "/friends/requests/incoming", response: z.array(FriendRequestItemResponseSchema) }),
-    outgoingRequest: endpoint({ method: "GET", path: "/friends/requests/outgoint", response: z.array(FriendRequestItemResponseSchema) }),
-    sendRequest: endpoint({ method: "POST", path: "/friends/requests/:memberId", pathParams: friendRequestIdParam, response: NoContentSchema }),
+    outgoingRequest: endpoint({ method: "GET", path: "/friends/requests/outgoing", response: z.array(FriendRequestItemResponseSchema) }),
+    sendRequest: endpoint({ method: "POST", path: "/friends/requests/:memberId", pathParams: memberIdParam, response: NoContentSchema }),
     acceptRequest: endpoint({ method: "POST", path: "/friends/requests/:requestId/accept", pathParams: friendRequestIdParam, response: NoContentSchema }),
     rejectRequest: endpoint({ method: "POST", path: "/friends/requests/:requestId/reject", pathParams: friendRequestIdParam, response: NoContentSchema }),
     block: endpoint({ method: "POST", path: "/friends/blocks/:memberId",pathParams: memberIdParam,  response: NoContentSchema }),

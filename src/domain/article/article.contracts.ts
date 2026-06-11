@@ -3,6 +3,7 @@ import {
   ArticleCommentSchema,
   ArticleCoreSchema,
   ArticleDetailResponseSchema,
+  ArticleLikeResponseSchema,
   ArticleSummaryResponseSchema,
   FoodAnalysisResultSchema,
   PageArticleSummaryResponseSchema,
@@ -20,6 +21,7 @@ export type ArticleListQueryRequest = z.infer<typeof ArticleListQuerySchema>;
 
 export type FoodAnalysisResult = z.infer<typeof FoodAnalysisResultSchema>;
 export type ArticleSummaryResponse = z.infer<typeof ArticleSummaryResponseSchema>;
+export type ArticleLikeResponse = z.infer<typeof ArticleLikeResponseSchema>;
 export type ArticleDetailResponse = z.infer<typeof ArticleDetailResponseSchema>;
 export type PageArticleSummaryResponse = z.infer<typeof PageArticleSummaryResponseSchema>;
 export type PresignArticleResponse = z.infer<typeof PresignArticleResponseSchema>;

@@ -70,6 +70,11 @@ export const ArticleSummaryResponseSchema = ArticleCoreSchema.extend({
   likedByMe: z.boolean(),
 });
 
+export const ArticleLikeResponseSchema = z.object({
+  liked: z.boolean(),
+  likeCount: z.number().int().min(0),
+});
+
 export const ArticleDetailResponseSchema = ArticleSummaryResponseSchema.extend({
   comments: z.array(ArticleCommentSchema).optional(),
 });
