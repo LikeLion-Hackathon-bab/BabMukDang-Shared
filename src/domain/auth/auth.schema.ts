@@ -3,7 +3,6 @@ import { MemberCoreSchema } from "@/member/member.schema";
 
 export const TokenResponseSchema = z.object({
   accessToken: z.string().min(1),
-  accessTokenMaxAge: z.number().int().positive(),
 });
 
 export const LoginRequestSchema = z.object({

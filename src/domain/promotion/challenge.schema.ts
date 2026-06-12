@@ -11,7 +11,10 @@ const MonthProgressSchema = z.object({
   goal: z.number().int().positive(),
 });
 export const ChallengeStatusResponseSchema = z.object({
-  count: z.number().int().min(0),
+  week: WeekProgressSchema,
+  month: MonthProgressSchema,
+  weekRewardAvailable: z.boolean(),
+  monthRewardAvailable: z.boolean(),
 });
 export const ClaimChallengeRewardRequestSchema = z.object({
   type: RewardTypeSchema,

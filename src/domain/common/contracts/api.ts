@@ -93,9 +93,9 @@ export const apiContract = {
   },
   members: {
     me: endpoint({ method: "GET", path: "/members/me", response: MemberResponseSchema }),
-    myProfile: endpoint({ method: "GET", path: "/members/me/detail", response: ProfileDetailResponseSchema }),
+    myProfile: endpoint({ method: "GET", path: "/members/me/profile", response: ProfileDetailResponseSchema }),
     search: endpoint({ method: "GET", path: "/members/search", query: MemberSearchQuerySchema ,response: MemberSerachResponseSchema }),
-    memberProfile: endpoint({ method: "GET", path: "/members/:memberId", pathParams: memberIdParam, response: ProfileDetailResponseSchema }),
+    memberProfile: endpoint({ method: "GET", path: "/members/:memberId/profile", pathParams: memberIdParam, response: ProfileDetailResponseSchema }),
     presignProfileImage: endpoint({ method: "POST", path: "/uploads/presign-profile", response: PresignProfileResponseSchema }),
     createProfile: endpoint({ method: "POST", path: "/members/onboarding", body: CreateProfileRequestSchema, response: NoContentSchema }),
     updateProfile: endpoint({ method: "PATCH", path: "/members/me/profile", body: UpdateProfileRequestSchema, response: NoContentSchema }),
@@ -105,9 +105,9 @@ export const apiContract = {
     update: endpoint({ method: "PATCH", path: "/preferences/me", body: UpdatePreferenceRequestSchema, response: NoContentSchema }),
   },
   mealStatus: {
-    my: endpoint({ method: "GET", path: "/meal-status", response: MealStatusResponseSchema }),
-    updateMealStatus: endpoint({ method: "PATCH", path: "/meal-status", body: UpdateMealStatusRequestSchema, response: NoContentSchema }),
-    friendMealStatus: endpoint({ method: "GET", path: "/meal-status/friend", query: FriendMealQuerySchema, response: z.array(FriendMealItemResponseSchema) }),
+    my: endpoint({ method: "GET", path: "/members/me/meal-status", response: MealStatusResponseSchema }),
+    updateMealStatus: endpoint({ method: "PATCH", path: "/members/me/meal-status", body: UpdateMealStatusRequestSchema, response: NoContentSchema }),
+    friendMealStatus: endpoint({ method: "GET", path: "/friends/me/meals", query: FriendMealQuerySchema, response: z.array(FriendMealItemResponseSchema) }),
     
   },
   articles: {
@@ -127,12 +127,12 @@ export const apiContract = {
     list: endpoint({ method: "GET", path: "/recruits", query: RecruitListQuerySchema, response: RecruitListResponseSchema }),
     create: endpoint({ method: "POST", path: "/recruits", body: CreateRecruitRequestSchema, response: CreateRecruitResponseSchema }),
     join: endpoint({ method: "POST", path: "/recruits/:recruitId/join", pathParams: recruitIdParam, response: NoContentSchema }),
-    close: endpoint({ method: "PATCH", path: "/recruits/:recruitId/close", pathParams: recruitIdParam, response: NoContentSchema }),
+    close: endpoint({ method: "POST", path: "/recruits/:recruitId/close", pathParams: recruitIdParam, response: NoContentSchema }),
   },
   invitations: {
     list: endpoint({ method: "GET", path: "/invitations", response: z.array(InvitationListItemResponseSchema) }),
     //  TODO: Invitation Response 정하기 detail: endpoint({ method: "GET", path: "/invitations/:invitationId", pathParams: invitationIdParam, response: InvitationItemDetailResponseSchema }),
-    send: endpoint({ method: "POST", path: "/invitations", body: CreateInvitationRequestSchema, response: SendInvitationResponseSchema }),
+    send: endpoint({ method: "POST", path: "/invitations/send", body: CreateInvitationRequestSchema, response: SendInvitationResponseSchema }),
     accept: endpoint({ method: "POST", path: "/invitations/:invitationId/accept", pathParams: invitationIdParam, response: AcceptInvitationResponseSchema }),
     reject: endpoint({ method: "POST", path: "/invitations/:invitationId/reject", pathParams: invitationIdParam, response: NoContentSchema }),
   },
@@ -156,7 +156,7 @@ export const apiContract = {
   },
   coupons: {
     list: endpoint({ method: "GET", path: "/coupons", response: z.array(CouponResponseSchema) }),
-    use: endpoint({ method: "PATCH", path: "/coupons/:couponId/use", pathParams: couponIdParam, response: NoContentSchema }),
+    use: endpoint({ method: "POST", path: "/coupons/:couponId/use", pathParams: couponIdParam, response: NoContentSchema }),
   },
   challenges: {
     status: endpoint({ method: "GET", path: "/challenges/status", response: ChallengeStatusResponseSchema }),
