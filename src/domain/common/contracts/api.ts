@@ -29,7 +29,8 @@ import {
   MemberIdSchema,
   PlanIdSchema,
   RecruitIdSchema,
-} from "@/common";
+  RoomIdSchema,
+} from "@/common/schema";
 import {
   FriendBlockItemResponseSchema,
   FriendListItemResponseSchema,
@@ -65,6 +66,7 @@ import {
   RecruitListQuerySchema,
   RecruitListResponseSchema,
 } from "@/recruit";
+import { MatchingNotificationSchema, RoomAccessResponseSchema } from "@/room";
 import {
   RedeemReferralRequestSchema,
   ReferralCreateResponseSchema,
@@ -77,6 +79,7 @@ const memberIdParam = z.object({ memberId: MemberIdSchema });
 const articleIdParam = z.object({ articleId: ArticleIdSchema });
 const commentIdParam = z.object({ commentId: CommentIdSchema });
 const recruitIdParam = z.object({ recruitId: RecruitIdSchema });
+const roomIdParam = z.object({ roomId: RoomIdSchema });
 const invitationIdParam = z.object({ invitationId: InvitationIdSchema });
 const planIdParam = z.object({ planId: PlanIdSchema });
 const couponIdParam = z.object({ couponId: CouponIdSchema });
@@ -167,8 +170,11 @@ export const apiContract = {
     create: endpoint({ method: "POST", path: "/referrals", response: ReferralCreateResponseSchema }),
     redeem: endpoint({ method: "POST", path: "/referrals/redeem", body: RedeemReferralRequestSchema, response: NoContentSchema }),
   },
+  notifications: {
+    list: endpoint({ method: "GET", path: "/sse/notifications/inbox", response: z.array(MatchingNotificationSchema) }),
+  },
   room:{
-    //TODO: 방 입장 기능
+    access: endpoint({ method: "GET", path: "/rooms/:roomId/access", pathParams: roomIdParam, response: RoomAccessResponseSchema }),
   },
   health:{
     healthCheck: endpoint({method:"GET", path:"/", response: z.string()})

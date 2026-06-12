@@ -38,6 +38,8 @@ export const RecruitRoomStageSchema = z.enum([
   "finish",
 ]);
 
+export const RoomTypeSchema = z.enum(["announcement", "invitation"]);
+
 export const InvitationRoomStageSchema = z.enum([
   "waiting",
   "date",
@@ -68,6 +70,25 @@ export const PickDateRequestSchema = z.object({ dates: z.array(ISODateStringSche
 
 export const RoomAssignedResponseSchema = z.object({
   roomId: RoomIdSchema,
+});
+
+export const RoomAccessResponseSchema = z.object({
+  roomId: RoomIdSchema,
+  roomType: RoomTypeSchema,
+  stage: z.union([RecruitRoomStageSchema, InvitationRoomStageSchema]),
+  canJoin: z.boolean(),
+});
+
+export const MatchingNotificationKindSchema = z.enum(["recruit", "invitation"]);
+
+export const MatchingNotificationSchema = z.object({
+  notificationId: z.string().min(1),
+  kind: MatchingNotificationKindSchema,
+  roomId: RoomIdSchema,
+  roomType: RoomTypeSchema,
+  title: z.string().min(1),
+  message: z.string().min(1),
+  createdAt: ISODateTimeStringSchema,
 });
 
 export const RoomSocketErrorSchema = z.object({
