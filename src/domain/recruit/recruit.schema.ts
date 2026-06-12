@@ -2,7 +2,7 @@ import { z } from "zod";
 import { ISODateTimeStringSchema } from "@/common/schema/date.schema";
 import { RecruitIdSchema } from "@/common/schema/id.schema";
 import { MemberCoreSchema } from "@/member/member.schema";
-import { PageQuerySchema, SortDirectionSchema } from "@/common";
+import { PageQuerySchema, PageResponseSchema, SortDirectionSchema } from "@/common";
 
 export const RecruitStatusSchema = z.enum(["OPEN", "CLOSED", "EXPIRED"]);
 
@@ -29,7 +29,7 @@ const RecruitResponseSchema = z.object({
   participants: z.array(RecruitParticipantSchema),
 });
 
-export const RecruitListResponseSchema = z.array(RecruitResponseSchema);
+export const RecruitListResponseSchema = PageResponseSchema(RecruitResponseSchema);
 
 export const CreateRecruitRequestSchema = z.object({
   targetCount: z.number().int().min(2),
