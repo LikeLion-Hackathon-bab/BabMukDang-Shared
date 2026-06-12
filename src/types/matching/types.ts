@@ -1,12 +1,11 @@
 import type {
-  AnnouncementStage,
   InvitationRoomStage,
   LocationCandidate,
   Menu,
+  RecruitRoomStage,
 } from "@/room/contracts/room-payloads";
 
 export type {
-  AnnouncementStage,
   FinalState,
   InvitationRoomStage as InvitationStage,
   LocationCandidate,
@@ -17,7 +16,7 @@ export type {
   RecruitRoomStage,
 } from "@/room/contracts/room-payloads";
 
-export const AnnouncementStageMap: Record<AnnouncementStage, number> = {
+export const RecruitStageMap: Record<RecruitRoomStage, number> = {
   waiting: 1,
   location: 2,
   "location-vote": 3,

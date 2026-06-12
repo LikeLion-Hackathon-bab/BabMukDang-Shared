@@ -81,6 +81,7 @@ const commentIdParam = z.object({ commentId: CommentIdSchema });
 const recruitIdParam = z.object({ recruitId: RecruitIdSchema });
 const roomIdParam = z.object({ roomId: RoomIdSchema });
 const invitationIdParam = z.object({ invitationId: InvitationIdSchema });
+const notificationIdParam = z.object({ notificationId: z.string().min(1) });
 const planIdParam = z.object({ planId: PlanIdSchema });
 const couponIdParam = z.object({ couponId: CouponIdSchema });
 const friendRequestIdParam = z.object({ requestId: FriendRequestIdSchema });
@@ -171,7 +172,9 @@ export const apiContract = {
     redeem: endpoint({ method: "POST", path: "/referrals/redeem", body: RedeemReferralRequestSchema, response: NoContentSchema }),
   },
   notifications: {
-    list: endpoint({ method: "GET", path: "/sse/notifications/inbox", response: z.array(MatchingNotificationSchema) }),
+    list: endpoint({ method: "GET", path: "/notifications", response: z.array(MatchingNotificationSchema) }),
+    markRead: endpoint({ method: "PATCH", path: "/notifications/:notificationId/read", pathParams: notificationIdParam, response: MatchingNotificationSchema }),
+    delete: endpoint({ method: "DELETE", path: "/notifications/:notificationId", pathParams: notificationIdParam, response: NoContentSchema }),
   },
   room:{
     access: endpoint({ method: "GET", path: "/rooms/:roomId/access", pathParams: roomIdParam, response: RoomAccessResponseSchema }),

@@ -38,7 +38,7 @@ export const RecruitRoomStageSchema = z.enum([
   "finish",
 ]);
 
-export const RoomTypeSchema = z.enum(["announcement", "invitation"]);
+export const RoomTypeSchema = z.enum(["recruit", "invitation"]);
 
 export const InvitationRoomStageSchema = z.enum([
   "waiting",
@@ -89,6 +89,7 @@ export const MatchingNotificationSchema = z.object({
   title: z.string().min(1),
   message: z.string().min(1),
   createdAt: ISODateTimeStringSchema,
+  readAt: ISODateTimeStringSchema.nullable(),
 });
 
 export const RoomSocketErrorSchema = z.object({
@@ -123,11 +124,6 @@ export const RoomInitialStateSchema = z.object({
   final: FinalStateSchema,
 });
 
-export const PhaseDataBroadcastSchema = z.object({
-  phase: z.union([RecruitRoomStageSchema, InvitationRoomStageSchema]),
-  data: z.unknown(),
-});
-
 export const TimePicksUpdateResponseSchema = z.array(
   z.object({ memberId: MemberIdSchema, times: z.array(z.string()) }),
 );
@@ -149,6 +145,43 @@ export const MenuPickUpdateResponseSchema = z.array(
 export const RestaurantPickUpdateResponseSchema = z.array(
   z.object({ restaurantId: RestaurantIdSchema, selectedMembers: z.array(MemberIdSchema) }),
 );
+
+const WaitingPhaseDataSchema = z.object({
+  locationInitial: z.string().optional(),
+  meetingAt: ISODateTimeStringSchema.optional(),
+});
+
+const LocationVotePhaseDataSchema = z.object({
+  locations: LocationCandidateAddUpdateResponseSchema,
+  votes: LocationCandidateVoteUpdateResponseSchema,
+});
+
+const ExcludeMenuPhaseDataSchema = z.object({
+  recentMenus: z.array(z.object({ userId: z.string(), menuList: z.array(MenuSchema) })),
+  excludedMenuList: ExcludeMenuUpdateResponseSchema,
+});
+
+const MenuPhaseDataSchema = z.object({
+  initialMenus: z.array(MenuSchema),
+  menuPick: MenuPickUpdateResponseSchema,
+});
+
+const RestaurantPhaseDataSchema = z.object({
+  initialRestaurants: z.array(RestaurantSchema),
+  restaurantUserList: RestaurantPickUpdateResponseSchema,
+});
+
+export const PhaseDataBroadcastSchema = z.discriminatedUnion("phase", [
+  z.object({ phase: z.literal("waiting"), data: WaitingPhaseDataSchema }),
+  z.object({ phase: z.literal("date"), data: DatePicksUpdateResponseSchema }),
+  z.object({ phase: z.literal("time"), data: TimePicksUpdateResponseSchema }),
+  z.object({ phase: z.literal("location"), data: WaitingPhaseDataSchema }),
+  z.object({ phase: z.literal("location-vote"), data: LocationVotePhaseDataSchema }),
+  z.object({ phase: z.literal("exclude-menu"), data: ExcludeMenuPhaseDataSchema }),
+  z.object({ phase: z.literal("menu"), data: MenuPhaseDataSchema }),
+  z.object({ phase: z.literal("restaurant"), data: RestaurantPhaseDataSchema }),
+  z.object({ phase: z.literal("finish"), data: WaitingPhaseDataSchema }),
+]);
 
 export const RoomSocketClientEventSchemas = {
   "ready-state": ReadyStateRequestSchema,

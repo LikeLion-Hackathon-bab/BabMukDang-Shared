@@ -27,8 +27,6 @@ export type Participant = z.infer<typeof ParticipantSchema>;
 export type RecruitRoomStage = z.infer<typeof RecruitRoomStageSchema>;
 export type InvitationRoomStage = z.infer<typeof InvitationRoomStageSchema>;
 export type RoomType = z.infer<typeof RoomTypeSchema>;
-/** @deprecated Use RecruitRoomStage. */
-export type AnnouncementStage = RecruitRoomStage;
 export type MatchingNotificationKind = z.infer<typeof MatchingNotificationKindSchema>;
 export type MatchingNotification = z.infer<typeof MatchingNotificationSchema>;
 export type ReadyStateRequest = z.infer<typeof ReadyStateRequestSchema>;

@@ -1,13 +1,13 @@
 import type { MemberId as UserId, RestaurantId, RoomId } from "@/common/contracts/id";
 import type { RestaurantResponse } from "@/restaurant/restaurant.contracts";
 import {
-  AnnouncementStage,
   FinalState,
   LocationCandidate,
   LocationId,
   Menu,
   MenuCode,
   Participant,
+  RecruitRoomStage,
 } from "@/room";
 import { ChatMessage, InvitationStage } from "./types";
 import { ISODateString } from "@/common";
@@ -43,7 +43,7 @@ export interface RoomStore {
   roomId: RoomId;
   version: number;
   updatedAt: number;
-  stage: AnnouncementStage | InvitationStage;
+  stage: RecruitRoomStage | InvitationStage;
   participants: Map<UserId, Participant>;
   recentMenu: Map<UserId, Menu[]>;
   timeout?: ISODateString;

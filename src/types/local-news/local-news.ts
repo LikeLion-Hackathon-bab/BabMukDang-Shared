@@ -9,7 +9,7 @@ export interface LocalNewsNoti {
 }
 export interface MatchingInviteNoti {
   id: number;
-  type: "invitation" | "announcement";
+  type: "invitation" | "recruit";
   title: string;
   time: string;
   message: string;
