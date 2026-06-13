@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { FoodSchema, MemberIdSchema } from "../common/schema/id.schema";
-import { PresignUploadResponseSchema } from "../common/contracts/upload";
+import {
+  UploadPresignImageResponseSchema,
+  UploadPresignImageRequestSchema,
+} from "../common/contracts/upload";
 
 export const MemberRoleSchema = z.enum(["USER", "ADMIN"]);
 
@@ -10,7 +13,8 @@ export const MemberCoreSchema = z.object({
   profileImageUrl: z.string().url().nullable().optional(),
 });
 
-export const PresignProfileResponseSchema = PresignUploadResponseSchema.extend({});
+export const UploadProfileImageResponseSchema = UploadPresignImageResponseSchema.extend({});
+export const UploadProfileImageRequestSchema = UploadPresignImageRequestSchema.extend({});
 
 export const MemberResponseSchema = MemberCoreSchema.pick({
   memberId: true,

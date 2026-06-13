@@ -6,7 +6,8 @@ import {
   ArticleLikeResponseSchema,
   PageArticleSummaryResponseSchema,
   ArticleListQuerySchema,
-  PresignArticleResponseSchema,
+  UploadArticleImageResponseSchema,
+  UploadArticleImageRequestSchema,
 } from "@/article";
 import {
   LoginRequestSchema,
@@ -51,13 +52,14 @@ import {
 import {
   CreateProfileRequestSchema,
   MemberResponseSchema,
-  PresignProfileResponseSchema,
   ProfileDetailResponseSchema,
   UpdatePreferenceRequestSchema,
   UpdateProfileRequestSchema,
   MemberSerachResponseSchema,
   MemberSearchQuerySchema,
   MemberFoodPreferenceSchema,
+  UploadProfileImageRequestSchema,
+  UploadProfileImageResponseSchema,
 } from "@/member";
 import { PlanListQuerySchema, PlanResponseSchema } from "@/plan";
 import {
@@ -100,7 +102,7 @@ export const apiContract = {
     myProfile: endpoint({ method: "GET", path: "/members/me/profile", response: ProfileDetailResponseSchema }),
     search: endpoint({ method: "GET", path: "/members/search", query: MemberSearchQuerySchema ,response: MemberSerachResponseSchema }),
     memberProfile: endpoint({ method: "GET", path: "/members/:memberId/profile", pathParams: memberIdParam, response: ProfileDetailResponseSchema }),
-    presignProfileImage: endpoint({ method: "POST", path: "/uploads/presign-profile", response: PresignProfileResponseSchema }),
+    presignProfileImage: endpoint({ method: "POST", path: "/uploads/presign-profile", body: UploadProfileImageRequestSchema, response: UploadProfileImageResponseSchema }),
     createProfile: endpoint({ method: "POST", path: "/members/onboarding", body: CreateProfileRequestSchema, response: NoContentSchema }),
     updateProfile: endpoint({ method: "PATCH", path: "/members/me/profile", body: UpdateProfileRequestSchema, response: NoContentSchema }),
   },
@@ -122,7 +124,7 @@ export const apiContract = {
     create: endpoint({ method: "POST", path: "/articles", body: CreateArticleRequestSchema, response: CreatedEntityIdResponseSchema }),
     like: endpoint({ method: "POST", path: "/articles/:articleId/like", pathParams: articleIdParam, response: ArticleLikeResponseSchema }),
     createComment: endpoint({ method: "POST", path: "/articles/:articleId/comments", pathParams: articleIdParam, body: CreateCommentRequestSchema, response: CreatedEntityIdResponseSchema }),
-    presignArticleImage: endpoint({ method: "POST", path: "/uploads/presign-article", response: PresignArticleResponseSchema }),
+    presignArticleImage: endpoint({ method: "POST", path: "/uploads/presign-article", body:UploadArticleImageRequestSchema, response: UploadArticleImageResponseSchema }),
     delete: endpoint({ method: "DELETE", path: "/articles/:articleId", pathParams: articleIdParam, response: NoContentSchema }),
     deleteComment: endpoint({ method: "DELETE", path: "/articles/comments/:commentId", pathParams: commentIdParam, response: NoContentSchema }),
     // TODO: 게시물 수정 기능

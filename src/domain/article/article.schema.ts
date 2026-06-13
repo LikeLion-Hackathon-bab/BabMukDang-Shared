@@ -15,7 +15,10 @@ import {
 } from "@/common/schema/pagination.schema";
 import { MemberCoreSchema } from "@/member/member.schema";
 import { RestaurantSchema } from "@/restaurant/restaurant.schema";
-import { PresignUploadResponseSchema } from "@/common/contracts/upload";
+import {
+  UploadPresignImageRequestSchema,
+  UploadPresignImageResponseSchema,
+} from "@/common/contracts/upload";
 
 export const ArticleSortBySchema = z.enum(["createdAt", "likeCount", "commentCount"]);
 
@@ -23,7 +26,8 @@ export const ArticleListQuerySchema = PageQuerySchema.extend({
   sortBy: ArticleSortBySchema.optional().default("createdAt"),
   direction: SortDirectionSchema.optional().default("desc"),
 });
-export const PresignArticleResponseSchema = PresignUploadResponseSchema.extend({});
+export const UploadArticleImageResponseSchema = UploadPresignImageResponseSchema.extend({});
+export const UploadArticleImageRequestSchema = UploadPresignImageRequestSchema.extend({});
 
 export const FoodAnalysisResultSchema = FoodSchema.extend({
   confidence: z.number().min(0).max(1),
