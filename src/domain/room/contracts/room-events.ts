@@ -44,6 +44,17 @@ type EventMapFromSchemas<T extends Record<string, z.ZodTypeAny>> = {
   [K in keyof T]: (payload: z.infer<T[K]>) => void;
 };
 
+export type RoomClientEventName = keyof typeof RoomSocketClientEventSchemas & string;
+export type RoomServerEventName = keyof typeof RoomSocketServerEventSchemas & string;
+
+export type RoomClientPayload<E extends RoomClientEventName> = z.infer<
+  (typeof RoomSocketClientEventSchemas)[E]
+>;
+
+export type RoomServerPayload<E extends RoomServerEventName> = z.infer<
+  (typeof RoomSocketServerEventSchemas)[E]
+>;
+
 export type RoomClientToServerEvents = EventMapFromSchemas<typeof RoomSocketClientEventSchemas>;
 
 export type RoomServerToClientEvents = EventMapFromSchemas<typeof RoomSocketServerEventSchemas>;
