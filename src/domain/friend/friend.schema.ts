@@ -22,3 +22,6 @@ export const FriendRequestItemResponseSchema = z.object({
   status: FriendRequestStatusSchema,
   requestedAt: ISODateTimeStringSchema,
 });
+
+export const FriendSearchQuerySchema = z.string().min(1).max(50);
+export const FriendSearchResponseSchema = z.array(MemberCoreSchema);

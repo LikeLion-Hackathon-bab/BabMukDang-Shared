@@ -93,7 +93,7 @@ export const apiContract = {
     login: endpoint({ method: "POST", path: "/auth/login", body: LoginRequestSchema, response: TokenResponseSchema }),
     refresh: endpoint({ method: "POST", path: "/auth/refresh", response: TokenResponseSchema }),
     logout: endpoint({ method: "POST", path: "/auth/logout", response: NoContentSchema }),
-    // test: endpoint({method: "GET",  path: "/auth/test", response: TokenResponseSchema}) TODO: Dev에서만 작동하도록 백엔드에서 수정해야함 
+    // test: endpoint({method: "GET",  path: "/auth/test", response: TokenResponseSchema}) TODO: Dev에서만 작동하도록 백엔드에서 수정해야함
   },
   members: {
     me: endpoint({ method: "GET", path: "/members/me", response: MemberResponseSchema }),
@@ -112,7 +112,7 @@ export const apiContract = {
     my: endpoint({ method: "GET", path: "/members/me/meal-status", response: MealStatusResponseSchema }),
     updateMealStatus: endpoint({ method: "PATCH", path: "/members/me/meal-status", body: UpdateMealStatusRequestSchema, response: NoContentSchema }),
     friendMealStatus: endpoint({ method: "GET", path: "/friends/me/meals", query: FriendMealQuerySchema, response: z.array(FriendMealItemResponseSchema) }),
-    
+
   },
   articles: {
     list: endpoint({ method: "GET", path: "/articles/home", query: ArticleListQuerySchema, response: PageArticleSummaryResponseSchema }),
@@ -148,6 +148,7 @@ export const apiContract = {
   friends: {
     list: endpoint({ method: "GET", path: "/friends", response: z.array(FriendListItemResponseSchema) }),
     blockList: endpoint({ method: "GET", path: "/friends/blocks", response: z.array(FriendBlockItemResponseSchema) }),
+    search: endpoint({ method: "GET", path: "/friends/search", query: MemberSearchQuerySchema ,response: MemberSerachResponseSchema }),
     incomingRequest: endpoint({ method: "GET", path: "/friends/requests/incoming", response: z.array(FriendRequestItemResponseSchema) }),
     outgoingRequest: endpoint({ method: "GET", path: "/friends/requests/outgoing", response: z.array(FriendRequestItemResponseSchema) }),
     sendRequest: endpoint({ method: "POST", path: "/friends/requests/:memberId", pathParams: memberIdParam, response: NoContentSchema }),
