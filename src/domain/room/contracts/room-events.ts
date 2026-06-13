@@ -62,7 +62,4 @@ export type RoomServerToClientEvents = {
   [event: string]: (...args: any[]) => void;
 };
 
-/** @deprecated Use RoomServerToClientEvents. */
-export type ServerToClientEvents = RoomServerToClientEvents;
-/** @deprecated Use RoomClientToServerEvents. */
-export type ClientToServerEvents = RoomClientToServerEvents;
+export type RoomServerToClientEvents = EventMapFromSchemas<typeof RoomSocketServerEventSchemas>;

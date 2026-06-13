@@ -33,5 +33,3 @@ export type UpdatePreferenceRequest = z.infer<typeof UpdatePreferenceRequestSche
 
 export type MemberSearchQuery = z.infer<typeof MemberSearchQuerySchema>;
 export type MemberSerachResponse = z.infer<typeof MemberSerachResponseSchema>;
-/** @deprecated Use MemberResponse. */
-export type User = MemberResponse;

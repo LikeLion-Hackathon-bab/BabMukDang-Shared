@@ -13,12 +13,5 @@ export type ApiFailure = z.infer<typeof ApiFailureSchema>;
 export type ApiResponse<T> = ApiSuccess<T> | ApiFailure;
 export type CreatedEntityIdResponse = z.infer<typeof CreatedEntityIdResponseSchema>;
 
-/** @deprecated Use ApiSuccess<T>. */
-export interface BaseResponse<T> {
-  code: number;
-  message: string;
-  data: T;
-}
-
 export const makeApiResponseSchema = ApiResponseSchema;
 export const makeApiSuccessSchema = ApiSuccessSchema;

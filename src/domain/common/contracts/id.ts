@@ -21,8 +21,6 @@ import {
 export type Brand<T, TBrand extends string> = T & { readonly __brand: TBrand };
 
 export type MemberId = z.infer<typeof MemberIdSchema>;
-/** @deprecated Use MemberId. */
-export type UserId = z.infer<typeof UserIdSchema>;
 export type ArticleId = z.infer<typeof ArticleIdSchema>;
 export type CommentId = z.infer<typeof CommentIdSchema>;
 export type RecruitId = z.infer<typeof RecruitIdSchema>;
