@@ -1,60 +1,33 @@
 import { z } from "zod";
-import type {
-  ChatMessageRequest,
-  ChatMessageResponse,
-  FinalState,
-  LocationCandidate,
-  Menu,
-  MenuCode,
-  PhaseDataBroadcast,
-  Participant,
-  ReadyStateRequest,
-  RoomAssignedResponse,
-  RoomInitialState,
-  RoomSocketError,
-} from "./room-payloads";
-import { RestaurantSchema } from "@/restaurant/restaurant.schema";
 import { RoomSocketClientEventSchemas, RoomSocketServerEventSchemas } from "@/room/schema";
 
-type MemberId = Participant["memberId"];
-type Restaurant = z.infer<typeof RestaurantSchema>;
-type RestaurantId = Restaurant["restaurantId"];
-
-export type ReadyStateChanged = {
-  readyCount: number;
-  participantCount: number;
-};
-export type TimePicksUpdateResponse = { memberId: MemberId; times: string[] }[];
-export type DatePicksUpdateResponse = { memberId: MemberId; dates: string[] }[];
-export type LocationCandidateAddUpdateResponse = Array<
-  LocationCandidate & { authorMemberId: MemberId }
->;
-export type LocationCandidateVoteUpdateResponse = {
-  locationId: LocationCandidate["locationId"];
-  votes: MemberId[];
-}[];
-export type ExcludeMenuUpdateResponse = { memberId: MemberId; exclusions: Menu[] }[];
-export type MenuPickUpdateResponse = { menuCode: MenuCode; selectedMembers: MemberId[] }[];
-export type RestaurantPickUpdateResponse = {
-  restaurantId: RestaurantId;
-  selectedMembers: MemberId[];
-}[];
-
-type EventMapFromSchemas<T extends Record<string, z.ZodTypeAny>> = {
-  [K in keyof T]: (payload: z.infer<T[K]>) => void;
+export type EventPayloadMapFromSchemas<T extends Record<string, z.ZodTypeAny>> = {
+  [K in keyof T]: z.infer<T[K]>;
 };
 
-export type RoomClientEventName = keyof typeof RoomSocketClientEventSchemas & string;
-export type RoomServerEventName = keyof typeof RoomSocketServerEventSchemas & string;
+export type EventMapFromPayloadMap<T extends Record<string, unknown>> = {
+  [K in keyof T]: (payload: T[K]) => void;
+};
 
-export type RoomClientPayload<E extends RoomClientEventName> = z.infer<
-  (typeof RoomSocketClientEventSchemas)[E]
+export type EventArgsFromPayloadMap<T extends Record<string, unknown>> = {
+  [K in keyof T]: [payload: T[K]];
+};
+
+export type RoomClientPayloadMap = EventPayloadMapFromSchemas<
+  typeof RoomSocketClientEventSchemas
+>;
+export type RoomServerPayloadMap = EventPayloadMapFromSchemas<
+  typeof RoomSocketServerEventSchemas
 >;
 
-export type RoomServerPayload<E extends RoomServerEventName> = z.infer<
-  (typeof RoomSocketServerEventSchemas)[E]
->;
+export type RoomClientToServerEvents = EventMapFromPayloadMap<RoomClientPayloadMap>;
+export type RoomServerToClientEvents = EventMapFromPayloadMap<RoomServerPayloadMap>;
 
-export type RoomClientToServerEvents = EventMapFromSchemas<typeof RoomSocketClientEventSchemas>;
+export type RoomClientEventName = keyof RoomClientPayloadMap & string;
+export type RoomServerEventName = keyof RoomServerPayloadMap & string;
 
-export type RoomServerToClientEvents = EventMapFromSchemas<typeof RoomSocketServerEventSchemas>;
+export type RoomClientPayload<E extends RoomClientEventName> = RoomClientPayloadMap[E];
+export type RoomServerPayload<E extends RoomServerEventName> = RoomServerPayloadMap[E];
+
+export type RoomClientEventArgs = EventArgsFromPayloadMap<RoomClientPayloadMap>;
+export type RoomServerEventArgs = EventArgsFromPayloadMap<RoomServerPayloadMap>;
