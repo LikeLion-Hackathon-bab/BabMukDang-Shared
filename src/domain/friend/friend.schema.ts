@@ -5,8 +5,16 @@ import { MemberCoreSchema } from "@/member/member.schema";
 
 export const FriendRequestStatusSchema = z.enum(["PENDING", "ACCEPTED", "REJECTED", "CANCELED"]);
 
+export const FriendMealAvailabilitySchema = z.object({
+  isHungry: z.boolean(),
+  mealProposalAllowed: z.boolean(),
+  mealStatusExpiresAt: ISODateTimeStringSchema.nullable(),
+  nearbyMealPlanExposureAllowed: z.boolean(),
+});
+
 export const FriendListItemResponseSchema = MemberCoreSchema.extend({
   friendSince: ISODateTimeStringSchema,
+  mealAvailability: FriendMealAvailabilitySchema.optional(),
 });
 
 export const FriendBlockItemResponseSchema = MemberCoreSchema.extend({

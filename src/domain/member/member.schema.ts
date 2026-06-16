@@ -7,6 +7,8 @@ import {
 
 export const MemberRoleSchema = z.enum(["USER", "ADMIN"]);
 
+export const LocationConsentStatusSchema = z.enum(["UNKNOWN", "GRANTED", "DENIED"]);
+
 export const MemberCoreSchema = z.object({
   memberId: MemberIdSchema,
   username: z.string().min(1).max(50),
@@ -20,6 +22,9 @@ export const MemberResponseSchema = MemberCoreSchema.pick({
   memberId: true,
   username: true,
   profileImageUrl: true,
+}).extend({
+  locationConsentStatus: LocationConsentStatusSchema.optional(),
+  nearbyMealPlanExposureAllowed: z.boolean().optional(),
 });
 
 export const MemberSearchQuerySchema = z.object({
@@ -34,6 +39,8 @@ export const MemberDetailSchema = MemberCoreSchema.extend({
   friendConunt: z.number().int().min(0).default(0),
   completedPlans: z.number().int().min(0).default(0),
   uncompletedPlans: z.number().int().min(0).default(0),
+  locationConsentStatus: LocationConsentStatusSchema.default("UNKNOWN"),
+  nearbyMealPlanExposureAllowed: z.boolean().default(false),
 });
 
 const FoodPreferenceItemSchema = FoodSchema.extend({});

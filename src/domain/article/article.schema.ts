@@ -7,6 +7,7 @@ import {
   FoodLabelSchema,
   FoodSchema,
   MemberIdSchema,
+  MealPlanIdSchema,
 } from "@/common/schema/id.schema";
 import {
   PageQuerySchema,
@@ -40,6 +41,7 @@ export const CreateArticleRequestSchema = z.object({
   restaurant: RestaurantSchema,
   taggedMemberIds: z.array(MemberIdSchema).default([]),
   foodAnalysis: FoodAnalysisResultSchema.optional(),
+  mealPlanId: MealPlanIdSchema.optional(),
 });
 
 export const CreateCommentRequestSchema = z.object({
@@ -62,6 +64,7 @@ export const ArticleCoreSchema = z.object({
   imageUrl: z.string().url(),
   mealDate: ISODateStringSchema,
   restaurant: RestaurantSchema,
+  mealPlanId: MealPlanIdSchema.nullable(),
   createdAt: ISODateTimeStringSchema,
   updatedAt: ISODateTimeStringSchema,
   expiresAt: ISODateTimeStringSchema,
