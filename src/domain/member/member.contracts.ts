@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
   MemberCoreSchema,
   MemberResponseSchema,
+  LocationConsentStatusSchema,
   MemberRoleSchema,
   ProfileDetailResponseSchema,
   MemberSerachResponseSchema,
@@ -18,6 +19,7 @@ import {
 } from "./member.schema";
 
 export type MemberRole = z.infer<typeof MemberRoleSchema>;
+export type LocationConsentStatus = z.infer<typeof LocationConsentStatusSchema>;
 export type MemberResponse = z.infer<typeof MemberResponseSchema>;
 export type MemberCore = z.infer<typeof MemberCoreSchema>;
 

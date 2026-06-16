@@ -2,10 +2,13 @@ import { z } from "zod";
 
 export const CacheInvalidationEntitySchema = z.enum([
   "article",
-  "recruit",
-  "invitation",
+  "mealPlan",
+  "mealPlanInvite",
+  "mealPlanParticipant",
+  "mealPlanDecision",
+  "mealPlanChat",
+  "mealGroup",
   "notification",
-  "meeting",
   "friend",
 ]);
 
@@ -15,17 +18,27 @@ export const CacheInvalidationActionSchema = z.enum([
   "deleted",
   "accepted",
   "rejected",
+  "cancelled",
   "closed",
   "joined",
+  "ready",
+  "confirmed",
+  "locked",
+  "completed",
+  "recorded",
   "read",
 ]);
 
 export const CacheInvalidationKeySchema = z.enum([
   "articles",
-  "recruits",
-  "invitations",
+  "mealPlans",
+  "mealPlanDetail",
+  "mealPlanInvites",
+  "mealPlanJoinRequests",
+  "mealPlanNearbyFriends",
+  "mealPlanMessages",
+  "mealGroups",
   "notifications",
-  "meetings",
   "friends",
   "friendMeals",
 ]);
