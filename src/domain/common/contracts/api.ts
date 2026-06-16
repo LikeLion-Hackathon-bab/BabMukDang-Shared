@@ -81,12 +81,14 @@ const memberIdParam = z.object({ memberId: MemberIdSchema });
 const articleIdParam = z.object({ articleId: ArticleIdSchema });
 const commentIdParam = z.object({ commentId: CommentIdSchema });
 const recruitIdParam = z.object({ recruitId: RecruitIdSchema });
+const postIdParam = z.object({ postId: RecruitIdSchema });
 const roomIdParam = z.object({ roomId: RoomIdSchema });
 const invitationIdParam = z.object({ invitationId: InvitationIdSchema });
 const notificationIdParam = z.object({ notificationId: z.string().min(1) });
 const planIdParam = z.object({ planId: PlanIdSchema });
 const couponIdParam = z.object({ couponId: CouponIdSchema });
 const friendRequestIdParam = z.object({ requestId: FriendRequestIdSchema });
+const sseTokenQuery = z.object({ token: z.string().min(1) });
 
 // prettier-ignore
 export const apiContract = {
@@ -104,6 +106,7 @@ export const apiContract = {
     memberProfile: endpoint({ method: "GET", path: "/members/:memberId/profile", pathParams: memberIdParam, response: ProfileDetailResponseSchema }),
     presignProfileImage: endpoint({ method: "POST", path: "/uploads/presign-profile", body: UploadProfileImageRequestSchema, response: UploadProfileImageResponseSchema }),
     createProfile: endpoint({ method: "POST", path: "/members/onboarding", body: CreateProfileRequestSchema, response: NoContentSchema }),
+    createProfileAlias: endpoint({ method: "POST", path: "/onboarding", body: CreateProfileRequestSchema, response: NoContentSchema }),
     updateProfile: endpoint({ method: "PATCH", path: "/members/me/profile", body: UpdateProfileRequestSchema, response: NoContentSchema }),
   },
   preferences: {
@@ -114,6 +117,7 @@ export const apiContract = {
     my: endpoint({ method: "GET", path: "/members/me/meal-status", response: MealStatusResponseSchema }),
     updateMealStatus: endpoint({ method: "PATCH", path: "/members/me/meal-status", body: UpdateMealStatusRequestSchema, response: NoContentSchema }),
     friendMealStatus: endpoint({ method: "GET", path: "/friends/me/meals", query: FriendMealQuerySchema, response: z.array(FriendMealItemResponseSchema) }),
+    friendMealStatusAlias: endpoint({ method: "GET", path: "/friends/meals", query: FriendMealQuerySchema, response: z.array(FriendMealItemResponseSchema) }),
 
   },
   articles: {
@@ -145,6 +149,7 @@ export const apiContract = {
   plans: {
     list: endpoint({ method: "GET", path: "/plans", query:PlanListQuerySchema, response: z.array(PlanResponseSchema) }),
     detail: endpoint({ method: "GET", path: "/plans/:planId", pathParams: planIdParam, response: PlanResponseSchema }),
+    completed: endpoint({ method: "GET", path: "/plans/completed", response: z.array(PlanResponseSchema) }),
     cancel: endpoint({ method: "PATCH", path: "/plans/:planId/cancel", pathParams: planIdParam, response: NoContentSchema }),
   },
   friends: {
@@ -178,6 +183,14 @@ export const apiContract = {
     list: endpoint({ method: "GET", path: "/notifications", response: z.array(MatchingNotificationSchema) }),
     markRead: endpoint({ method: "PATCH", path: "/notifications/:notificationId/read", pathParams: notificationIdParam, response: MatchingNotificationSchema }),
     delete: endpoint({ method: "DELETE", path: "/notifications/:notificationId", pathParams: notificationIdParam, response: NoContentSchema }),
+  },
+  subscriptions: {
+    subscribeRecruit: endpoint({ method: "POST", path: "/subscriptions/recruits/:recruitId", pathParams: recruitIdParam, response: CreatedEntityIdResponseSchema }),
+    subscribeRecruitAlias: endpoint({ method: "POST", path: "/subscribe/:postId", pathParams: postIdParam, response: CreatedEntityIdResponseSchema }),
+  },
+  sse: {
+    notifications: endpoint({ method: "GET", path: "/sse/notifications", query: sseTokenQuery, response: z.any() }),
+    room: endpoint({ method: "GET", path: "/sse/rooms/:roomId", pathParams: roomIdParam, response: z.any() }),
   },
   room:{
     access: endpoint({ method: "GET", path: "/rooms/:roomId/access", pathParams: roomIdParam, response: RoomAccessResponseSchema }),

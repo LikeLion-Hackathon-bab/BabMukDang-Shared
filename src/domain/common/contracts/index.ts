@@ -1,4 +1,5 @@
 export * from "./api";
+export * from "./cache-invalidation";
 export * from "./date.type";
 export * from "./endpoint";
 export * from "./entity";
