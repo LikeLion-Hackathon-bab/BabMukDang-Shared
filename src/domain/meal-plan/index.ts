@@ -8,3 +8,5 @@ export * from "./meal-plan-nearby-friend.schema";
 export * from "./meal-plan-chat.schema";
 export * from "./meal-group.schema";
 export * from "./meal-group.contracts";
+export * from "./meal-plan-home-map.schema";
+export * from "./meal-plan-notification-priority";

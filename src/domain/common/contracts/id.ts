@@ -13,6 +13,7 @@ import {
   MealPlanIdSchema,
   MealPlanInviteIdSchema,
   MealPlanJoinRequestIdSchema,
+  MealPlanNearbyFriendExposureBatchIdSchema,
   MealPlanChangeRequestIdSchema,
   MealPlanShareLinkIdSchema,
   MealPlanShareLinkTokenSchema,
@@ -31,6 +32,7 @@ export type CommentId = z.infer<typeof CommentIdSchema>;
 export type MealPlanId = z.infer<typeof MealPlanIdSchema>;
 export type MealPlanInviteId = z.infer<typeof MealPlanInviteIdSchema>;
 export type MealPlanJoinRequestId = z.infer<typeof MealPlanJoinRequestIdSchema>;
+export type MealPlanNearbyFriendExposureBatchId = z.infer<typeof MealPlanNearbyFriendExposureBatchIdSchema>;
 export type MealPlanChangeRequestId = z.infer<typeof MealPlanChangeRequestIdSchema>;
 export type MealPlanShareLinkId = z.infer<typeof MealPlanShareLinkIdSchema>;
 export type MealPlanShareLinkToken = z.infer<typeof MealPlanShareLinkTokenSchema>;
@@ -52,6 +54,7 @@ export const toArticleId = (value: number): ArticleId => ArticleIdSchema.parse(v
 export const toMealPlanId = (value: string): MealPlanId => MealPlanIdSchema.parse(value);
 export const toMealPlanInviteId = (value: string): MealPlanInviteId => MealPlanInviteIdSchema.parse(value);
 export const toMealPlanJoinRequestId = (value: string): MealPlanJoinRequestId => MealPlanJoinRequestIdSchema.parse(value);
+export const toMealPlanNearbyFriendExposureBatchId = (value: string): MealPlanNearbyFriendExposureBatchId => MealPlanNearbyFriendExposureBatchIdSchema.parse(value);
 export const toMealPlanChangeRequestId = (value: string): MealPlanChangeRequestId => MealPlanChangeRequestIdSchema.parse(value);
 export const toMealPlanShareLinkId = (value: string): MealPlanShareLinkId => MealPlanShareLinkIdSchema.parse(value);
 export const toMealPlanShareLinkToken = (value: string): MealPlanShareLinkToken => MealPlanShareLinkTokenSchema.parse(value);

@@ -57,6 +57,7 @@ import {
   CreateMealPlanShareLinkRequestSchema,
   CreateMealPlanVoteRequestSchema,
   ExposeMealPlanToNearbyFriendsRequestSchema,
+  ExposeMealPlanToNearbyFriendsResponseSchema,
   JoinMealPlanGuestRequestSchema,
   JoinMealPlanGuestResponseSchema,
   MealPlanGuestSessionQuerySchema,
@@ -69,12 +70,16 @@ import {
   MealGroupHistoryResponseSchema,
   MealGroupPreferenceSummarySchema,
   MealPlanInviteListResponseSchema,
+  HomeMealPlanDashboardResponseSchema,
+  MealMapResponseSchema,
+  MealMapQuerySchema,
   MealPlanChatMessageListResponseSchema,
   MealPlanNotificationSchema,
   MealPlanResponseSchema,
   MealPlanShareLinkSummarySchema,
   MealPlanSharePreviewResponseSchema,
   MyMealPlanListResponseSchema,
+  NearbyFriendExposureEligibilitySchema,
   NearbyFriendMealPlanSummarySchema,
   SendMealPlanInviteResponseSchema,
   UpdateMealPlanContextRequestSchema,
@@ -87,6 +92,9 @@ import {
   MemberSerachResponseSchema,
   ProfileDetailResponseSchema,
   UpdatePreferenceRequestSchema,
+  UpdateMemberLocationConsentRequestSchema,
+  UpdateMemberLocationRequestSchema,
+  MemberLocationSettingsResponseSchema,
   UpdateProfileRequestSchema,
   UploadProfileImageRequestSchema,
   UploadProfileImageResponseSchema,
@@ -99,6 +107,18 @@ import {
   ReferralCreateResponseSchema,
   ReferralItemResponseSchema,
 } from "@/promotion";
+
+import {
+  PushTokenResponseSchema,
+  RegisterPushTokenRequestSchema,
+  RevokePushTokenRequestSchema,
+} from "@/push";
+import {
+  EndMealPlanLiveActivitySessionRequestSchema,
+  MealPlanLiveActivitySessionListResponseSchema,
+  MealPlanLiveActivitySessionResponseSchema,
+  RegisterMealPlanLiveActivitySessionRequestSchema,
+} from "@/live-activity";
 import { endpoint } from "./endpoint";
 import type { EndpointContract } from "./endpoint";
 
@@ -146,7 +166,11 @@ export const apiContract: Record<string, Record<string, EndpointContract<any, st
     memberProfile: endpoint({ method: "GET", path: "/members/:memberId/profile", pathParams: memberIdParam, response: ProfileDetailResponseSchema }),
     presignProfileImage: endpoint({ method: "POST", path: "/uploads/presign-profile", body: UploadProfileImageRequestSchema, response: UploadProfileImageResponseSchema }),
     createProfile: endpoint({ method: "POST", path: "/members/onboarding", body: CreateProfileRequestSchema, response: NoContentSchema }),
+    createProfileAlias: endpoint({ method: "POST", path: "/onboarding", body: CreateProfileRequestSchema, response: NoContentSchema }),
     updateProfile: endpoint({ method: "PATCH", path: "/members/me/profile", body: UpdateProfileRequestSchema, response: NoContentSchema }),
+    locationSettings: endpoint({ method: "GET", path: "/members/me/location-settings", response: MemberLocationSettingsResponseSchema }),
+    updateLocationConsent: endpoint({ method: "PATCH", path: "/members/me/location-consent", body: UpdateMemberLocationConsentRequestSchema, response: MemberLocationSettingsResponseSchema }),
+    updateLocation: endpoint({ method: "PATCH", path: "/members/me/location", body: UpdateMemberLocationRequestSchema, response: MemberLocationSettingsResponseSchema }),
   },
   preferences: {
     my: endpoint({ method: "GET", path: "/preferences/me", response: MemberFoodPreferenceSchema }),
@@ -172,6 +196,8 @@ export const apiContract: Record<string, Record<string, EndpointContract<any, st
   mealPlans: {
     create: endpoint({ method: "POST", path: "/meal-plans", body: CreateMealPlanRequestSchema, response: CreateMealPlanResponseSchema }),
     my: endpoint({ method: "GET", path: "/meal-plans/me", response: MyMealPlanListResponseSchema }),
+    homeDashboard: endpoint({ method: "GET", path: "/meal-plans/home-dashboard", response: HomeMealPlanDashboardResponseSchema }),
+    map: endpoint({ method: "GET", path: "/meal-plans/map", query: MealMapQuerySchema, response: MealMapResponseSchema }),
     detail: endpoint({ method: "GET", path: "/meal-plans/:mealPlanId", pathParams: mealPlanIdParam, response: MealPlanResponseSchema }),
     chatMessages: endpoint({ method: "GET", path: "/meal-plans/:mealPlanId/chat/messages", pathParams: mealPlanIdParam, response: MealPlanChatMessageListResponseSchema }),
     updateContext: endpoint({ method: "PATCH", path: "/meal-plans/:mealPlanId/context", pathParams: mealPlanIdParam, body: UpdateMealPlanContextRequestSchema, response: MealPlanResponseSchema }),
@@ -189,8 +215,9 @@ export const apiContract: Record<string, Record<string, EndpointContract<any, st
     joinGuest: endpoint({ method: "POST", path: "/meal-plan-links/:token/join", pathParams: mealPlanShareTokenParam, body: JoinMealPlanGuestRequestSchema, response: JoinMealPlanGuestResponseSchema }),
     guestSession: endpoint({ method: "GET", path: "/meal-plan-links/:token/session", pathParams: mealPlanShareTokenParam, query: MealPlanGuestSessionQuerySchema, response: MealPlanGuestSessionResponseSchema }),
     guestChatMessages: endpoint({ method: "GET", path: "/meal-plan-links/:token/chat/messages", pathParams: mealPlanShareTokenParam, query: MealPlanGuestSessionQuerySchema, response: MealPlanChatMessageListResponseSchema }),
-    exposeNearbyFriends: endpoint({ method: "POST", path: "/meal-plans/:mealPlanId/nearby-friends/expose", pathParams: mealPlanIdParam, body: ExposeMealPlanToNearbyFriendsRequestSchema, response: MealPlanResponseSchema }),
+    exposeNearbyFriends: endpoint({ method: "POST", path: "/meal-plans/:mealPlanId/nearby-friends/expose", pathParams: mealPlanIdParam, body: ExposeMealPlanToNearbyFriendsRequestSchema, response: ExposeMealPlanToNearbyFriendsResponseSchema }),
     closeNearbyFriends: endpoint({ method: "DELETE", path: "/meal-plans/:mealPlanId/nearby-friends/expose", pathParams: mealPlanIdParam, response: NoContentSchema }),
+    nearbyFriendExposureEligibility: endpoint({ method: "GET", path: "/meal-plans/nearby-friends/eligibility", response: NearbyFriendExposureEligibilitySchema }),
     nearbyFriends: endpoint({ method: "GET", path: "/meal-plans/nearby-friends", response: z.array(NearbyFriendMealPlanSummarySchema) }),
     requestJoin: endpoint({ method: "POST", path: "/meal-plans/:mealPlanId/join-requests", pathParams: mealPlanIdParam, body: CreateMealPlanJoinRequestSchema, response: CreatedEntityIdResponseSchema }),
     acceptJoinRequest: endpoint({ method: "POST", path: "/meal-plans/join-requests/:requestId/accept", pathParams: mealPlanJoinRequestIdParam, response: MealPlanResponseSchema }),
@@ -249,6 +276,16 @@ export const apiContract: Record<string, Record<string, EndpointContract<any, st
     list: endpoint({ method: "GET", path: "/notifications", response: z.array(MealPlanNotificationSchema) }),
     markRead: endpoint({ method: "PATCH", path: "/notifications/:notificationId/read", pathParams: notificationIdParam, response: MealPlanNotificationSchema }),
     delete: endpoint({ method: "DELETE", path: "/notifications/:notificationId", pathParams: notificationIdParam, response: NoContentSchema }),
+  },
+  pushTokens: {
+    list: endpoint({ method: "GET", path: "/push-tokens", response: z.array(PushTokenResponseSchema) }),
+    register: endpoint({ method: "POST", path: "/push-tokens", body: RegisterPushTokenRequestSchema, response: PushTokenResponseSchema }),
+    revoke: endpoint({ method: "POST", path: "/push-tokens/revoke", body: RevokePushTokenRequestSchema, response: NoContentSchema }),
+  },
+  liveActivities: {
+    listMealPlanSessions: endpoint({ method: "GET", path: "/meal-plans/:mealPlanId/live-activity", pathParams: mealPlanIdParam, response: MealPlanLiveActivitySessionListResponseSchema }),
+    registerMealPlanSession: endpoint({ method: "POST", path: "/meal-plans/:mealPlanId/live-activity/sessions", pathParams: mealPlanIdParam, body: RegisterMealPlanLiveActivitySessionRequestSchema, response: MealPlanLiveActivitySessionResponseSchema }),
+    endMealPlanSessions: endpoint({ method: "POST", path: "/meal-plans/:mealPlanId/live-activity/end", pathParams: mealPlanIdParam, body: EndMealPlanLiveActivitySessionRequestSchema, response: NoContentSchema }),
   },
   sse: {
     notifications: endpoint({ method: "GET", path: "/sse/notifications", query: sseTokenQuery, response: z.any() }),

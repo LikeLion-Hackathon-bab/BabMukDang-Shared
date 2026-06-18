@@ -4,6 +4,9 @@ import {
   CreateMealPlanResponseSchema,
   MealPlanChannelSchema,
   MealPlanNotificationKindSchema,
+  MealPlanNotificationPriorityChannelSchema,
+  MealPlanLiveActivityBehaviorSchema,
+  MealPlanNotificationPriorityPolicyItemSchema,
   MealPlanNotificationSchema,
   MealPlanRecommendationContextSchema,
   MealPlanResponseSchema,
@@ -42,12 +45,32 @@ import {
 import {
   CreateMealPlanJoinRequestSchema,
   ExposeMealPlanToNearbyFriendsRequestSchema,
+  ExposeMealPlanToNearbyFriendsResponseSchema,
+  MealPlanNearbyFriendRejectionReasonSchema,
+  MealPlanNearbyFriendRejectionSummarySchema,
+  MealPlanNearbyFriendExposureBatchSummarySchema,
+  MealPlanNearbyFriendExposureNotificationStatusSchema,
   MealPlanJoinRequestStatusSchema,
   MealPlanJoinRequestSummarySchema,
   MealPlanNearbyFriendExposureStatusSchema,
   MealPlanNearbyFriendExposureSummarySchema,
+  NearbyFriendExposureEligibilitySchema,
   NearbyFriendMealPlanSummarySchema,
 } from "./meal-plan-nearby-friend.schema";
+import {
+  HomeMealPlanActionCardSchema,
+  HomeMealPlanActionKindSchema,
+  HomeMealPlanDashboardResponseSchema,
+  MealMapLayerSchema,
+  MealMapMarkerSchema,
+  MealMapResponseSchema,
+  MealMapQuerySchema,
+  MealMapMyMealPlanPlaceMetadataSchema,
+  MealMapNearbyFriendMealPlanMetadataSchema,
+  MealMapFriendRecordLocationMetadataSchema,
+  MealMapRestaurantCandidateMetadataSchema,
+  MealMapRestaurantCandidateCompletionBlockedReasonSchema,
+} from "./meal-plan-home-map.schema";
 import {
   CompleteMealPlanDecisionStageRequestSchema,
   CreateMealPlanChangeRequestSchema,
@@ -107,6 +130,9 @@ export type MealPlanStatus = z.infer<typeof MealPlanStatusSchema>;
 export type MealPlanChannel = z.infer<typeof MealPlanChannelSchema>;
 export type MealPlanRecommendationContext = z.infer<typeof MealPlanRecommendationContextSchema>;
 export type MealPlanNotificationKind = z.infer<typeof MealPlanNotificationKindSchema>;
+export type MealPlanNotificationPriorityChannel = z.infer<typeof MealPlanNotificationPriorityChannelSchema>;
+export type MealPlanLiveActivityBehavior = z.infer<typeof MealPlanLiveActivityBehaviorSchema>;
+export type MealPlanNotificationPriorityPolicyItem = z.infer<typeof MealPlanNotificationPriorityPolicyItemSchema>;
 export type MealPlanNotification = z.infer<typeof MealPlanNotificationSchema>;
 export type CreateMealPlanRequest = z.infer<typeof CreateMealPlanRequestSchema>;
 export type CreateMealPlanResponse = z.infer<typeof CreateMealPlanResponseSchema>;
@@ -117,6 +143,18 @@ export type MealPlanViewerPermissions = z.infer<typeof MealPlanViewerPermissions
 export type MyMealPlanGroup = z.infer<typeof MyMealPlanGroupSchema>;
 export type MyMealPlanListItem = z.infer<typeof MyMealPlanListItemSchema>;
 export type MyMealPlanListResponse = z.infer<typeof MyMealPlanListResponseSchema>;
+export type HomeMealPlanActionKind = z.infer<typeof HomeMealPlanActionKindSchema>;
+export type HomeMealPlanActionCard = z.infer<typeof HomeMealPlanActionCardSchema>;
+export type HomeMealPlanDashboardResponse = z.infer<typeof HomeMealPlanDashboardResponseSchema>;
+export type MealMapLayer = z.infer<typeof MealMapLayerSchema>;
+export type MealMapMyMealPlanPlaceMetadata = z.infer<typeof MealMapMyMealPlanPlaceMetadataSchema>;
+export type MealMapNearbyFriendMealPlanMetadata = z.infer<typeof MealMapNearbyFriendMealPlanMetadataSchema>;
+export type MealMapFriendRecordLocationMetadata = z.infer<typeof MealMapFriendRecordLocationMetadataSchema>;
+export type MealMapRestaurantCandidateMetadata = z.infer<typeof MealMapRestaurantCandidateMetadataSchema>;
+export type MealMapRestaurantCandidateCompletionBlockedReason = z.infer<typeof MealMapRestaurantCandidateCompletionBlockedReasonSchema>;
+export type MealMapMarker = z.infer<typeof MealMapMarkerSchema>;
+export type MealMapResponse = z.infer<typeof MealMapResponseSchema>;
+export type MealMapQuery = z.infer<typeof MealMapQuerySchema>;
 
 export type MealPlanParticipantRole = z.infer<typeof MealPlanParticipantRoleSchema>;
 export type MealPlanParticipantStatus = z.infer<typeof MealPlanParticipantStatusSchema>;
@@ -147,8 +185,26 @@ export type MealPlanNearbyFriendExposureStatus = z.infer<
 export type ExposeMealPlanToNearbyFriendsRequest = z.infer<
   typeof ExposeMealPlanToNearbyFriendsRequestSchema
 >;
+export type ExposeMealPlanToNearbyFriendsResponse = z.infer<
+  typeof ExposeMealPlanToNearbyFriendsResponseSchema
+>;
+export type MealPlanNearbyFriendRejectionReason = z.infer<
+  typeof MealPlanNearbyFriendRejectionReasonSchema
+>;
+export type MealPlanNearbyFriendRejectionSummary = z.infer<
+  typeof MealPlanNearbyFriendRejectionSummarySchema
+>;
+export type MealPlanNearbyFriendExposureNotificationStatus = z.infer<
+  typeof MealPlanNearbyFriendExposureNotificationStatusSchema
+>;
+export type MealPlanNearbyFriendExposureBatchSummary = z.infer<
+  typeof MealPlanNearbyFriendExposureBatchSummarySchema
+>;
 export type MealPlanNearbyFriendExposureSummary = z.infer<
   typeof MealPlanNearbyFriendExposureSummarySchema
+>;
+export type NearbyFriendExposureEligibility = z.infer<
+  typeof NearbyFriendExposureEligibilitySchema
 >;
 export type MealPlanJoinRequestStatus = z.infer<typeof MealPlanJoinRequestStatusSchema>;
 export type CreateMealPlanJoinRequest = z.infer<typeof CreateMealPlanJoinRequestSchema>;

@@ -10,6 +10,7 @@ export const CommentIdSchema = PositiveIntIdSchema.brand<"CommentId">();
 export const MealPlanIdSchema = z.string().uuid().brand<"MealPlanId">();
 export const MealPlanInviteIdSchema = z.string().uuid().brand<"MealPlanInviteId">();
 export const MealPlanJoinRequestIdSchema = z.string().uuid().brand<"MealPlanJoinRequestId">();
+export const MealPlanNearbyFriendExposureBatchIdSchema = z.string().uuid().brand<"MealPlanNearbyFriendExposureBatchId">();
 export const MealPlanChangeRequestIdSchema = z.string().uuid().brand<"MealPlanChangeRequestId">();
 export const MealPlanShareLinkIdSchema = z.string().uuid().brand<"MealPlanShareLinkId">();
 export const MealPlanShareLinkTokenSchema = z.string().min(8).max(128).brand<"MealPlanShareLinkToken">();
