@@ -2,6 +2,7 @@ export * from "./article";
 export * from "./auth";
 export * from "./common";
 export * from "./friend";
+export * from "./food";
 export * from "./meal";
 export * from "./meal-plan";
 export * from "./member";
