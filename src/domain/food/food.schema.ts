@@ -1,12 +1,7 @@
 import { z } from "zod";
 import { FoodCodeSchema, FoodLabelSchema, ISODateTimeStringSchema } from "../common/schema";
 
-export const FoodGranularitySchema = z.enum([
-  "main_dish",
-  "side_dish",
-  "beverage",
-  "sauce",
-]);
+export const FoodGranularitySchema = z.enum(["main_dish", "side_dish", "beverage", "sauce"]);
 
 export const CuisineTagSchema = z.enum([
   "korean",
@@ -22,12 +17,7 @@ export const CuisineTagSchema = z.enum([
   "unknown",
 ]);
 
-export const FoodResolvedMatchSourceSchema = z.enum([
-  "category",
-  "alias",
-  "lexical",
-  "semantic",
-]);
+export const FoodResolvedMatchSourceSchema = z.enum(["category", "alias", "lexical", "semantic"]);
 
 export const FoodCodeManifestImageSchema = z.object({
   src: z.string().min(1),
@@ -60,8 +50,8 @@ export const FoodCodeManifestSchema = z.object({
   taxonomyVersion: z.string().min(1),
   etag: z.string().min(1).optional(),
   items: z.array(FoodCodeManifestItemSchema),
-  categoryIndex: z.record(z.array(FoodCodeSchema)),
-  aliasIndex: z.record(z.array(FoodCodeSchema)).optional(),
+  categoryIndex: z.record(z.string(), z.array(FoodCodeSchema)),
+  aliasIndex: z.record(z.string(), z.array(FoodCodeSchema)).optional(),
 });
 
 export const FoodImageIndexItemSchema = z.object({

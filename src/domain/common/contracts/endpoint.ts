@@ -39,9 +39,9 @@ export const endpoint = <
 }): EndpointContract<TMethod, TPath, TPathParams, TQuery, TBody, TResponse> => ({
   method: contract.method,
   path: contract.path,
-  pathParams: contract.pathParams ?? (NoParamsSchema as TPathParams),
-  query: contract.query ?? (NoQuerySchema as TQuery),
-  body: contract.body ?? (NoBodySchema as TBody),
+  pathParams: contract.pathParams ?? (NoParamsSchema as unknown as TPathParams),
+  query: contract.query ?? (NoQuerySchema as unknown as TQuery),
+  body: contract.body ?? (NoBodySchema as unknown as TBody),
   response: contract.response,
 });
 
