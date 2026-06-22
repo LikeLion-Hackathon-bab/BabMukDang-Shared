@@ -1,6 +1,6 @@
 {
   "name": "@kimdaegyu/babmukdang-shared",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "private": false,
   "type": "module",
   "main": "./dist/index.cjs",
