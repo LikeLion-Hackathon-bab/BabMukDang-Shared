@@ -11,7 +11,7 @@ import { MealPlanLocationCandidateSchema } from "./meal-plan-decision.schema";
 import { MealPlanParticipantResponseSchema, MealPlanParticipantStatusSchema } from "./meal-plan-participant.schema";
 import { MealPlanInviteSummarySchema } from "./meal-plan-invite.schema";
 import { MealPlanJoinRequestSummarySchema } from "./meal-plan-nearby-friend.schema";
-import { MealPlanDecisionProgressSchema, MealPlanDecisionStageResponseSchema, MealPlanDecisionTaskKeySchema } from "./meal-plan-decision.schema";
+import { MealPlanDecisionProgressSchema, MealPlanDecisionStageResponseSchema } from "./meal-plan-decision.schema";
 import { MealPlanChatRoomSummarySchema } from "./meal-plan-chat.schema";
 
 export const MealPlanStatusSchema = z.enum([
@@ -75,7 +75,6 @@ export const MealPlanViewerPermissionsSchema = z.object({
   canVote: z.boolean(),
   canChat: z.boolean(),
   canReadyMealPlan: z.boolean(),
-  canReadyDecisionTask: z.boolean(),
   canRequestChange: z.boolean(),
   canReopenDecisionTask: z.boolean(),
   canConfirmDecisionSnapshot: z.boolean(),
@@ -99,7 +98,6 @@ export const MealPlanResponseSchema = z.object({
   viewerRole: MealPlanViewerRoleSchema,
   viewerParticipantStatus: MealPlanParticipantStatusSchema.nullable(),
   viewerPermissions: MealPlanViewerPermissionsSchema,
-  viewerTaskReadyMap: z.record(MealPlanDecisionTaskKeySchema, z.boolean()),
   selectedDate: ISODateStringSchema.nullable(),
   selectedTime: TimeHHmmStringSchema.nullable(),
   selectedArea: MealPlanLocationCandidateSchema.nullable(),

@@ -84,6 +84,7 @@ import {
   MealPlanDecisionStageStatusSchema,
   MealPlanDecisionStageTypeSchema,
   MealPlanLocationCandidateSchema,
+  MealPlanLocationCandidateSourceSchema,
   MealPlanMenuCandidateSchema,
   MealPlanMenuCandidateSourceSchema,
   MealPlanRestaurantCandidateSchema,
@@ -98,7 +99,6 @@ import {
   MealPlanDecisionSnapshotStatusSchema,
   MealPlanDecisionReasonSchema,
   MealPlanDecisionActorTypeSchema,
-  MealPlanDecisionTaskReadyRequestSchema,
   ReopenMealPlanDecisionTaskRequestSchema,
   ConfirmMealPlanDecisionSnapshotRequestSchema,
   MealPlanVoteTypeSchema,
@@ -215,6 +215,7 @@ export type MealPlanDecisionStageType = z.infer<typeof MealPlanDecisionStageType
 export type MealPlanDecisionStageStatus = z.infer<typeof MealPlanDecisionStageStatusSchema>;
 export type MealPlanVoteType = z.infer<typeof MealPlanVoteTypeSchema>;
 export type MealPlanLocationCandidate = z.infer<typeof MealPlanLocationCandidateSchema>;
+export type MealPlanLocationCandidateSource = z.infer<typeof MealPlanLocationCandidateSourceSchema>;
 export type MealPlanMenuCandidate = z.infer<typeof MealPlanMenuCandidateSchema>;
 export type MealPlanMenuCandidateSource = z.infer<typeof MealPlanMenuCandidateSourceSchema>;
 export type MealPlanRestaurantCandidate = z.infer<typeof MealPlanRestaurantCandidateSchema>;
@@ -230,7 +231,6 @@ export type MealPlanDecisionFinalField = z.infer<typeof MealPlanDecisionFinalFie
 export type MealPlanDecisionSnapshotStatus = z.infer<typeof MealPlanDecisionSnapshotStatusSchema>;
 export type MealPlanDecisionReason = z.infer<typeof MealPlanDecisionReasonSchema>;
 export type MealPlanDecisionActorType = z.infer<typeof MealPlanDecisionActorTypeSchema>;
-export type MealPlanDecisionTaskReadyRequest = z.infer<typeof MealPlanDecisionTaskReadyRequestSchema>;
 export type ReopenMealPlanDecisionTaskRequest = z.infer<typeof ReopenMealPlanDecisionTaskRequestSchema>;
 export type ConfirmMealPlanDecisionSnapshotRequest = z.infer<typeof ConfirmMealPlanDecisionSnapshotRequestSchema>;
 export type CreateMealPlanVoteRequest = z.infer<typeof CreateMealPlanVoteRequestSchema>;
