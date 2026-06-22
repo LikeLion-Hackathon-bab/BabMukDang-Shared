@@ -104,6 +104,13 @@ import {
   MealPlanVoteTypeSchema,
 } from "./meal-plan-decision.schema";
 import {
+  MealPlanDecisionVoteSocketAckSchema,
+  MealPlanDecisionVoteSocketErrorSchema,
+  MealPlanDecisionVoteSocketFailureAckSchema,
+  MealPlanDecisionVoteSocketPayloadSchema,
+  MealPlanDecisionVoteSocketSuccessAckSchema,
+} from "./meal-plan.socket";
+import {
   MealPlanChatMessageKindSchema,
   MealPlanChatMessageResponseSchema,
   MealPlanChatRoomSummarySchema,
@@ -234,6 +241,21 @@ export type MealPlanDecisionActorType = z.infer<typeof MealPlanDecisionActorType
 export type ReopenMealPlanDecisionTaskRequest = z.infer<typeof ReopenMealPlanDecisionTaskRequestSchema>;
 export type ConfirmMealPlanDecisionSnapshotRequest = z.infer<typeof ConfirmMealPlanDecisionSnapshotRequestSchema>;
 export type CreateMealPlanVoteRequest = z.infer<typeof CreateMealPlanVoteRequestSchema>;
+export type MealPlanDecisionVoteSocketPayload = z.infer<
+  typeof MealPlanDecisionVoteSocketPayloadSchema
+>;
+export type MealPlanDecisionVoteSocketError = z.infer<
+  typeof MealPlanDecisionVoteSocketErrorSchema
+>;
+export type MealPlanDecisionVoteSocketSuccessAck = z.infer<
+  typeof MealPlanDecisionVoteSocketSuccessAckSchema
+>;
+export type MealPlanDecisionVoteSocketFailureAck = z.infer<
+  typeof MealPlanDecisionVoteSocketFailureAckSchema
+>;
+export type MealPlanDecisionVoteSocketAck = z.infer<
+  typeof MealPlanDecisionVoteSocketAckSchema
+>;
 export type CompleteMealPlanDecisionStageRequest = z.infer<
   typeof CompleteMealPlanDecisionStageRequestSchema
 >;
