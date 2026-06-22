@@ -2,6 +2,7 @@ export * from "./meal-plan.schema";
 export * from "./meal-plan.contracts";
 export * from "./meal-plan-participant.schema";
 export * from "./meal-plan-decision.schema";
+export * from "./meal-plan-decision.candidate-key";
 export * from "./meal-plan.socket";
 export * from "./meal-plan-invite.schema";
 export * from "./meal-plan-share-link.schema";
