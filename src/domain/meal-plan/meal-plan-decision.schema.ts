@@ -12,9 +12,7 @@ export const MealPlanDecisionStageIdSchema = z.string().uuid().brand<"MealPlanDe
 export const MealPlanVoteIdSchema = z.string().uuid().brand<"MealPlanVoteId">();
 export const MealPlanLocationCandidateSourceSchema = z.enum([
   "manual",
-  "map-marker",
   "midpoint",
-  "user-location",
   "search",
   "recent-place",
   "fallback",
@@ -44,8 +42,8 @@ export const MealPlanMenuCandidateSchema = z.object({
   menu: FoodSchema,
   source: MealPlanMenuCandidateSourceSchema,
   score: z.number().default(0),
-  imageUrl: z.string().min(1).nullable().default(null),
-  image: FoodCodeManifestImageSchema.nullable().default(null),
+  imageUrl: z.string().min(1).nullable().optional(),
+  image: FoodCodeManifestImageSchema.nullable().optional(),
   createdAt: ISODateTimeStringSchema,
 });
 
@@ -88,8 +86,16 @@ export const MealPlanRestaurantSearchStateSchema = z.object({
   errorMessage: z.string().nullable().default(null),
 });
 
+export const MealPlanMenuRecommendationStateSchema = z.object({
+  preferenceKey: z.string().min(1),
+  generatedFromHash: z.string().min(1),
+  generatedAt: ISODateTimeStringSchema,
+  candidateCount: z.number().int().min(0),
+});
+
 export const MealPlanDecisionStageMetadataSchema = z.object({
   restaurantSearch: MealPlanRestaurantSearchStateSchema.optional(),
+  menuRecommendation: MealPlanMenuRecommendationStateSchema.optional(),
 }).catchall(z.unknown());
 
 export const MealPlanVoteTypeSchema = z.enum([
@@ -177,6 +183,7 @@ export const MealPlanDecisionTaskKeySchema = z.enum([
 export const MealPlanDecisionTaskStatusSchema = z.enum([
   "LOCKED",
   "OPEN",
+  "READY",
   "RESOLVED",
   "STALE",
 ]);
@@ -203,6 +210,7 @@ export const MealPlanDecisionReasonSchema = z.enum([
   "TOP_PICKED_MENU",
   "TOP_PICKED_RESTAURANT",
   "OWNER_CONFIRMED",
+  "TASK_ALL_READY",
   "MANUAL_SELECTION",
 ]);
 
@@ -231,6 +239,8 @@ export const MealPlanDecisionSnapshotSchema = z.object({
 export const MealPlanDecisionTaskProgressSchema = z.object({
   taskKey: MealPlanDecisionTaskKeySchema,
   status: MealPlanDecisionTaskStatusSchema,
+  readyCount: z.number().int().min(0),
+  participantCount: z.number().int().min(0),
   blockers: z.array(z.string()).default([]),
   updatedAt: ISODateTimeStringSchema,
 });
@@ -246,6 +256,9 @@ export const MealPlanDecisionProgressSchema = z.object({
   updatedAt: ISODateTimeStringSchema,
 });
 
+export const MealPlanDecisionTaskReadyRequestSchema = z.object({
+  isReady: z.boolean(),
+});
 
 export const ReopenMealPlanDecisionTaskRequestSchema = z.object({
   reason: z.string().max(500).optional(),
@@ -257,4 +270,5 @@ export const ConfirmMealPlanDecisionSnapshotRequestSchema = z.object({
 
 export type MealPlanRestaurantSearchStatus = z.infer<typeof MealPlanRestaurantSearchStatusSchema>;
 export type MealPlanRestaurantSearchState = z.infer<typeof MealPlanRestaurantSearchStateSchema>;
+export type MealPlanMenuRecommendationState = z.infer<typeof MealPlanMenuRecommendationStateSchema>;
 export type MealPlanDecisionStageMetadata = z.infer<typeof MealPlanDecisionStageMetadataSchema>;
