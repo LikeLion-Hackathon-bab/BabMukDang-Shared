@@ -12,7 +12,9 @@ export const MealPlanDecisionStageIdSchema = z.string().uuid().brand<"MealPlanDe
 export const MealPlanVoteIdSchema = z.string().uuid().brand<"MealPlanVoteId">();
 export const MealPlanLocationCandidateSourceSchema = z.enum([
   "manual",
+  "map-marker",
   "midpoint",
+  "user-location",
   "search",
   "recent-place",
   "fallback",
@@ -42,8 +44,8 @@ export const MealPlanMenuCandidateSchema = z.object({
   menu: FoodSchema,
   source: MealPlanMenuCandidateSourceSchema,
   score: z.number().default(0),
-  imageUrl: z.string().min(1).nullable().optional(),
-  image: FoodCodeManifestImageSchema.nullable().optional(),
+  imageUrl: z.string().min(1).nullable().default(null),
+  image: FoodCodeManifestImageSchema.nullable().default(null),
   createdAt: ISODateTimeStringSchema,
 });
 
@@ -183,7 +185,6 @@ export const MealPlanDecisionTaskKeySchema = z.enum([
 export const MealPlanDecisionTaskStatusSchema = z.enum([
   "LOCKED",
   "OPEN",
-  "READY",
   "RESOLVED",
   "STALE",
 ]);
@@ -210,7 +211,6 @@ export const MealPlanDecisionReasonSchema = z.enum([
   "TOP_PICKED_MENU",
   "TOP_PICKED_RESTAURANT",
   "OWNER_CONFIRMED",
-  "TASK_ALL_READY",
   "MANUAL_SELECTION",
 ]);
 
@@ -239,8 +239,6 @@ export const MealPlanDecisionSnapshotSchema = z.object({
 export const MealPlanDecisionTaskProgressSchema = z.object({
   taskKey: MealPlanDecisionTaskKeySchema,
   status: MealPlanDecisionTaskStatusSchema,
-  readyCount: z.number().int().min(0),
-  participantCount: z.number().int().min(0),
   blockers: z.array(z.string()).default([]),
   updatedAt: ISODateTimeStringSchema,
 });
@@ -256,9 +254,6 @@ export const MealPlanDecisionProgressSchema = z.object({
   updatedAt: ISODateTimeStringSchema,
 });
 
-export const MealPlanDecisionTaskReadyRequestSchema = z.object({
-  isReady: z.boolean(),
-});
 
 export const ReopenMealPlanDecisionTaskRequestSchema = z.object({
   reason: z.string().max(500).optional(),
