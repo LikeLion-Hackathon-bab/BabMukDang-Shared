@@ -3,9 +3,13 @@ import {
   ArticleIdSchema,
   CommentIdSchema,
   CouponIdSchema,
-  InvitationIdSchema,
-  PlanIdSchema,
-  RecruitIdSchema,
+  MealGroupIdSchema,
+  MealPlanChatMessageIdSchema,
+  MealPlanIdSchema,
+  MealPlanInviteIdSchema,
+  MealPlanJoinRequestIdSchema,
+  MealPlanChangeRequestIdSchema,
+  MealPlanShareLinkIdSchema,
   SubscriptionIdSchema,
 } from "./id.schema";
 
@@ -32,9 +36,13 @@ export const ApiResponseSchema = <TData extends z.ZodTypeAny>(data: TData) =>
 export const CreatedEntityIdResponseSchema = z.discriminatedUnion("entity", [
   z.object({ entity: z.literal("article"), id: ArticleIdSchema }),
   z.object({ entity: z.literal("comment"), id: CommentIdSchema }),
-  z.object({ entity: z.literal("recruit"), id: RecruitIdSchema }),
-  z.object({ entity: z.literal("invitation"), id: InvitationIdSchema }),
   z.object({ entity: z.literal("subscription"), id: SubscriptionIdSchema }),
   z.object({ entity: z.literal("coupon"), id: CouponIdSchema }),
-  z.object({ entity: z.literal("plan"), id: PlanIdSchema }),
+  z.object({ entity: z.literal("mealPlan"), id: MealPlanIdSchema }),
+  z.object({ entity: z.literal("mealPlanInvite"), id: MealPlanInviteIdSchema }),
+  z.object({ entity: z.literal("mealPlanJoinRequest"), id: MealPlanJoinRequestIdSchema }),
+  z.object({ entity: z.literal("mealPlanChangeRequest"), id: MealPlanChangeRequestIdSchema }),
+  z.object({ entity: z.literal("mealPlanShareLink"), id: MealPlanShareLinkIdSchema }),
+  z.object({ entity: z.literal("mealPlanChatMessage"), id: MealPlanChatMessageIdSchema }),
+  z.object({ entity: z.literal("mealGroup"), id: MealGroupIdSchema }),
 ]);
