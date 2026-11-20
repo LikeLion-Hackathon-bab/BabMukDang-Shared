@@ -63,5 +63,14 @@ export type PathParamsOf<E> =
   E extends EndpointContract<any, any, infer TPathParams, any, any, any>
     ? z.infer<TPathParams>
     : never;
+// 요청을 보내는 쪽(Client)은 스키마 기본값이 적용되기 전 값을 넣으므로 z.input 기준 타입을 쓴다.
+export type BodyInputOf<E> =
+  E extends EndpointContract<any, any, any, any, infer TBody, any> ? z.input<TBody> : never;
+export type QueryInputOf<E> =
+  E extends EndpointContract<any, any, any, infer TQuery, any, any> ? z.input<TQuery> : never;
+export type PathParamsInputOf<E> =
+  E extends EndpointContract<any, any, infer TPathParams, any, any, any>
+    ? z.input<TPathParams>
+    : never;
 export type ResponseOf<E> =
   E extends EndpointContract<any, any, any, any, any, infer TResponse> ? z.infer<TResponse> : never;
