@@ -22,6 +22,16 @@ export interface EndpointContract<
   readonly response: TResponse;
 }
 
+/** apiContract 맵의 모양 검사용. 개별 endpoint 타입을 넓히는 주석으로 쓰지 않는다. */
+export type AnyEndpointContract = EndpointContract<
+  HttpMethod,
+  string,
+  z.ZodTypeAny,
+  z.ZodTypeAny,
+  z.ZodTypeAny,
+  z.ZodTypeAny
+>;
+
 export const endpoint = <
   TMethod extends HttpMethod,
   TPath extends string,

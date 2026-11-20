@@ -118,7 +118,7 @@ import {
   RegisterMealPlanLiveActivitySessionRequestSchema,
 } from "@/live-activity";
 import { endpoint } from "./endpoint";
-import type { EndpointContract } from "./endpoint";
+import type { AnyEndpointContract } from "./endpoint";
 
 const memberIdParam = z.object({ memberId: MemberIdSchema });
 const articleIdParam = z.object({ articleId: ArticleIdSchema });
@@ -150,7 +150,7 @@ const friendRequestIdParam = z.object({ requestId: FriendRequestIdSchema });
 const sseTokenQuery = z.object({ token: z.string().min(1) });
 
 // prettier-ignore
-export const apiContract: Record<string, Record<string, EndpointContract<any, string, any, any, any, any>>> = {
+export const apiContract = {
   auth: {
     signup: endpoint({ method: "POST", path: "/auth/signup", body: SignupRequestSchema, response: SignupResponseSchema }),
     login: endpoint({ method: "POST", path: "/auth/login", body: LoginRequestSchema, response: TokenResponseSchema }),
@@ -289,7 +289,7 @@ export const apiContract: Record<string, Record<string, EndpointContract<any, st
   health: {
     healthCheck: endpoint({ method: "GET", path: "/", response: z.string() }),
   },
-} as const;
+} as const satisfies Record<string, Record<string, AnyEndpointContract>>;
 
 export type ApiContract = typeof apiContract;
 export type ApiDomain = keyof ApiContract;
