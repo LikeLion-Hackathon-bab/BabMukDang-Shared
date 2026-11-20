@@ -39,6 +39,9 @@ export const LogoutRequestSchema = z
   })
   .optional();
 
+// 카카오 웹 로그인 콜백 실패 시 프론트 `/login?error=<code>`로 전달되는 코드. (ADR 0008)
+export const KakaoLoginErrorCodeSchema = z.enum(["kakao_denied", "invalid_state", "kakao_failed"]);
+
 // 카카오 네이티브 SDK 로그인 결과의 OIDC id_token. (ADR 0008)
 export const KakaoNativeLoginRequestSchema = z.object({
   idToken: z.string().min(1),

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import {
+  KakaoLoginErrorCodeSchema,
   KakaoNativeLoginRequestSchema,
   LoginRequestSchema,
   LogoutRequestSchema,
@@ -23,3 +24,4 @@ export type TokenResponse = z.infer<typeof TokenResponseSchema>;
 export type SignupResponse = z.infer<typeof SignupResponseSchema>;
 export type RefreshResponse = z.infer<typeof RefreshResponseSchema>;
 export type NativeTokenResponse = z.infer<typeof NativeTokenResponseSchema>;
+export type KakaoLoginErrorCode = z.infer<typeof KakaoLoginErrorCodeSchema>;
