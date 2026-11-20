@@ -10,7 +10,12 @@ import {
   UploadArticleImageResponseSchema,
 } from "@/article";
 import {
+  KakaoNativeLoginRequestSchema,
   LoginRequestSchema,
+  LogoutRequestSchema,
+  NativeTokenResponseSchema,
+  RefreshRequestSchema,
+  RefreshResponseSchema,
   SignupRequestSchema,
   SignupResponseSchema,
   TokenResponseSchema,
@@ -118,7 +123,7 @@ import {
   RegisterMealPlanLiveActivitySessionRequestSchema,
 } from "@/live-activity";
 import { endpoint } from "./endpoint";
-import type { EndpointContract } from "./endpoint";
+import type { AnyEndpointContract } from "./endpoint";
 
 const memberIdParam = z.object({ memberId: MemberIdSchema });
 const articleIdParam = z.object({ articleId: ArticleIdSchema });
@@ -150,12 +155,14 @@ const friendRequestIdParam = z.object({ requestId: FriendRequestIdSchema });
 const sseTokenQuery = z.object({ token: z.string().min(1) });
 
 // prettier-ignore
-export const apiContract: Record<string, Record<string, EndpointContract<any, string, any, any, any, any>>> = {
+export const apiContract = {
   auth: {
     signup: endpoint({ method: "POST", path: "/auth/signup", body: SignupRequestSchema, response: SignupResponseSchema }),
     login: endpoint({ method: "POST", path: "/auth/login", body: LoginRequestSchema, response: TokenResponseSchema }),
-    refresh: endpoint({ method: "POST", path: "/auth/refresh", response: TokenResponseSchema }),
-    logout: endpoint({ method: "POST", path: "/auth/logout", response: NoContentSchema }),
+    refresh: endpoint({ method: "POST", path: "/auth/refresh", body: RefreshRequestSchema, response: RefreshResponseSchema }),
+    logout: endpoint({ method: "POST", path: "/auth/logout", body: LogoutRequestSchema, response: NoContentSchema }),
+    logoutAll: endpoint({ method: "POST", path: "/auth/logout-all", response: NoContentSchema }),
+    kakaoNative: endpoint({ method: "POST", path: "/auth/kakao/native", body: KakaoNativeLoginRequestSchema, response: NativeTokenResponseSchema }),
   },
   members: {
     me: endpoint({ method: "GET", path: "/members/me", response: MemberResponseSchema }),
@@ -289,7 +296,7 @@ export const apiContract: Record<string, Record<string, EndpointContract<any, st
   health: {
     healthCheck: endpoint({ method: "GET", path: "/", response: z.string() }),
   },
-} as const;
+} as const satisfies Record<string, Record<string, AnyEndpointContract>>;
 
 export type ApiContract = typeof apiContract;
 export type ApiDomain = keyof ApiContract;
