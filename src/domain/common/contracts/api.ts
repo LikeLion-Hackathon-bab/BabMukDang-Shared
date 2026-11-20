@@ -10,7 +10,12 @@ import {
   UploadArticleImageResponseSchema,
 } from "@/article";
 import {
+  KakaoNativeLoginRequestSchema,
   LoginRequestSchema,
+  LogoutRequestSchema,
+  NativeTokenResponseSchema,
+  RefreshRequestSchema,
+  RefreshResponseSchema,
   SignupRequestSchema,
   SignupResponseSchema,
   TokenResponseSchema,
@@ -154,8 +159,10 @@ export const apiContract = {
   auth: {
     signup: endpoint({ method: "POST", path: "/auth/signup", body: SignupRequestSchema, response: SignupResponseSchema }),
     login: endpoint({ method: "POST", path: "/auth/login", body: LoginRequestSchema, response: TokenResponseSchema }),
-    refresh: endpoint({ method: "POST", path: "/auth/refresh", response: TokenResponseSchema }),
-    logout: endpoint({ method: "POST", path: "/auth/logout", response: NoContentSchema }),
+    refresh: endpoint({ method: "POST", path: "/auth/refresh", body: RefreshRequestSchema, response: RefreshResponseSchema }),
+    logout: endpoint({ method: "POST", path: "/auth/logout", body: LogoutRequestSchema, response: NoContentSchema }),
+    logoutAll: endpoint({ method: "POST", path: "/auth/logout-all", response: NoContentSchema }),
+    kakaoNative: endpoint({ method: "POST", path: "/auth/kakao/native", body: KakaoNativeLoginRequestSchema, response: NativeTokenResponseSchema }),
   },
   members: {
     me: endpoint({ method: "GET", path: "/members/me", response: MemberResponseSchema }),
