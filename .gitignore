@@ -1,6 +1,5 @@
 /dist
 /node_modules
-/package-lock.json
 *.tgz
 *.code-search
 .DS_Store
